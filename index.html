@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ari Stophane · Dramaturge, comédienne et autrice</title>
+  <meta name="description" content="Site d'Ari Stophane, dramaturge, comédienne et autrice : ses pièces, ses histoires et nouvelles, et deux moyens de lui écrire : donner son avis ou proposer une idée.">
+  <meta name="theme-color" content="#1a0a25">
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Rye&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- Icônes réutilisables : masques de théâtre, étoile, ampoule -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="m-comedie" viewBox="0 0 100 120">
+      <path d="M8 14 Q50 -2 92 14 Q98 62 76 92 Q62 112 50 114 Q38 112 24 92 Q2 62 8 14Z" fill="currentColor" stroke="var(--contour, #2b1236)" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M21 44 Q33 30 45 44" fill="none" stroke="var(--trait, #fff)" stroke-width="6" stroke-linecap="round"/>
+      <path d="M55 44 Q67 30 79 44" fill="none" stroke="var(--trait, #fff)" stroke-width="6" stroke-linecap="round"/>
+      <path d="M22 68 Q50 106 78 68 Q50 76 22 68Z" fill="var(--trait, #fff)" stroke="var(--contour, #2b1236)" stroke-width="2.5" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="m-tragedie" viewBox="0 0 100 120">
+      <path d="M8 14 Q50 -2 92 14 Q98 62 76 92 Q62 112 50 114 Q38 112 24 92 Q2 62 8 14Z" fill="currentColor" stroke="var(--contour, #2b1236)" stroke-width="4" stroke-linejoin="round"/>
+      <path d="M20 47 L45 36" fill="none" stroke="var(--trait, #fff)" stroke-width="6" stroke-linecap="round"/>
+      <path d="M55 36 L80 47" fill="none" stroke="var(--trait, #fff)" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="35" cy="52" r="4.5" fill="var(--trait, #fff)"/>
+      <circle cx="65" cy="52" r="4.5" fill="var(--trait, #fff)"/>
+      <path d="M28 94 Q50 66 72 94" fill="none" stroke="var(--trait, #fff)" stroke-width="6" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="etoile" viewBox="0 0 100 100">
+      <path d="M50 4 L62 36 L96 38 L69 59 L79 93 L50 73 L21 93 L31 59 L4 38 L38 36Z" fill="currentColor" stroke="#b8860b" stroke-width="3" stroke-linejoin="round"/>
+    </symbol>
+  </svg>
+
+  <a class="lien-evitement" href="#presentation">Aller au contenu</a>
+
+  <!-- ============ NAVIGATION ============ -->
+  <header class="nav" id="haut">
+    <a class="marque" href="#accueil" aria-label="Ari Stophane, retour à l'accueil">
+      <img src="images/logo.png" width="44" height="44" alt="">
+      <span>Ari Stophane</span>
+    </a>
+    <button class="menu-bouton" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    <nav id="menu" aria-label="Navigation principale">
+      <ul>
+        <li><a href="#presentation">Présentation</a></li>
+        <li><a href="#pieces">Pièces</a></li>
+        <li><a href="#histoires">Histoires</a></li>
+        <li><a href="#avis">Donner son avis</a></li>
+        <li><a href="#idees">Proposer une idée</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ============ ACCUEIL : LA SCÈNE ============ -->
+    <section class="scene joue" id="accueil" aria-labelledby="titre-site">
+      <div class="projecteur" aria-hidden="true"></div>
+      <div class="plancher" aria-hidden="true"></div>
+
+      <div class="masque-ext masque-g" data-profondeur="46" aria-hidden="true">
+        <svg class="masque masque-comedie entre d1"><use href="#m-comedie"/></svg>
+      </div>
+      <div class="masque-ext masque-d" data-profondeur="-38" aria-hidden="true">
+        <svg class="masque masque-tragedie entre d2"><use href="#m-tragedie"/></svg>
+      </div>
+
+      <div class="scene-centre">
+        <img class="logo-hero" src="images/logo.png" width="320" height="320"
+             alt="Logo d'Ari Stophane : les initiales A et S entre les masques de la comédie et de la tragédie">
+        <h1 id="titre-site" class="entre d3">Ari Stophane</h1>
+        <p class="tagline entre d4"><span data-machine="Dramaturge, comédienne et autrice">Dramaturge, comédienne et autrice</span></p>
+        <div class="actions entre d5">
+          <a class="bouton" href="#pieces">Voir ses pièces</a>
+          <a class="bouton bouton-contour" href="#histoires">Lire ses histoires</a>
+        </div>
+      </div>
+
+      <div class="lumiere" aria-hidden="true"></div>
+      <div class="valance" aria-hidden="true"></div>
+      <div class="rideau rideau-g" aria-hidden="true"></div>
+      <div class="rideau rideau-d" aria-hidden="true"></div>
+      <button class="rejouer" type="button">Rejouer l'ouverture du rideau</button>
+    </section>
+
+    <!-- ============ PRÉSENTATION ============ -->
+    <!-- À PERSONNALISER : remplacez ces textes par la vraie biographie d'Ari Stophane -->
+    <section class="acte acte-presentation" id="presentation" aria-labelledby="t-presentation">
+      <div class="acte-contenu">
+        <h2 class="titre-acte" id="t-presentation">Présentation</h2>
+        <div class="filet" aria-hidden="true"><svg><use href="#etoile"/></svg></div>
+
+        <div class="presentation-grille">
+          <div class="presentation-texte">
+            <p class="accroche">Ari Stophane écrit pour la scène et pour la page.</p>
+            <p>Dramaturge, comédienne et autrice, elle passe du plateau au cahier avec la même envie : raconter des personnages qui font rire, qui émeuvent ou qui dérangent.</p>
+            <p>Ses pièces se jouent à voix haute, ses histoires se lisent à voix basse. Sur ce site, vous pouvez lire les unes et les autres, dire ce que vous en avez pensé et lui souffler les idées de la prochaine.</p>
+            <p>Le public fait partie de la troupe : chaque avis et chaque idée peuvent changer une réplique, un personnage, voire une fin.</p>
+          </div>
+
+          <ul class="loges">
+            <li class="loge">
+              <span class="loge-icone loge-masques" aria-hidden="true">
+                <svg><use href="#m-comedie"/></svg>
+              </span>
+              <div>
+                <h3>Dramaturge</h3>
+                <p>Des pièces à jouer, à lire ou à monter.</p>
+              </div>
+            </li>
+            <li class="loge">
+              <span class="loge-icone loge-etoile" aria-hidden="true">
+                <svg><use href="#etoile"/></svg>
+              </span>
+              <div>
+                <h3>Comédienne</h3>
+                <p>Elle connaît le plateau de l'intérieur, et ça s'entend dans ses dialogues.</p>
+              </div>
+            </li>
+            <li class="loge">
+              <span class="loge-icone loge-plume" aria-hidden="true">
+                <svg viewBox="0 0 100 100"><g transform="rotate(40 50 50)"><rect x="42" y="6" width="16" height="62" rx="4" fill="#6a17a3" stroke="#2b1236" stroke-width="4"/><path d="M42 70 L58 70 L50 92Z" fill="#ffcf5a" stroke="#2b1236" stroke-width="4" stroke-linejoin="round"/><rect x="42" y="6" width="16" height="12" rx="3" fill="#f47fa9" stroke="#2b1236" stroke-width="4"/></g></svg>
+              </span>
+              <div>
+                <h3>Autrice</h3>
+                <p>Des nouvelles et des histoires à lire où et quand on veut.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PIÈCES ============ -->
+    <!-- EXEMPLES : remplacez titres, résumés et extraits par les vraies pièces.
+         Pour ajouter une pièce : copiez un bloc <li class="billet-item"> et un <template> correspondant. -->
+    <section class="acte acte-pieces" id="pieces" aria-labelledby="t-pieces">
+      <div class="acte-contenu">
+        <h2 class="titre-acte" id="t-pieces">Les pièces</h2>
+        <div class="filet" aria-hidden="true"><svg><use href="#etoile"/></svg></div>
+        <p class="sous-titre-acte">Choisissez votre place : chaque billet ouvre un extrait.</p>
+
+        <ul class="billets">
+          <li class="billet-item" data-rev="billet">
+            <div class="billet-cadre">
+              <article class="billet">
+                <div class="billet-souche"><span>Drame</span></div>
+                <div class="billet-corps">
+                  <h3>Le Dernier Rappel</h3>
+                  <ul class="infos">
+                    <li>3 actes</li><li>4 personnages</li><li>1 h 30</li>
+                  </ul>
+                  <p>Un théâtre doit fermer ce soir. Une comédienne refuse de quitter la scène avant le dernier rappel.</p>
+                  <div class="billet-actions">
+                    <button class="bouton bouton-encre" type="button" data-lire="piece-1">Lire un extrait</button>
+                    <a class="bouton bouton-contour-encre" href="pdf/le-dernier-rappel.pdf" target="_blank" rel="noopener noreferrer"><svg class="icone-pdf" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l5 5v15H6z M14 2v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 14h6 M9 18h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Lire le PDF <span class="sr-only">de Le Dernier Rappel (s'ouvre dans un nouvel onglet)</span></a>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </li>
+
+          <li class="billet-item" data-rev="billet">
+            <div class="billet-cadre">
+              <article class="billet">
+                <div class="billet-souche"><span>Comédie</span></div>
+                <div class="billet-corps">
+                  <h3>Les Masques d'un soir</h3>
+                  <ul class="infos">
+                    <li>2 actes</li><li>6 personnages</li><li>1 h 10</li>
+                  </ul>
+                  <p>Pendant un bal costumé, chaque invité échange son masque contre celui d'un autre. Le lendemain, plus personne ne sait qui il est censé être.</p>
+                  <div class="billet-actions">
+                    <button class="bouton bouton-encre" type="button" data-lire="piece-2">Lire un extrait</button>
+                    <a class="bouton bouton-contour-encre" href="pdf/les-masques-d-un-soir.pdf" target="_blank" rel="noopener noreferrer"><svg class="icone-pdf" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l5 5v15H6z M14 2v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 14h6 M9 18h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Lire le PDF <span class="sr-only">de Les Masques d'un soir (s'ouvre dans un nouvel onglet)</span></a>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </li>
+
+          <li class="billet-item" data-rev="billet">
+            <div class="billet-cadre">
+              <article class="billet">
+                <div class="billet-souche"><span>Tragi-comédie</span></div>
+                <div class="billet-corps">
+                  <h3>Rideau sur minuit</h3>
+                  <ul class="infos">
+                    <li>1 acte</li><li>3 personnages</li><li>45 min</li>
+                  </ul>
+                  <p>Trois inconnus restent enfermés dans un théâtre après la dernière représentation. Ils découvrent qu'ils jouent la même pièce, mais pas le même rôle.</p>
+                  <div class="billet-actions">
+                    <button class="bouton bouton-encre" type="button" data-lire="piece-3">Lire un extrait</button>
+                    <a class="bouton bouton-contour-encre" href="pdf/rideau-sur-minuit.pdf" target="_blank" rel="noopener noreferrer"><svg class="icone-pdf" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l5 5v15H6z M14 2v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 14h6 M9 18h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Lire le PDF <span class="sr-only">de Rideau sur minuit (s'ouvre dans un nouvel onglet)</span></a>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </li>
+
+          <li class="billet-item" data-rev="billet">
+            <div class="billet-cadre">
+              <article class="billet billet-vide">
+                <div class="billet-corps">
+                  <svg class="ecriture" viewBox="0 0 220 80" aria-hidden="true">
+                    <path class="ecriture-trait" d="M6 52 C 22 20, 38 20, 44 48 S 70 76, 84 44 S 112 14, 124 46 S 152 74, 166 42 S 196 24, 214 50"/>
+                    <g class="ecriture-plume"><g transform="rotate(40)"><rect x="-4" y="-34" width="8" height="34" rx="2" fill="#6a17a3" stroke="#2b1236" stroke-width="2"/><path d="M-4 0 L4 0 L0 12Z" fill="#ffcf5a" stroke="#2b1236" stroke-width="2" stroke-linejoin="round"/></g></g>
+                  </svg>
+                  <h3>Prochaine pièce en cours d'écriture</h3>
+                  <p>Le rideau n'est pas encore levé. Vous avez peut-être l'idée qui manque.</p>
+                  <a class="bouton bouton-encre" href="#idees">Proposer une idée</a>
+                </div>
+              </article>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ HISTOIRES ============ -->
+    <!-- EXEMPLES : remplacez par les vraies histoires et nouvelles. -->
+    <section class="acte acte-histoires" id="histoires" aria-labelledby="t-histoires">
+      <div class="acte-contenu">
+        <h2 class="titre-acte" id="t-histoires">Histoires et nouvelles</h2>
+        <div class="filet" aria-hidden="true"><svg><use href="#etoile"/></svg></div>
+        <p class="sous-titre-acte">Des lectures courtes, à emporter partout.</p>
+
+        <div class="pages">
+          <article class="page" data-rev="page">
+            <span class="ruban" aria-hidden="true"></span>
+            <p class="page-genre">Nouvelle</p>
+            <h3>La Valise de Mme Lenoir</h3>
+            <p class="page-lecture">7 min de lecture</p>
+            <p class="page-extrait">Chaque matin, la même valise attend sur le quai numéro trois. Personne ne sait à qui elle appartient, sauf le chef de gare, qui préfère se taire.</p>
+            <div class="page-actions">
+              <button class="lien-lire" type="button" data-lire="histoire-1">Lire la suite</button>
+              <a class="bouton-pdf" href="pdf/la-valise-de-mme-lenoir.pdf" target="_blank" rel="noopener noreferrer"><svg class="icone-pdf" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l5 5v15H6z M14 2v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 14h6 M9 18h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Lire le PDF <span class="sr-only">de La Valise de Mme Lenoir (s'ouvre dans un nouvel onglet)</span></a>
+            </div>
+          </article>
+
+          <article class="page" data-rev="page">
+            <span class="ruban" aria-hidden="true"></span>
+            <p class="page-genre">Conte</p>
+            <h3>Le Théâtre sous la pluie</h3>
+            <p class="page-lecture">5 min de lecture</p>
+            <p class="page-extrait">Quand la pluie tombe sur le vieux théâtre, les fauteuils se mettent à murmurer. Ils racontent les pièces qu'ils ont entendues, et surtout celles qu'on ne leur a jamais jouées.</p>
+            <div class="page-actions">
+              <button class="lien-lire" type="button" data-lire="histoire-2">Lire la suite</button>
+              <a class="bouton-pdf" href="pdf/le-theatre-sous-la-pluie.pdf" target="_blank" rel="noopener noreferrer"><svg class="icone-pdf" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l5 5v15H6z M14 2v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 14h6 M9 18h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Lire le PDF <span class="sr-only">de Le Théâtre sous la pluie (s'ouvre dans un nouvel onglet)</span></a>
+            </div>
+          </article>
+
+          <article class="page" data-rev="page">
+            <span class="ruban" aria-hidden="true"></span>
+            <p class="page-genre">Nouvelle fantastique</p>
+            <h3>Lettres à mon double</h3>
+            <p class="page-lecture">10 min de lecture</p>
+            <p class="page-extrait">Une comédienne reçoit chaque semaine une lettre écrite de sa propre main. Elle est datée du lendemain, et elle commence toujours par : « Ne va pas au théâtre ce soir. »</p>
+            <div class="page-actions">
+              <button class="lien-lire" type="button" data-lire="histoire-3">Lire la suite</button>
+              <a class="bouton-pdf" href="pdf/lettres-a-mon-double.pdf" target="_blank" rel="noopener noreferrer"><svg class="icone-pdf" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l5 5v15H6z M14 2v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 14h6 M9 18h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Lire le PDF <span class="sr-only">de Lettres à mon double (s'ouvre dans un nouvel onglet)</span></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DONNER SON AVIS ============ -->
+    <section class="acte acte-avis" id="avis" aria-labelledby="t-avis">
+      <div class="acte-contenu avis-grille">
+        <div class="avis-texte">
+          <h2 class="titre-acte titre-gauche" id="t-avis">Donnez votre avis</h2>
+          <p>Une pièce vue, une histoire lue ? Racontez ce que vous en avez pensé : ce qui vous a fait rire, frissonner ou décrocher. Chaque retour aide l'écriture à avancer.</p>
+
+          <div class="etoiles" role="group" aria-label="Applaudir avec les étoiles">
+            <button type="button" class="etoile-btn" data-applaudir aria-label="Applaudir"><svg><use href="#etoile"/></svg></button>
+            <button type="button" class="etoile-btn" data-applaudir aria-label="Applaudir"><svg><use href="#etoile"/></svg></button>
+            <button type="button" class="etoile-btn" data-applaudir aria-label="Applaudir"><svg><use href="#etoile"/></svg></button>
+            <button type="button" class="etoile-btn" data-applaudir aria-label="Applaudir"><svg><use href="#etoile"/></svg></button>
+            <button type="button" class="etoile-btn" data-applaudir aria-label="Applaudir"><svg><use href="#etoile"/></svg></button>
+          </div>
+          <p class="astuce">Cliquez sur les étoiles pour applaudir.</p>
+
+          <a class="bouton" data-applaudir href="https://framaforms.org/donnez-moi-votre-avis-1775124802" target="_blank" rel="noopener noreferrer">
+            Donner mon avis <span class="sr-only">(s'ouvre dans un nouvel onglet)</span>
+          </a>
+        </div>
+
+        <div class="avis-masques" aria-hidden="true">
+          <div class="pendule pendule-1"><span class="fil"></span><svg class="masque masque-comedie"><use href="#m-comedie"/></svg></div>
+          <div class="pendule pendule-2"><span class="fil"></span><svg class="masque masque-tragedie"><use href="#m-tragedie"/></svg></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROPOSER UNE IDÉE ============ -->
+    <section class="acte acte-idees" id="idees" aria-labelledby="t-idees">
+      <div class="acte-contenu idees-grille">
+        <div class="idees-bulles" aria-hidden="true">
+          <span class="bulle b1">Et si tout se passait dans un ascenseur ?</span>
+          <span class="bulle b2">Un personnage qui ment à tout le monde</span>
+          <span class="bulle b3">Une fin que personne n'attend</span>
+          <span class="bulle b4">Une réplique qui change tout</span>
+        </div>
+
+        <div class="idees-texte">
+          <div class="ampoule" aria-hidden="true">
+            <svg viewBox="0 0 100 120">
+              <g class="ampoule-rayons" stroke="#ffcf5a" stroke-width="5" stroke-linecap="round">
+                <path d="M50 6 V-4"/><path d="M14 22 L6 14"/><path d="M86 22 L94 14"/><path d="M4 56 H-6"/><path d="M96 56 H106"/>
+              </g>
+              <path class="ampoule-verre" d="M50 12 C24 12 14 34 22 54 C27 66 36 70 36 84 H64 C64 70 73 66 78 54 C86 34 76 12 50 12Z" fill="#ffcf5a" stroke="#2b1236" stroke-width="4" stroke-linejoin="round"/>
+              <path d="M38 94 H62 M40 104 H60" stroke="#2b1236" stroke-width="5" stroke-linecap="round"/>
+              <path d="M40 46 L50 58 L60 46" fill="none" stroke="#b8860b" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h2 class="titre-acte titre-gauche" id="t-idees">Proposez une idée</h2>
+          <p>Un personnage, un lieu, une réplique, un « et si… » : glissez votre idée dans la boîte du souffleur. Elle pourrait servir de point de départ à une prochaine pièce ou à une nouvelle histoire.</p>
+          <a class="bouton" data-applaudir href="https://framaforms.org/idee-pour-une-piece-ou-une-histoire-1789413581" target="_blank" rel="noopener noreferrer">
+            Proposer une idée <span class="sr-only">(s'ouvre dans un nouvel onglet)</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="pied">
+    <img src="images/logo.png" width="72" height="72" alt="">
+    <p class="pied-nom">Ari Stophane</p>
+    <p>Dramaturge, comédienne et autrice</p>
+    <p class="pied-fin">© <span id="annee">2026</span> Ari Stophane. Tous droits réservés.</p>
+    <a class="pied-haut" href="#haut">Retour sur scène</a>
+  </footer>
+
+  <!-- ============ LECTEUR (extraits) ============ -->
+  <dialog id="lecteur" aria-labelledby="lecteur-titre">
+    <div class="lecteur-tete">
+      <div>
+        <p class="lecteur-meta"></p>
+        <h3 id="lecteur-titre" class="lecteur-titre"></h3>
+      </div>
+      <button class="lecteur-fermer" type="button" aria-label="Fermer la lecture">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5 L19 19 M19 5 L5 19" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="lecteur-corps"></div>
+  </dialog>
+
+  <!-- Extraits (exemples à remplacer). L'identifiant doit correspondre au data-lire du bouton. -->
+  <template id="piece-1" data-titre="Le Dernier Rappel" data-meta="Drame, extrait de l'acte 3">
+    <p class="didascalie">La scène est vide. Une seule lampe reste allumée, au centre.</p>
+    <p><b>ODILE.</b> On éteint tout, alors ?</p>
+    <p><b>LE RÉGISSEUR.</b> C'est l'ordre de la mairie.</p>
+    <p><b>ODILE.</b> Alors éteignez-moi aussi. Parce que moi, je ne descends pas.</p>
+    <p class="didascalie">Elle s'assoit sur le bord du plateau, les jambes dans le vide. Le régisseur hésite, puis pose la clé sur la table.</p>
+  </template>
+
+  <template id="piece-2" data-titre="Les Masques d'un soir" data-meta="Comédie, extrait de l'acte 2">
+    <p class="didascalie">Le lendemain matin. Des masques jonchent le salon.</p>
+    <p><b>HORTENSE.</b> Je suis sûre que ce masque est le mien.</p>
+    <p><b>VICTOR.</b> Il est doré, il a une plume. Le vôtre était noir.</p>
+    <p><b>HORTENSE.</b> Le mien était noir hier. Aujourd'hui, je suis quelqu'un de plus lumineux.</p>
+  </template>
+
+  <template id="piece-3" data-titre="Rideau sur minuit" data-meta="Tragi-comédie, extrait">
+    <p class="didascalie">Minuit sonne quelque part. Les trois personnages se regardent.</p>
+    <p><b>LUCE.</b> Vous aussi, vous avez reçu un texte à apprendre ?</p>
+    <p><b>MARC.</b> Oui. Mais le mien est le rôle du héros.</p>
+    <p><b>LUCE.</b> Le mien aussi.</p>
+    <p class="didascalie">Un silence. Au loin, quelqu'un applaudit.</p>
+  </template>
+
+  <template id="histoire-1" data-titre="La Valise de Mme Lenoir" data-meta="Nouvelle, 7 min de lecture">
+    <p>Chaque matin, la même valise attendait sur le quai numéro trois. Brune, cabossée, une étiquette effacée par des années de soleil. Les voyageurs la contournaient sans jamais la regarder.</p>
+    <p>Seul le chef de gare savait. Chaque soir, il la rangeait dans son bureau. Chaque matin, il la remettait à sa place, exactement au même endroit, et il attendait que quelqu'un vienne la chercher.</p>
+  </template>
+
+  <template id="histoire-2" data-titre="Le Théâtre sous la pluie" data-meta="Conte, 5 min de lecture">
+    <p>Quand la pluie tombe sur le vieux théâtre, les fauteuils se mettent à murmurer. Ils se racontent les pièces qu'ils ont entendues, les rires du premier rang et les silences du balcon.</p>
+    <p>Mais les plus bavards parlent des pièces qu'on ne leur a jamais jouées. Et il suffit qu'une petite fille se glisse derrière le rideau, un soir d'orage, pour qu'elles commencent à s'écrire toutes seules.</p>
+  </template>
+
+  <template id="histoire-3" data-titre="Lettres à mon double" data-meta="Nouvelle fantastique, 10 min de lecture">
+    <p>La première lettre est arrivée un mardi. Je reconnaissais l'écriture, les boucles trop larges, le « t » qui n'est jamais barré jusqu'au bout. C'était la mienne.</p>
+    <p>Elle commençait par : « Ne va pas au théâtre ce soir. » Elle était datée du lendemain. Je l'ai relue trois fois, puis j'ai mis mon manteau, parce que j'avais une représentation.</p>
+  </template>
+
+  <!-- Confettis d'applaudissements -->
+  <div class="applaudissements" aria-hidden="true"></div>
+
+</body>
+</html>
