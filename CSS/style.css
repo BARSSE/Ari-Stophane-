@@ -315,11 +315,32 @@ ul { margin: 0; padding: 0; list-style: none; }
 .billet-vide { grid-template-columns: 1fr; background: #ffe9a8; outline: 3px dashed rgba(43, 18, 54, .45); outline-offset: -12px; }
 .billet-vide .billet-corps { padding: 1.8rem 2rem; align-items: center; text-align: center; justify-content: center; }
 .billet-vide .billet-corps h3 { font-size: 1.35rem; }
-.ecriture { width: 210px; max-width: 100%; height: auto; overflow: visible; margin-bottom: .6rem; }
-.ecriture-trait { fill: none; stroke: var(--velours); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 340; stroke-dashoffset: 340; animation: ecrit 4.5s ease-in-out infinite; }
-.ecriture-plume { animation: plume 4.5s ease-in-out infinite; }
-@keyframes ecrit { 0% { stroke-dashoffset: 340; } 70%, 100% { stroke-dashoffset: 0; } }
-@keyframes plume { 0% { transform: translate(6px, 52px); } 70%, 100% { transform: translate(214px, 50px); } }
+
+.ecriture { width: min(240px, 100%); height: auto; overflow: visible; margin-bottom: .8rem; filter: drop-shadow(0 5px 5px rgba(0, 0, 0, .25)); }
+.encre { animation: encre-vie 10s linear infinite; }
+.encre path { stroke-dasharray: 100 200; stroke-dashoffset: 100; }
+.ligne-1 { animation: trait-1 10s linear infinite; }
+.ligne-2 { animation: trait-2 10s linear infinite; }
+.ligne-3 { animation: trait-3 10s linear infinite; }
+.crayon { animation: crayon-va 10s linear infinite; }
+.crayon-tremble { animation: tremble .22s ease-in-out infinite alternate; }
+@keyframes trait-1 { 0%, 3% { stroke-dashoffset: 100; } 30%, 100% { stroke-dashoffset: 0; } }
+@keyframes trait-2 { 0%, 34% { stroke-dashoffset: 100; } 60%, 100% { stroke-dashoffset: 0; } }
+@keyframes trait-3 { 0%, 64% { stroke-dashoffset: 100; } 84%, 100% { stroke-dashoffset: 0; } }
+@keyframes encre-vie { 0%, 93% { opacity: 1; } 98%, 100% { opacity: 0; } }
+/* Le crayon suit l'encre : il écrit 3 lignes, puis se lève */
+@keyframes crayon-va {
+  0%, 3% { transform: translate(40px, 38px); opacity: 1; }
+  30% { transform: translate(193.0px, 38px); }
+  34% { transform: translate(40px, 60px); }
+  60% { transform: translate(183.0px, 60px); }
+  64% { transform: translate(40px, 82px); }
+  84% { transform: translate(133.5px, 82px); }
+  93% { transform: translate(133.5px, 82px); opacity: 1; }
+  98% { transform: translate(147.5px, 66px); opacity: 0; }
+  100% { transform: translate(40px, 38px); opacity: 0; }
+}
+@keyframes tremble { from { transform: translate(0, 0) rotate(-3deg); } to { transform: translate(.8px, -1.6px) rotate(2deg); } }
 
 /* ---------- Histoires : pages de livre ---------- */
 .acte-histoires {
@@ -506,6 +527,8 @@ dialog[open]::backdrop { animation: fondu .4s; }
   .masque-d { right: 8%; top: auto; bottom: 26%; }
   .scene .masque { width: 54px; }
   .billet { grid-template-columns: 52px 1fr; -webkit-mask: none; mask: none; }
+  .billet-vide { grid-template-columns: 1fr; }
+  .billet-vide .billet-corps { padding: 1.6rem 1.3rem 1.7rem; }
   .billet-corps { padding: 1.2rem 1.2rem 1.4rem; }
   .billet-corps h3 { font-size: 1.4rem; }
   .etoile-btn svg { width: 40px; height: 40px; }
@@ -520,7 +543,8 @@ dialog[open]::backdrop { animation: fondu .4s; }
     animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important;
     transition-duration: .01ms !important; transition-delay: 0s !important;
   }
-  .ecriture-trait { stroke-dashoffset: 0; }
+  .encre path { stroke-dashoffset: 0; }
+  .crayon { display: none; }
   .rejouer { display: none; }
 }
 
