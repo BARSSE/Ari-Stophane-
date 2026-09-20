@@ -280,6 +280,41 @@
     });
   }
 
+  /* ---------- Dramaturges : portraits chargés depuis Wikipédia ---------- */
+  const cachePortraits = new Map();
+  const chargerPortrait = (titre) => {
+    if (!cachePortraits.has(titre)) {
+      const p = fetch('https://fr.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(titre.replace(/ /g, '_')))
+        .then((r) => (r.ok ? r.json() : null))
+        .then((j) => (j && j.thumbnail ? j.thumbnail.source : null))
+        .catch(() => null);
+      cachePortraits.set(titre, p);
+    }
+    return cachePortraits.get(titre);
+  };
+  const remplirPortrait = (img, titre) => {
+    chargerPortrait(titre).then((src) => {
+      if (!src) return;
+      img.onload = () => { img.hidden = false; requestAnimationFrame(() => img.classList.add('charge')); };
+      img.src = src;
+    });
+  };
+  const remplirPortraits = (zone) => {
+    $$('img[data-wiki]', zone).forEach((img) => remplirPortrait(img, img.dataset.wiki));
+  };
+  const galerie = $('.galerie');
+  if (galerie) {
+    const charger = () => {
+      $$('.portrait', galerie).forEach((b) => remplirPortrait($('img', b), b.dataset.wiki));
+    };
+    if ('IntersectionObserver' in window) {
+      const o = new IntersectionObserver(([en]) => { if (en.isIntersecting) { charger(); o.disconnect(); } }, { rootMargin: '600px' });
+      o.observe(galerie);
+    } else {
+      charger();
+    }
+  }
+
   /* ---------- Lecteur d'extraits (fenêtre modale) ---------- */
   const lecteur = $('#lecteur');
   if (lecteur && typeof lecteur.showModal === 'function') {
@@ -296,11 +331,14 @@
       meta.textContent = source.dataset.meta || '';
       corps.innerHTML = source.innerHTML;
       corps.scrollTop = 0;
+      remplirPortraits(corps);
       document.documentElement.classList.add('lecture');
       lecteur.showModal();
     });
     $('.lecteur-fermer', lecteur).addEventListener('click', () => lecteur.close());
-    lecteur.addEventListener('click', (e) => { if (e.target === lecteur) lecteur.close(); });
+    lecteur.addEventListener('click', (e) => {
+      if (e.target === lecteur || e.target.closest('a[data-ferme]')) lecteur.close();
+    });
     lecteur.addEventListener('close', () => document.documentElement.classList.remove('lecture'));
   }
 
