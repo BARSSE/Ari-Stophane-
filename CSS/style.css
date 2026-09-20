@@ -541,7 +541,7 @@ dialog[open]::backdrop { animation: fondu .4s; }
   .pendule-2 { right: 16%; }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 1040px) {
   .menu-bouton { display: block; }
   .nav nav {
     position: absolute; top: 100%; left: 0; right: 0; display: none;
@@ -627,3 +627,208 @@ dialog[open]::backdrop { animation: fondu .4s; }
 .plume-titre.active { opacity: 1; }
 .plume-titre svg { display: block; width: 100%; height: 100%; overflow: visible; transform-origin: 0 100%; animation: trace .3s ease-in-out infinite alternate; }
 @keyframes trace { from { transform: rotate(-7deg); } to { transform: rotate(5deg); } }
+
+/* =====================================================
+   NOM DE PLUME : la Grèce antique rencontre le théâtre
+   ===================================================== */
+.acte-nom {
+  --terre: #c2571a;
+  --marbre: #f6ecdb;
+  color: var(--encre);
+  padding-top: clamp(5.5rem, 10vw, 8rem); padding-bottom: clamp(5.5rem, 10vw, 8rem);
+  background:
+    radial-gradient(ellipse 45% 35% at 10% 10%, rgba(255, 207, 90, .28), transparent 70%),
+    radial-gradient(ellipse 40% 35% at 92% 90%, rgba(244, 127, 169, .22), transparent 70%),
+    var(--marbre);
+}
+/* Frise de méandres grecs, qui défile doucement */
+.acte-nom::before, .acte-nom::after {
+  content: ""; position: absolute; left: 0; right: 0; height: 18px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='18' viewBox='0 0 36 18'%3E%3Cpath d='M0 16 H6 V2 H30 V16 H36 M30 13 H14 V8 H22' fill='none' stroke='%236a17a3' stroke-width='2.5' stroke-linecap='square'/%3E%3C/svg%3E") 0 0 / 36px 18px repeat-x;
+  animation: defile 9s linear infinite;
+}
+.acte-nom::before { top: 10px; }
+.acte-nom::after { bottom: 10px; }
+@keyframes defile { to { background-position-x: 36px; } }
+
+.acte-nom .titre-acte { color: var(--violet); text-shadow: 2px 2px 0 rgba(244, 127, 169, .5); }
+.acte-nom .filet { color: var(--violet); }
+.acte-nom .filet svg { color: var(--rose); }
+.acte-nom .accroche { color: var(--velours); }
+
+/* Le nom qui se coupe en deux */
+.nom-plume { display: flex; justify-content: center; align-items: center; gap: clamp(.4rem, 2vw, 1.5rem); margin: 0 0 3.5rem; }
+.nom-mots { margin: 0; font: 400 clamp(2rem, 8.5vw, 5.4rem)/1.1 var(--titre); white-space: nowrap; text-shadow: 3px 3px 0 rgba(43, 18, 54, .16); }
+.nom-ari { color: var(--violet); }
+.nom-stophane { color: var(--rose); margin-left: .3em; }
+.lettre-s { display: inline-grid; }
+.lettre-s > span { grid-area: 1 / 1; }
+.s-bas { opacity: 0; }
+.s-bas, .s-haut { justify-self: start; }
+
+.apparait .nom-mots { animation: nom-entree .9s cubic-bezier(.3, 1.3, .5, 1) backwards; }
+.apparait .nom-ari { animation: couleur-ari 4.2s ease backwards; }
+.apparait .nom-stophane { animation: couleur-sto 4.2s ease backwards, ecarte 4.2s ease-in-out backwards; }
+.apparait .lettre-s { animation: comble 4.2s ease backwards; }
+.apparait .s-bas { animation: s-bas-k 4.2s ease backwards; }
+.apparait .s-haut { animation: s-haut-k 4.2s ease backwards; }
+@keyframes nom-entree { from { opacity: 0; transform: scale(.7); } to { opacity: 1; transform: none; } }
+@keyframes couleur-ari { 0%, 30% { color: var(--terre); } 50%, 100% { color: var(--violet); } }
+@keyframes couleur-sto { 0%, 30% { color: var(--terre); } 50%, 100% { color: var(--rose); } }
+@keyframes ecarte { 0%, 32% { margin-left: 0; } 55%, 100% { margin-left: .3em; } }
+/* Tant que le s est minuscule, on comble la différence de largeur avec le S (--dw mesuré par script.js) */
+@keyframes comble { 0%, 34% { margin-right: calc(var(--dw, 0px) * -1); } 50%, 100% { margin-right: 0; } }
+@keyframes s-bas-k { 0%, 34% { opacity: 1; transform: none; } 46%, 100% { opacity: 0; transform: translateY(45%) scale(.5); } }
+@keyframes s-haut-k { 0%, 34% { opacity: 0; transform: translateY(-45%) scale(.5); } 50%, 100% { opacity: 1; transform: none; } }
+
+/* Branches de laurier */
+.laurier { width: clamp(38px, 7vw, 74px); height: auto; flex: none; overflow: visible; }
+.laurier-d { transform: scaleX(-1); }
+.laurier-balance { transform-box: view-box; transform-origin: 60px 116px; animation: balance-laurier 5s ease-in-out infinite; }
+.feuille-laurier { transform-box: fill-box; transform-origin: 0 50%; }
+.apparait .feuille-laurier { animation: pousse .5s calc(1.3s + var(--k) * 70ms) cubic-bezier(.3, 1.5, .5, 1) backwards; }
+.apparait .tige-laurier { stroke-dasharray: 100 200; animation: dessine-tige 1.4s .3s ease-out backwards; }
+@keyframes pousse { from { transform: scale(0); } to { transform: scale(1); } }
+@keyframes dessine-tige { from { stroke-dashoffset: 100; } to { stroke-dashoffset: 0; } }
+@keyframes balance-laurier { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+
+/* Texte + illustration */
+.nom-grille { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: center; margin-bottom: 4rem; }
+.nom-texte p:not(.accroche) { max-width: 58ch; }
+.nom-texte .bouton { margin-top: .6rem; }
+.lien-texte { color: var(--violet); font-weight: 700; text-decoration: underline; text-decoration-color: var(--rose); text-decoration-thickness: 3px; text-underline-offset: 3px; transition: color .2s, text-decoration-color .2s; }
+.lien-texte:hover { color: var(--velours); text-decoration-color: var(--velours); }
+
+.illustration { margin: 0; filter: drop-shadow(0 16px 20px rgba(43, 18, 54, .28)); transition: transform .4s; }
+.illustration:hover { transform: rotate(-1.2deg) scale(1.02); }
+.theatre { display: block; width: 100%; height: auto; }
+.rayons-soleil { transform-box: view-box; transform-origin: 300px 170px; animation: tourne-lent 40s linear infinite; }
+.soleil circle { filter: drop-shadow(0 0 12px rgba(255, 243, 196, .9)); }
+@keyframes tourne-lent { to { transform: rotate(360deg); } }
+.nuage-1 { animation: nuage 14s ease-in-out infinite alternate; }
+.nuage-2 { animation: nuage 18s ease-in-out infinite alternate-reverse; }
+@keyframes nuage { from { transform: translateX(-24px); } to { transform: translateX(30px); } }
+.m-flotte { animation: flotte-svg 4.6s ease-in-out infinite; }
+.m-2 { animation-duration: 5.4s; animation-delay: -1.8s; }
+@keyframes flotte-svg { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+.scint { animation: scintille 2.8s ease-in-out infinite; }
+.scint.s1 { animation-delay: .9s; }
+.scint.s2 { animation-delay: 1.8s; }
+
+.apparait.illustration { animation: etape-pop .9s cubic-bezier(.3, 1.3, .5, 1) backwards; }
+
+/* Frise chronologique */
+.frise { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; position: relative; counter-reset: etape; }
+.frise::before { content: ""; position: absolute; top: 42px; left: 16.6%; right: 16.6%; border-top: 4px dotted var(--violet); opacity: .55; }
+.etape { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.etape-noeud {
+  position: relative; z-index: 1; width: 86px; height: 86px; display: grid; place-items: center;
+  border: 4px solid var(--or); border-radius: 50%; box-shadow: 0 0 0 5px var(--marbre), 0 8px 16px rgba(43, 18, 54, .25);
+  transition: transform .3s;
+}
+.etape:hover .etape-noeud { transform: scale(1.1) rotate(-6deg); }
+.etape-noeud svg { width: 48px; height: 48px; }
+.masque-frise { height: 54px; }
+.noeud-terre { background: #f0b58a; }
+.noeud-velours { background: var(--velours); }
+.noeud-rose { background: var(--rose); }
+.etape-date { margin: 1rem 0 .1rem; font: 700 .9rem var(--texte); letter-spacing: .06em; text-transform: uppercase; color: var(--velours); }
+.etape h3 { font: 400 1.4rem/1.2 var(--titre); color: var(--violet); margin-bottom: .4rem; }
+.etape p:last-child { margin: 0; max-width: 30ch; font-size: .98rem; line-height: 1.6; }
+.apparait.etape { animation: etape-pop .8s cubic-bezier(.3, 1.4, .5, 1) backwards; }
+@keyframes etape-pop { from { opacity: 0; transform: translateY(34px) scale(.8); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 900px) {
+  .nom-grille { grid-template-columns: 1fr; }
+}
+@media (max-width: 700px) {
+  .frise { grid-template-columns: 1fr; gap: 2rem; }
+  .frise::before { top: 44px; bottom: 44px; left: 43px; right: auto; border-top: 0; border-left: 4px dotted var(--violet); }
+  .etape { flex-direction: row; align-items: flex-start; text-align: left; gap: 1.2rem; }
+  .etape-noeud { flex: none; }
+  .etape-date { margin-top: .2rem; }
+}
+@media (max-width: 560px) {
+  .laurier { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .acte-nom::before, .acte-nom::after { animation: none; }
+  .s-bas { opacity: 0; }
+}
+
+/* =====================================================
+   SIGNIFICATION DU LOGO : le projecteur explore le logo
+   ===================================================== */
+.acte-logo {
+  background:
+    radial-gradient(ellipse 38% 55% at 50% 12%, rgba(255, 233, 180, .20), transparent 70%),
+    linear-gradient(180deg, var(--nuit-2), var(--nuit));
+  border-top: 6px solid var(--or);
+}
+.logo-grille {
+  display: grid; grid-template-columns: 1fr minmax(280px, 380px) 1fr; gap: clamp(1.5rem, 3vw, 3rem);
+  grid-template-areas: "couleurs logo symboles"; align-items: start;
+}
+.logo-colonne { grid-area: logo; position: sticky; top: calc(var(--hauteur-nav) + 24px); }
+.logo-couleurs { grid-area: couleurs; }
+.logo-symboles { grid-area: symboles; align-self: center; }
+
+.logo-vue {
+  position: relative; width: 100%; aspect-ratio: 1; border-radius: 50%; overflow: hidden;
+  box-shadow: 0 0 0 5px rgba(255, 207, 90, .35), 0 0 60px rgba(196, 22, 12, .45), 0 24px 50px rgba(0, 0, 0, .5);
+  animation: respire 6s ease-in-out infinite;
+}
+.logo-vue img { display: block; width: 100%; height: 100%; }
+.reperes { position: absolute; inset: 0; width: 100%; height: 100%; }
+@keyframes respire { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.025); } }
+
+/* Le reste du logo s'assombrit, seul l'élément choisi reste éclairé */
+.ombre { opacity: 0; transition: opacity .5s; }
+.a-un-actif .ombre { opacity: .72; }
+.cut { fill: #000; opacity: 0; transition: opacity .45s; }
+.cut.actif { opacity: 1; }
+.contours { filter: drop-shadow(0 0 6px rgba(255, 207, 90, .9)); }
+.contour { opacity: 0; transition: opacity .45s; }
+.contour.actif { opacity: 1; animation: marche 1.2s linear infinite; }
+@keyframes marche { to { stroke-dashoffset: -24; } }
+
+.titre-colonne { font: 400 1.5rem var(--titre); color: var(--or); margin-bottom: 1.1rem; }
+.elements { display: grid; gap: .9rem; }
+.element {
+  display: grid; grid-template-columns: 64px 1fr; gap: 1rem; align-items: center;
+  padding: .9rem 1.1rem; border: 2px solid rgba(255, 207, 90, .22); border-radius: 16px;
+  background: rgba(255, 255, 255, .04); cursor: default;
+  transition: transform .35s cubic-bezier(.3, 1.4, .5, 1), border-color .3s, background .3s, box-shadow .3s;
+}
+.element h4 { margin: 0 0 .2rem; font: 700 1.05rem var(--texte); color: #fff; }
+.element p { margin: 0; font-size: .95rem; line-height: 1.55; opacity: .9; }
+.pastille { width: 44px; height: 44px; margin: 0 auto; border-radius: 50%; border: 3px solid rgba(255, 255, 255, .85); box-shadow: 0 0 0 4px rgba(255, 255, 255, .08); transition: transform .35s; }
+.vignette { width: 64px; height: 64px; border-radius: 50%; border: 3px solid var(--or); object-fit: cover; transition: transform .35s; }
+.element.actif { border-color: var(--c); background: rgba(255, 255, 255, .1); box-shadow: 0 0 26px -4px var(--c); }
+.logo-couleurs .element.actif { transform: translateX(10px); }
+.logo-symboles .element.actif { transform: translateX(-10px); }
+.element.actif .pastille, .element.actif .vignette { transform: scale(1.15) rotate(-8deg); }
+
+.apparait.element { animation: glisse-g .8s cubic-bezier(.2, .9, .3, 1.2) backwards; }
+.logo-symboles .apparait.element { animation-name: glisse-d; }
+@keyframes glisse-g { from { opacity: 0; transform: translateX(-46px); } to { opacity: 1; transform: none; } }
+@keyframes glisse-d { from { opacity: 0; transform: translateX(46px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 1000px) {
+  .logo-grille { display: block; }
+  .logo-colonne {
+    top: var(--hauteur-nav); z-index: 4; padding: .8rem 0 1.4rem; margin: 0 -1.25rem 1rem;
+    background: linear-gradient(var(--nuit-2) 88%, transparent);
+  }
+  .logo-vue { width: min(44vw, 200px); margin: 0 auto; }
+  .logo-liste + .logo-liste { margin-top: 2.2rem; }
+  .logo-couleurs .element.actif, .logo-symboles .element.actif { transform: none; }
+}
+@media (max-width: 1240px) and (min-width: 1041px) {
+  .nav ul { gap: .9rem; }
+  .nav a { font-size: .92rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-vue { animation: none; }
+  .contour.actif { animation: none; }
+}
