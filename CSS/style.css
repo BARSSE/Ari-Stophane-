@@ -40,7 +40,7 @@ body {
 img { max-width: 100%; height: auto; }
 h1, h2, h3 { font-weight: 400; margin: 0; }
 p { margin: 0 0 1.1em; }
-ul { margin: 0; padding: 0; list-style: none; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
 
 :focus-visible { outline: 3px solid var(--bleu); outline-offset: 3px; border-radius: 4px; }
 
@@ -611,7 +611,7 @@ dialog[open]::backdrop { animation: fondu .4s; }
   .pendule-2 { right: 16%; }
 }
 
-@media (max-width: 1040px) {
+@media (max-width: 1180px) {
   .menu-bouton { display: block; }
   .nav nav {
     position: absolute; top: 100%; left: 0; right: 0; display: none;
@@ -895,9 +895,10 @@ dialog[open]::backdrop { animation: fondu .4s; }
   .logo-liste + .logo-liste { margin-top: 2.2rem; }
   .logo-couleurs .element.actif, .logo-symboles .element.actif { transform: none; }
 }
-@media (max-width: 1240px) and (min-width: 1041px) {
+@media (max-width: 1440px) and (min-width: 1181px) {
   .nav ul { gap: .9rem; }
   .nav a { font-size: .92rem; }
+  .marque span { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .logo-vue { animation: none; }
@@ -944,4 +945,215 @@ dialog[open] .perso-initiale { animation: perso-pop .5s cubic-bezier(.3, 1.6, .5
   .faisceau { width: 70%; }
   .lampe { width: 40px; }
   .rampe span { width: 10px; height: 10px; }
+}
+
+/* =====================================================
+   HISTOIRE DE L'ART DRAMATIQUE : une frise qui s'éclaire au fil de la lecture
+   ===================================================== */
+.acte-art {
+  background:
+    radial-gradient(ellipse 50% 30% at 50% 0%, rgba(255, 207, 90, .16), transparent 70%),
+    linear-gradient(180deg, #2b0f45 0%, #3d0f5f 45%, #24103a 100%);
+  border-top: 6px solid var(--or);
+  overflow: hidden;
+}
+.art-entete { position: relative; }
+.pend-art-g, .pend-art-d { position: absolute; top: -40px; transform-origin: 50% 0; }
+.pend-art-g { left: 2%; animation: balance 4.6s ease-in-out infinite; }
+.pend-art-d { right: 2%; animation: balance 5.4s ease-in-out infinite -1.7s; }
+.pend-art-g .fil { height: 40px; }
+.pend-art-d .fil { height: 70px; }
+.pend-art-g .masque { width: 92px; }
+.pend-art-d .masque { width: 84px; }
+
+.frise-histoire { position: relative; max-width: 1000px; margin: 0 auto; --p: 0; }
+.frise-histoire::before, .frise-histoire::after { content: ""; position: absolute; left: 50%; top: 0; width: 4px; margin-left: -2px; border-radius: 4px; }
+.frise-histoire::before { bottom: 0; background: rgba(255, 207, 90, .22); }
+.frise-histoire::after { height: calc(var(--p) * 100%); background: linear-gradient(var(--rose), var(--or)); box-shadow: 0 0 14px rgba(255, 207, 90, .8); }
+.marqueur { position: absolute; z-index: 4; left: 50%; top: calc(var(--p) * 100%); width: 34px; height: 34px; transform: translate(-50%, -50%); color: var(--or); filter: drop-shadow(0 0 8px rgba(255, 207, 90, .95)); }
+.marqueur svg { display: block; width: 100%; height: 100%; animation: tourne-lent 5s linear infinite; }
+
+.epoques { display: grid; gap: 2.4rem; }
+.epoque { position: relative; display: grid; grid-template-columns: 1fr 1fr; }
+.epoque-carte {
+  position: relative; padding: 1.3rem 1.6rem 1.4rem; color: var(--encre);
+  background: var(--papier); border: 3px solid rgba(255, 207, 90, .5); border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .35);
+  opacity: .5; filter: saturate(.5); transform: scale(.965);
+  transition: opacity .6s, filter .6s, transform .6s cubic-bezier(.3, 1.4, .5, 1), border-color .6s, box-shadow .6s;
+}
+.epoque[data-cote="g"] .epoque-carte { grid-column: 1; margin-right: 52px; }
+.epoque[data-cote="d"] .epoque-carte { grid-column: 2; margin-left: 52px; }
+.epoque-carte::after { content: ""; position: absolute; top: 40px; width: 52px; border-top: 3px dotted rgba(255, 207, 90, .7); }
+.epoque[data-cote="g"] .epoque-carte::after { left: 100%; }
+.epoque[data-cote="d"] .epoque-carte::after { right: 100%; }
+
+.epoque-noeud {
+  position: absolute; z-index: 3; left: 50%; top: 10px; width: 64px; height: 64px; margin-left: -32px;
+  display: grid; place-items: center; font-size: 1.8rem; line-height: 1;
+  background: #24103a; border: 4px solid rgba(255, 207, 90, .5); border-radius: 50%;
+  filter: grayscale(1) brightness(.8); transition: background .5s, border-color .5s, transform .6s cubic-bezier(.3, 1.6, .5, 1), filter .5s;
+}
+.epoque-noeud::after { content: ""; position: absolute; inset: -4px; border-radius: 50%; border: 3px solid var(--or); opacity: 0; }
+
+.epoque-date { margin: 0 0 .15rem; font: 700 .85rem var(--texte); letter-spacing: .03em; color: var(--velours); }
+.epoque-carte h3 { font: 400 1.4rem/1.2 var(--titre); color: var(--violet); margin-bottom: .7rem; }
+.epoque-carte p:not(.epoque-date) { font-size: 1rem; line-height: 1.65; }
+.epoque-carte p:last-child { margin-bottom: 0; }
+
+/* L'époque « atteinte » par le fil : la carte s'allume et l'icône se met à briller */
+.epoque.passe .epoque-carte { opacity: 1; filter: none; transform: none; border-color: var(--or); box-shadow: 0 14px 34px rgba(0, 0, 0, .45), 0 0 26px rgba(255, 207, 90, .38); }
+.epoque.passe .epoque-noeud { background: var(--or); border-color: #fff3c4; filter: none; transform: scale(1.15); }
+.epoque.passe .epoque-noeud::after { animation: onde 1.4s ease-out; }
+@keyframes onde { from { opacity: .9; transform: scale(1); } to { opacity: 0; transform: scale(1.9); } }
+
+/* Mots-clés surlignés au feutre */
+.epoque-carte mark { color: inherit; font-weight: 600; background: linear-gradient(transparent 58%, rgba(255, 207, 90, .85) 58%) no-repeat 0 0 / 0 100%; transition: background-size .9s .35s; }
+.epoque.passe mark { background-size: 100% 100%; }
+
+.decennies { display: grid; gap: .7rem; }
+.decennies li { display: grid; grid-template-columns: 9.5rem 1fr; gap: .8rem; align-items: baseline; font-size: 1rem; line-height: 1.55; }
+.decennie { display: inline-block; text-align: center; padding: .1rem .5rem; font: 700 .8rem var(--texte); color: #fff; background: var(--violet); border-radius: 999px; }
+
+.apparait.epoque[data-cote="g"] { animation: epoque-g .9s cubic-bezier(.2, .9, .3, 1.15) backwards; }
+.apparait.epoque[data-cote="d"] { animation: epoque-d .9s cubic-bezier(.2, .9, .3, 1.15) backwards; }
+@keyframes epoque-g { from { opacity: 0; transform: translateX(-70px); } to { opacity: 1; transform: none; } }
+@keyframes epoque-d { from { opacity: 0; transform: translateX(70px); } to { opacity: 1; transform: none; } }
+
+/* Boutons « pour en savoir plus » */
+.pour-savoir { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; margin-top: 4rem; }
+.lien-savoir {
+  display: flex; flex-direction: column; align-items: center; gap: .15rem; min-width: 210px; padding: 1rem 1.7rem 1.1rem;
+  color: #fff; text-decoration: none; text-align: center;
+  background: rgba(255, 255, 255, .06); border: 2px solid var(--or); border-radius: 18px;
+  transition: transform .3s cubic-bezier(.3, 1.6, .5, 1), background .25s, color .25s, box-shadow .25s;
+}
+.savoir-icone { display: grid; place-items: center; width: 44px; height: 44px; margin-bottom: .3rem; border-radius: 50%; color: var(--or); background: rgba(255, 207, 90, .14); transition: transform .4s, background .25s, color .25s; }
+.savoir-icone svg { width: 26px; height: 26px; }
+.savoir-legende { font-size: .85rem; opacity: .85; }
+.savoir-nom { font: 400 1.35rem/1.2 var(--titre); color: var(--or); transition: color .25s; }
+.lien-savoir:hover { transform: translateY(-6px) rotate(-1.5deg); background: var(--or); color: var(--nuit); box-shadow: 0 10px 0 var(--or-fonce), 0 18px 30px rgba(0, 0, 0, .4); }
+.lien-savoir:hover .savoir-nom { color: var(--nuit); }
+.lien-savoir:hover .savoir-icone { transform: rotate(-12deg) scale(1.15); background: var(--nuit); color: var(--or); }
+.apparait.lien-savoir { animation: etape-pop .8s cubic-bezier(.3, 1.4, .5, 1) backwards; }
+
+@media (max-width: 860px) {
+  .pend-art-g, .pend-art-d { display: none; }
+  .frise-histoire::before, .frise-histoire::after { left: 28px; }
+  .marqueur { left: 28px; }
+  .epoque { display: block; padding-left: 76px; }
+  .epoque[data-cote="g"] .epoque-carte, .epoque[data-cote="d"] .epoque-carte { margin: 0; }
+  .epoque-carte::after { display: none; }
+  .epoque-noeud { left: 28px; width: 56px; height: 56px; margin-left: -28px; font-size: 1.5rem; }
+  .apparait.epoque[data-cote="g"], .apparait.epoque[data-cote="d"] { animation-name: epoque-g; }
+  .decennies li { grid-template-columns: 1fr; gap: .2rem; }
+  .decennie { justify-self: start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marqueur svg { animation: none; }
+}
+
+/* =====================================================
+   L'HISTOIRE D'ARI STOPHANE : une pellicule de film
+   ===================================================== */
+.acte-parcours {
+  background:
+    radial-gradient(ellipse 50% 45% at 50% 0%, rgba(255, 233, 180, .2), transparent 72%),
+    linear-gradient(180deg, #1e0604 0%, #2f0a06 55%, #1a0503 100%);
+  border-top: 6px solid var(--or);
+  overflow: hidden;
+}
+/* Le faisceau du projecteur de cinéma, qui vacille */
+.acte-parcours::before {
+  content: ""; position: absolute; left: 50%; top: 0; width: 70%; height: 55%; transform: translateX(-50%);
+  background: linear-gradient(to bottom, rgba(255, 236, 190, .16), transparent);
+  clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%); pointer-events: none; animation: vacille 3s steps(1) infinite;
+}
+@keyframes vacille { 0% { opacity: 1; } 8% { opacity: .7; } 12% { opacity: 1; } 55% { opacity: .85; } 58% { opacity: 1; } 90% { opacity: .75; } 93% { opacity: 1; } }
+.acte-parcours .sous-titre-acte { margin-bottom: 2.5rem; }
+
+.projecteur-cine { position: relative; padding: 0 clamp(0px, 5vw, 62px); }
+.projecteur-cine::after { content: ""; position: absolute; inset: 0; z-index: 5; background: #fff8e0; opacity: 0; pointer-events: none; }
+.projecteur-cine.flash::after { animation: flash .45s ease-out; }
+@keyframes flash { from { opacity: .4; } to { opacity: 0; } }
+
+.pellicule {
+  position: relative; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: none;
+  cursor: grab; outline-offset: 4px; border-radius: 6px;
+  --lc: min(78vw, 330px);
+}
+.pellicule::-webkit-scrollbar { display: none; }
+.pellicule.glisse { scroll-snap-type: none; cursor: grabbing; user-select: none; }
+.cadres {
+  position: relative; display: flex; width: max-content; min-width: 100%;
+  padding: 46px calc(50% - var(--lc) / 2 - 12px); background: #0d0405;
+  box-shadow: inset 0 0 0 3px #000;
+}
+/* Perforations de la pellicule (elles défilent avec les images) */
+.cadres::before, .cadres::after {
+  content: ""; position: absolute; left: 0; right: 0; height: 18px; z-index: 1;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='18' viewBox='0 0 34 18'%3E%3Crect x='8' y='3' width='18' height='12' rx='3.5' fill='%23f6ecdb'/%3E%3C/svg%3E") 0 0 / 34px 18px repeat-x;
+}
+.cadres::before { top: 8px; }
+.cadres::after { bottom: 8px; }
+
+.cadre { flex: 0 0 var(--lc); margin: 0 12px; scroll-snap-align: center; }
+.cadre-carte {
+  position: relative; height: 100%; min-height: 330px; padding: 1.1rem 1.3rem 1.4rem;
+  color: var(--encre); background: var(--papier); border-radius: 6px; border: 3px solid #f6ecdb;
+  filter: sepia(.75) brightness(.62) contrast(.95); opacity: .8; transform: scale(.94);
+  transition: filter .8s, opacity .8s, transform .7s cubic-bezier(.3, 1.4, .5, 1), box-shadow .8s;
+}
+.cadre.actif .cadre-carte { filter: none; opacity: 1; transform: scale(1.03); box-shadow: 0 0 40px rgba(255, 226, 160, .45), 0 16px 30px rgba(0, 0, 0, .55); }
+
+.cadre-haut { display: flex; justify-content: space-between; align-items: center; margin-bottom: .8rem; }
+.cadre-etape { padding: .05rem .7rem; font: 700 .78rem var(--texte); letter-spacing: .04em; border-radius: 999px; border: 2px solid var(--encre); }
+.etape-primaire { background: var(--bleu); }
+.etape-college { background: var(--rose); }
+.etape-lycee { background: var(--or); }
+.etape-vacances { background: #fff; border-style: dashed; }
+.cadre-num { font: 700 .8rem var(--texte); letter-spacing: .1em; opacity: .5; }
+.cadre-icone { display: block; margin: 0 0 .3rem; font-size: 2.3rem; line-height: 1.1; }
+.cadre.actif .cadre-icone { animation: apparition-icone .8s cubic-bezier(.3, 1.6, .5, 1); }
+@keyframes apparition-icone { from { transform: scale(0) rotate(-40deg); } to { transform: none; } }
+.cadre-niveau { font: 400 1.7rem/1.15 var(--titre); color: var(--violet); margin-bottom: .2rem; }
+.cadre-annee { display: block; font: 700 1rem var(--texte); color: var(--velours); letter-spacing: .02em; }
+.cadre-sous { margin: 0 0 .5rem; font-size: .9rem; font-style: italic; opacity: .75; line-height: 1.4; }
+.cadre-texte { margin: .5rem 0 0; font-size: 1rem; line-height: 1.6; }
+.cadre-texte em { font-style: italic; color: var(--violet); }
+
+/* Grain et rayures de vieux film */
+.pellicule::after {
+  content: ""; position: sticky; display: block; left: 0; width: 100%; height: 0; pointer-events: none;
+}
+.projecteur-cine .rayure { display: none; }
+
+.pel-btn {
+  position: absolute; top: 50%; z-index: 6; width: 48px; height: 48px; transform: translateY(-50%);
+  display: grid; place-items: center; color: var(--nuit); background: var(--or); border: 0; border-radius: 50%;
+  box-shadow: 0 4px 0 var(--or-fonce), 0 8px 18px rgba(0, 0, 0, .5); cursor: pointer;
+  transition: transform .2s, opacity .2s;
+}
+.pel-btn svg { width: 24px; height: 24px; }
+.pel-prec { left: 0; }
+.pel-suiv { right: 0; }
+.pel-btn:hover { transform: translateY(-50%) scale(1.12); }
+.pel-btn:active { transform: translateY(-46%) scale(.95); }
+
+.pel-points { display: flex; flex-wrap: wrap; justify-content: center; gap: .55rem; margin-top: 1.8rem; }
+.pel-point { width: 14px; height: 14px; padding: 0; cursor: pointer; border-radius: 50%; border: 2px solid var(--or); background: transparent; transition: transform .3s cubic-bezier(.3, 1.6, .5, 1), background .3s, box-shadow .3s; }
+.pel-point:hover { transform: scale(1.35); }
+.pel-point.actif { background: var(--or); transform: scale(1.4); box-shadow: 0 0 12px rgba(255, 207, 90, .9); }
+.pel-compteur { margin: .9rem 0 0; text-align: center; font: 700 .95rem var(--texte); letter-spacing: .12em; color: var(--or); opacity: .9; }
+
+.apparait.projecteur-cine { animation: film-entre 1s cubic-bezier(.2, .9, .3, 1.1) backwards; }
+@keyframes film-entre { from { opacity: 0; transform: translateX(80px) scale(.96); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 700px) {
+  .pel-btn { display: none; }
+  .projecteur-cine { padding: 0; }
+  .cadre-carte { min-height: 360px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .acte-parcours::before { animation: none; }
 }
