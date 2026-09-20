@@ -337,6 +337,129 @@
     }
   };
 
+  /* ---------- L'histoire d'Ari Stophane : la pellicule ---------- */
+  const pellicule = $('.pellicule');
+  if (pellicule) {
+    const cine = $('.projecteur-cine');
+    const cadres = $$('.cadre', pellicule);
+    const compteur = $('.pel-compteur');
+    const zonePoints = $('.pel-points');
+    const n = cadres.length;
+    let idx = 0;
+    let interagi = false;
+    let visiblePel = false;
+    let survol = false;
+    let attentePel = false;
+    let glisse = null;
+
+    const points = cadres.map((c, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'pel-point';
+      b.setAttribute('aria-label', `Étape ${i + 1} : ${c.dataset.titre}`);
+      b.addEventListener('click', () => { interagi = true; aller(i); });
+      zonePoints.appendChild(b);
+      return b;
+    });
+
+    const cibleGauche = (i) => cadres[i].offsetLeft - (pellicule.clientWidth - cadres[i].offsetWidth) / 2;
+    const aller = (i, instant) => {
+      const k = Math.max(0, Math.min(n - 1, i));
+      pellicule.scrollTo({ left: cibleGauche(k), behavior: (reduit || instant) ? 'auto' : 'smooth' });
+    };
+
+    const majPel = () => {
+      attentePel = false;
+      const centre = pellicule.scrollLeft + pellicule.clientWidth / 2;
+      let meilleur = 0, ecart = Infinity;
+      cadres.forEach((c, i) => {
+        const d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - centre);
+        if (d < ecart) { ecart = d; meilleur = i; }
+      });
+      const change = meilleur !== idx || !cadres[meilleur].classList.contains('actif');
+      if (!change) return;
+      const avant = idx;
+      idx = meilleur;
+      cadres.forEach((c, i) => c.classList.toggle('actif', i === idx));
+      points.forEach((p, i) => p.classList.toggle('actif', i === idx));
+      compteur.textContent = `${idx + 1} / ${n}`;
+      if (avant !== idx && !reduit) {
+        cine.classList.remove('flash');
+        void cine.offsetWidth;
+        cine.classList.add('flash'); // petit éclat de projecteur à chaque image
+      }
+    };
+    pellicule.addEventListener('scroll', () => { if (!attentePel) { attentePel = true; requestAnimationFrame(majPel); } }, { passive: true });
+    window.addEventListener('resize', () => aller(idx, true));
+
+    $('.pel-prec').addEventListener('click', () => { interagi = true; aller(idx - 1); });
+    $('.pel-suiv').addEventListener('click', () => { interagi = true; aller(idx + 1); });
+    pellicule.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); interagi = true; aller(idx + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); interagi = true; aller(idx - 1); }
+    });
+    pellicule.addEventListener('touchstart', () => { interagi = true; }, { passive: true });
+
+    // Glisser à la souris
+    pellicule.addEventListener('mousedown', (e) => {
+      if (e.button !== 0 || e.target.closest('a')) return;
+      glisse = { x: e.clientX, gauche: pellicule.scrollLeft };
+      interagi = true;
+      pellicule.classList.add('glisse');
+    });
+    window.addEventListener('mousemove', (e) => { if (glisse) pellicule.scrollLeft = glisse.gauche - (e.clientX - glisse.x); });
+    window.addEventListener('mouseup', () => {
+      if (!glisse) return;
+      glisse = null;
+      pellicule.classList.remove('glisse');
+      aller(idx);
+    });
+    pellicule.addEventListener('mouseenter', () => { survol = true; });
+    pellicule.addEventListener('mouseleave', () => { survol = false; });
+
+    // La pellicule avance toute seule tant que personne n'y touche
+    if (!reduit) {
+      setInterval(() => {
+        if (!visiblePel || interagi || survol) return;
+        aller(idx + 1 >= n ? 0 : idx + 1);
+      }, 5200);
+    }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([en]) => {
+        visiblePel = en.isIntersecting;
+        if (!visiblePel) { interagi = false; aller(0, true); }
+      }, { threshold: 0.35 }).observe(cine);
+    }
+    majPel();
+  }
+
+  /* ---------- Histoire de l'art dramatique : le fil de la frise suit le défilement ---------- */
+  const friseArt = $('.frise-histoire');
+  if (friseArt) {
+    const epoques = $$('.epoque', friseArt);
+    let attente = false;
+    const majFrise = () => {
+      attente = false;
+      if (reduit) {
+        friseArt.style.setProperty('--p', 1);
+        epoques.forEach((e) => e.classList.add('passe'));
+        return;
+      }
+      const r = friseArt.getBoundingClientRect();
+      const repere = window.innerHeight * 0.55;
+      const p = Math.min(1, Math.max(0, (repere - r.top) / r.height));
+      friseArt.style.setProperty('--p', p.toFixed(4));
+      epoques.forEach((e) => {
+        const top = e.getBoundingClientRect().top;
+        e.classList.toggle('passe', top + 60 < repere);
+      });
+    };
+    const demander = () => { if (!attente) { attente = true; requestAnimationFrame(majFrise); } };
+    window.addEventListener('scroll', demander, { passive: true });
+    window.addEventListener('resize', demander);
+    majFrise();
+  }
+
   /* ---------- Signification du logo : le projecteur explore le logo ---------- */
   const grilleLogo = $('.logo-grille');
   if (grilleLogo) {
