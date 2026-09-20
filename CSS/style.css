@@ -109,8 +109,8 @@ ul { margin: 0; padding: 0; list-style: none; }
   position: relative; isolation: isolate; overflow: hidden;
   min-height: 100vh; min-height: 100svh;
   display: grid; place-items: center;
-  padding: calc(var(--hauteur-nav) + 90px) 1.25rem 110px;
-  background: radial-gradient(ellipse at 50% 105%, #4a1670 0%, var(--nuit) 68%);
+  padding: calc(var(--hauteur-nav) + 96px) 1.25rem clamp(150px, 22vh, 210px);
+  background: var(--nuit);
   --mx: 50%; --my: 42%;
 }
 
@@ -126,19 +126,88 @@ ul { margin: 0; padding: 0; list-style: none; }
   background: radial-gradient(circle 260px at var(--mx) var(--my), rgba(255, 240, 200, .55), transparent 100%);
 }
 
-.plancher {
-  position: absolute; left: 0; right: 0; bottom: 0; height: 26%; z-index: 0;
-  background: repeating-linear-gradient(90deg, #35174a 0 58px, #2a103c 58px 60px);
-  -webkit-mask-image: linear-gradient(to top, #000 10%, transparent);
-  mask-image: linear-gradient(to top, #000 10%, transparent);
+.fond-scene {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .035) 0 34px, transparent 34px 68px),
+    linear-gradient(180deg, #120620 0%, #2b1040 52%, #3d1758 66%, #1a0a25 100%);
 }
+/* Plancher de scène en perspective : les lames convergent vers le fond */
+.plancher { position: absolute; left: 0; right: 0; bottom: 0; height: 40%; z-index: 0; overflow: hidden; perspective: 520px; perspective-origin: 50% 0; }
+.plancher-planches {
+  position: absolute; left: -70%; right: -70%; top: 0; bottom: -60%;
+  transform-origin: 50% 0; transform: rotateX(60deg);
+  background:
+    repeating-linear-gradient(0deg, rgba(0, 0, 0, .28) 0 2px, transparent 2px 170px),
+    repeating-linear-gradient(90deg, #6a3c28 0 90px, #4d2a1c 90px 94px, #7a4630 94px 184px, #4d2a1c 184px 188px);
+}
+.plancher::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, #1a0a25 0%, rgba(26, 10, 37, .55) 35%, rgba(26, 10, 37, .05) 100%); }
+.flaque { position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse 34% 62% at 50% 34%, rgba(255, 226, 160, .5), transparent 72%); mix-blend-mode: screen; }
+
+/* Projecteurs suspendus, avec leurs faisceaux qui balayent la scène */
+.faisceau {
+  position: absolute; top: 120px; width: 46%; height: 78%; z-index: 2; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(255, 236, 190, .42), rgba(255, 236, 190, .09) 70%, transparent);
+  clip-path: polygon(46% 0, 54% 0, 100% 100%, 0 100%); mix-blend-mode: screen; filter: blur(5px);
+  transform-origin: 50% 0; animation: balaye 9s ease-in-out infinite alternate;
+}
+.faisceau-g { left: 2%; --r: -17deg; }
+.faisceau-d { right: 2%; --r: 17deg; animation-duration: 11s; animation-direction: alternate-reverse; }
+@keyframes balaye { from { transform: rotate(calc(var(--r) - 3.5deg)); } to { transform: rotate(calc(var(--r) + 3.5deg)); } }
+.lampe { position: absolute; top: 106px; z-index: 3; width: 54px; height: 28px; transform: translateX(-50%); border-radius: 8px 8px 14px 14px; background: linear-gradient(#3b1a52, #1a0a25); border: 2px solid var(--or); box-shadow: 0 0 22px 6px rgba(255, 236, 190, .55); }
+.lampe::after { content: ""; position: absolute; left: 8px; right: 8px; bottom: -3px; height: 8px; border-radius: 50%; background: #fff3c4; }
+.lampe-g { left: 27%; }
+.lampe-d { left: 73%; }
+
+/* Poussière dans la lumière (générée par script.js) */
+.poussiere { position: absolute; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
+.poussiere span { position: absolute; border-radius: 50%; background: #fff3c4; opacity: 0; animation: poussiere 12s ease-in-out infinite; }
+@keyframes poussiere { 0% { opacity: 0; transform: translate(0, 20px); } 30%, 70% { opacity: .75; } 100% { opacity: 0; transform: translate(var(--dx, 14px), -60px); } }
+
+.ombre-sol { position: absolute; left: 50%; bottom: 26%; z-index: 1; width: min(38vw, 300px); height: 26px; transform: translateX(-50%); background: radial-gradient(ellipse, rgba(0, 0, 0, .6), transparent 70%); animation: ombre-balance 7s 3.4s ease-in-out infinite alternate; }
+@keyframes ombre-balance { from { transform: translateX(-62%); } to { transform: translateX(-38%); } }
+
+/* Rampe de lumière : les ampoules s'allument comme une guirlande */
+.rampe { position: absolute; left: 0; right: 0; bottom: clamp(62px, 10vh, 92px); z-index: 6; height: 16px; display: flex; justify-content: space-around; align-items: center; }
+.rampe::before { content: ""; position: absolute; left: 0; right: 0; bottom: -10px; height: 12px; background: linear-gradient(#6a3c28, #2a140c); border-top: 3px solid var(--or); }
+.rampe::after { content: ""; position: absolute; left: 0; right: 0; bottom: 6px; height: 90px; pointer-events: none; background: linear-gradient(to top, rgba(255, 207, 90, .26), transparent); }
+.rampe span {
+  position: relative; z-index: 1; width: 13px; height: 13px; border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #fffbe6, #ffcf5a 60%, #c2571a);
+  box-shadow: 0 0 12px 4px rgba(255, 207, 90, .7);
+  animation: chenille 1.8s ease-in-out infinite; animation-delay: calc(var(--i) * -.11s);
+}
+@keyframes chenille { 0%, 100% { opacity: .5; box-shadow: 0 0 6px 2px rgba(255, 207, 90, .4); } 50% { opacity: 1; box-shadow: 0 0 16px 6px rgba(255, 207, 90, .85); } }
+.joue .rampe { animation: allume .9s 2.6s backwards; }
+.joue .faisceau, .joue .lampe { animation-name: allume-faisceau, balaye; animation-duration: 1.4s, 9s; animation-delay: 2.5s, 0s; animation-iteration-count: 1, infinite; animation-fill-mode: backwards, none; animation-direction: normal, alternate; }
+.joue .faisceau-d { animation-duration: 1.4s, 11s; animation-direction: normal, alternate-reverse; }
+.joue .lampe { animation-name: allume-faisceau; animation-duration: 1.4s; animation-delay: 2.5s; animation-iteration-count: 1; animation-direction: normal; }
+@keyframes allume { from { opacity: 0; } to { opacity: 1; } }
+@keyframes allume-faisceau { from { opacity: 0; } to { opacity: 1; } }
+
+/* Le public, vu de dos, au premier plan */
+.public { position: absolute; left: 0; right: 0; bottom: 0; z-index: 8; height: clamp(70px, 12vh, 118px); pointer-events: none; }
+.public svg { display: block; width: 100%; height: 100%; }
+.tete { transform-box: fill-box; transform-origin: 50% 100%; animation: hoche 7s ease-in-out infinite; }
+.tete-1 { animation-delay: -1.2s; animation-duration: 8s; }
+.tete-2 { animation-delay: -3s; }
+.tete-3 { animation-delay: -4.6s; animation-duration: 9s; }
+.tete-4 { animation-delay: -2.2s; animation-duration: 6.5s; }
+.tete-5 { animation-delay: -5.5s; }
+@keyframes hoche { 0%, 82%, 100% { transform: none; } 88% { transform: translateY(3px) rotate(3deg); } 94% { transform: translateY(-1px) rotate(-2deg); } }
+
 
 .scene-centre { position: relative; z-index: 3; text-align: center; display: flex; flex-direction: column; align-items: center; }
 
+.logo-suspendu { position: relative; width: min(52vw, 260px); transform-origin: 50% -70vh; animation: balance-scene 7s 3.4s ease-in-out infinite alternate; }
 .logo-hero {
-  width: min(62vw, 320px); height: auto; border-radius: 50%;
+  display: block; width: 100%; height: auto; border-radius: 50%;
   box-shadow: 0 0 0 5px rgba(255, 207, 90, .35), 0 0 70px 10px rgba(196, 22, 12, .55), 0 24px 60px rgba(0, 0, 0, .5);
 }
+.corde { position: absolute; bottom: 89%; width: 3px; height: 110vh; background: linear-gradient(#7a5410, #ffcf5a); box-shadow: 0 0 4px rgba(0, 0, 0, .5); }
+.corde-g { left: 19%; }
+.corde-d { left: 81%; }
+@keyframes balance-scene { from { transform: rotate(-1.6deg); } to { transform: rotate(1.6deg); } }
 
 .scene h1 {
   margin-top: 1.6rem;
@@ -183,10 +252,10 @@ ul { margin: 0; padding: 0; list-style: none; }
 }
 
 .rejouer {
-  position: absolute; left: 50%; bottom: 1.2rem; z-index: 7; transform: translateX(-50%);
+  position: absolute; left: 50%; bottom: .7rem; z-index: 9; transform: translateX(-50%);
   font: 600 .85rem var(--texte); color: var(--texte-clair);
   background: rgba(26, 10, 37, .7); border: 1px solid rgba(255, 207, 90, .6); border-radius: 999px;
-  padding: .4rem 1rem; cursor: pointer; transition: background .2s, color .2s;
+  padding: .4rem 1rem; cursor: pointer; white-space: nowrap; transition: background .2s, color .2s;
 }
 .rejouer:hover { background: var(--or); color: var(--nuit); }
 
@@ -381,7 +450,7 @@ ul { margin: 0; padding: 0; list-style: none; }
 .page-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .8rem; margin-bottom: 1rem; }
 .page-lecture { font-size: .85rem; opacity: .7; }
 .page-extrait { font-size: 1rem; line-height: 1.7; flex: 1; }
-.page-extrait::first-letter { font: 400 3.1rem/.8 var(--titre); float: left; margin: .15rem .5rem 0 0; color: var(--rose); text-shadow: 2px 2px 0 var(--violet); }
+.page-extrait::first-letter { font: 400 3.1rem/.8 var(--titre); float: left; margin: .15rem .3rem 0 0; color: var(--rose); text-shadow: 2px 2px 0 var(--violet); }
 .lien-lire {
   font: 700 1rem var(--texte); color: var(--violet); background: none; border: 0; padding: .3rem 0; cursor: pointer;
   border-bottom: 3px solid var(--rose); transition: color .2s, border-color .2s, letter-spacing .2s;
@@ -390,8 +459,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 /* Carte « prochaine histoire » : un livre dont les pages se tournent */
 .page-vide {
-  grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: center; gap: 2.5rem;
-  padding: 2rem 2.4rem; background: rgba(255, 255, 255, .6);
+  flex-direction: column; align-items: center; justify-content: center; gap: 1.2rem; text-align: center;
+  padding: 2rem 1.6rem; background: rgba(255, 255, 255, .6);
   border: 3px dashed rgba(106, 23, 163, .45); border-radius: 14px; box-shadow: none;
 }
 .page-vide::before, .page-vide::after { display: none; }
@@ -580,6 +649,7 @@ dialog[open]::backdrop { animation: fondu .4s; }
   .encre path { stroke-dashoffset: 0; }
   .crayon { display: none; }
   .rejouer { display: none; }
+  .poussiere { display: none; }
 }
 
 .billet-vide { -webkit-mask: none; mask: none; }
@@ -865,3 +935,13 @@ dialog[open] .personnages li { animation: perso-entre .55s cubic-bezier(.2, .9, 
 dialog[open] .perso-initiale { animation: perso-pop .5s cubic-bezier(.3, 1.6, .5, 1) backwards; animation-delay: calc(var(--i) * 90ms + 550ms); }
 @keyframes perso-entre { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
 @keyframes perso-pop { from { transform: scale(0) rotate(-40deg); } to { transform: none; } }
+
+/* Billet « prochaine pièce » : centré sur sa propre ligne */
+.billet-item:last-child { grid-column: 1 / -1; justify-self: center; width: min(100%, 560px); }
+.lecteur-corps .coupure { text-align: center; opacity: .55; letter-spacing: .3em; }
+
+@media (max-width: 600px) {
+  .faisceau { width: 70%; }
+  .lampe { width: 40px; }
+  .rampe span { width: 10px; height: 10px; }
+}
