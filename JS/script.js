@@ -87,6 +87,33 @@
     }, { threshold: [0, 0.6] }).observe(scene);
   }
 
+  /* ---------- Décor de scène : ampoules de la rampe et poussière dans la lumière ---------- */
+  const rampe = $('.rampe');
+  const poussiere = $('.poussiere');
+  const bâtirDécor = () => {
+    if (rampe) {
+      const n = Math.max(8, Math.round(window.innerWidth / (window.innerWidth < 600 ? 34 : 46)));
+      rampe.innerHTML = '';
+      for (let i = 0; i < n; i++) {
+        const b = document.createElement('span');
+        b.style.setProperty('--i', i);
+        rampe.appendChild(b);
+      }
+    }
+  };
+  bâtirDécor();
+  let largeurDécor = window.innerWidth;
+  window.addEventListener('resize', () => { if (Math.abs(window.innerWidth - largeurDécor) > 60) { largeurDécor = window.innerWidth; bâtirDécor(); } });
+  if (poussiere && !reduit) {
+    for (let i = 0; i < 26; i++) {
+      const m = document.createElement('span');
+      const t = 2 + Math.random() * 3;
+      m.style.cssText = `left:${(15 + Math.random() * 70).toFixed(1)}%;top:${(24 + Math.random() * 46).toFixed(1)}%;width:${t.toFixed(1)}px;height:${t.toFixed(1)}px;` +
+        `animation-duration:${(9 + Math.random() * 8).toFixed(1)}s;animation-delay:${(-Math.random() * 12).toFixed(1)}s;--dx:${(Math.random() * 40 - 20).toFixed(0)}px`;
+      poussiere.appendChild(m);
+    }
+  }
+
   /* ---------- Projecteur qui suit la souris + parallaxe des masques ---------- */
   if (scene && !reduit) {
     const masques = $$('.masque-ext', scene);
