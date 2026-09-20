@@ -38,6 +38,18 @@
     sections.forEach((s) => obs.observe(s));
   }
 
+  /* ---------- Nom de plume : mesure l'écart de largeur entre « s » et « S » ---------- */
+  const lettreS = $('.lettre-s');
+  const mesurerS = () => {
+    if (!lettreS) return;
+    const bas = $('.s-bas', lettreS).getBoundingClientRect().width;
+    const haut = $('.s-haut', lettreS).getBoundingClientRect().width;
+    lettreS.style.setProperty('--dw', Math.max(0, haut - bas).toFixed(1) + 'px');
+  };
+  mesurerS();
+  window.addEventListener('resize', mesurerS);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(mesurerS);
+
   /* ---------- Machine à écrire (slogan) ---------- */
   const machine = $('[data-machine]');
   let jetonMachine = 0;
@@ -297,6 +309,76 @@
       anim.onfinish = () => p.remove();
     }
   };
+
+  /* ---------- Signification du logo : le projecteur explore le logo ---------- */
+  const grilleLogo = $('.logo-grille');
+  if (grilleLogo) {
+    const vue = $('.logo-vue', grilleLogo);
+    const elements = $$('.element', grilleLogo);
+    const reperes = $$('[data-cible]', vue);
+    const petitEcran = window.matchMedia('(max-width: 1000px)');
+    let actifId = null;
+    let derniereAction = 0;
+    let visibleLogo = false;
+    let indexAuto = -1;
+
+    const activer = (cible) => {
+      actifId = cible;
+      vue.classList.toggle('a-un-actif', !!cible);
+      reperes.forEach((n) => n.classList.toggle('actif', n.dataset.cible === cible));
+      elements.forEach((e) => e.classList.toggle('actif', e.dataset.cible === cible));
+    };
+
+    elements.forEach((e) => {
+      e.addEventListener('pointerenter', (ev) => {
+        if (ev.pointerType !== 'mouse') return;
+        derniereAction = performance.now();
+        activer(e.dataset.cible);
+      });
+      e.addEventListener('pointerleave', (ev) => {
+        if (ev.pointerType !== 'mouse') return;
+        derniereAction = performance.now();
+        activer(null);
+      });
+      e.addEventListener('click', () => {
+        derniereAction = performance.now();
+        activer(e.dataset.cible);
+      });
+    });
+
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([en]) => {
+        visibleLogo = en.isIntersecting;
+        if (!visibleLogo) activer(null);
+      }, { threshold: 0.25 }).observe(grilleLogo);
+
+      // Petit écran : le logo reste collé en haut et s'éclaire au fil de la lecture
+      let obsLecture = null;
+      const monterLecture = () => {
+        if (obsLecture) obsLecture.disconnect();
+        if (!petitEcran.matches) return;
+        const colonne = $('.logo-colonne', grilleLogo);
+        const haut = 64 + colonne.offsetHeight;
+        const bas = Math.max(0, window.innerHeight - haut - 150);
+        obsLecture = new IntersectionObserver((entrees) => {
+          entrees.forEach((en) => { if (en.isIntersecting) activer(en.target.dataset.cible); });
+        }, { rootMargin: `-${haut}px 0px -${bas}px 0px` });
+        elements.forEach((e) => obsLecture.observe(e));
+      };
+      monterLecture();
+      window.addEventListener('resize', monterLecture);
+    }
+
+    // Grand écran : sans action de la souris, le projecteur passe tout seul d'un élément à l'autre
+    if (!reduit) {
+      setInterval(() => {
+        if (!visibleLogo || petitEcran.matches) return;
+        if (performance.now() - derniereAction < 4500) return;
+        indexAuto = (indexAuto + 1) % elements.length;
+        activer(elements[indexAuto].dataset.cible);
+      }, 2600);
+    }
+  }
 
   $$('[data-applaudir]').forEach((el) => {
     el.addEventListener('click', () => {
