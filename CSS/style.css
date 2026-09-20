@@ -378,7 +378,8 @@ ul { margin: 0; padding: 0; list-style: none; }
 
 .page-genre { margin: 0 0 .3rem; font-size: .88rem; font-weight: 700; color: var(--velours); font-style: italic; }
 .page h3 { font: 400 1.5rem/1.2 var(--titre); color: var(--violet); margin-bottom: .3rem; padding-right: 1.8rem; }
-.page-lecture { font-size: .85rem; opacity: .7; margin-bottom: 1rem; }
+.page-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .8rem; margin-bottom: 1rem; }
+.page-lecture { font-size: .85rem; opacity: .7; }
 .page-extrait { font-size: 1rem; line-height: 1.7; flex: 1; }
 .page-extrait::first-letter { font: 400 3.1rem/.8 var(--titre); float: left; margin: .15rem .5rem 0 0; color: var(--rose); text-shadow: 2px 2px 0 var(--violet); }
 .lien-lire {
@@ -832,3 +833,35 @@ dialog[open]::backdrop { animation: fondu .4s; }
   .logo-vue { animation: none; }
   .contour.actif { animation: none; }
 }
+
+/* ---------- Puces « personnages » cliquables ---------- */
+.infos li.puce-action { padding: 0; border: 0; }
+.puce-persos {
+  display: inline-flex; align-items: center; gap: .4rem; cursor: pointer;
+  font: 600 .82rem var(--texte); color: var(--or); background: var(--encre);
+  padding: .1rem .75rem .1rem .6rem; border: 1.5px solid var(--encre); border-radius: 999px;
+  transition: transform .2s, background .2s, color .2s;
+}
+.puce-persos:hover { transform: translateY(-2px) rotate(-1.5deg); background: var(--violet); border-color: var(--violet); color: #fff; }
+.puce-persos:active { transform: translateY(1px); }
+.icone-persos { width: 1.25em; height: 1.25em; flex: none; }
+
+/* Liste des personnages dans la fenêtre */
+.personnages { display: grid; gap: .85rem; }
+.personnages li {
+  display: grid; grid-template-columns: 52px 1fr; gap: 1rem; align-items: center;
+  padding: .8rem 1rem; background: #fff; border: 2px solid rgba(43, 18, 54, .14); border-radius: 12px;
+}
+.personnages b { display: block; margin-bottom: .1rem; font: 400 1.2rem/1.2 var(--titre); color: var(--violet); }
+.personnages li div > span { display: block; font-size: .96rem; line-height: 1.5; }
+.perso-initiale {
+  width: 52px; height: 52px; display: grid; place-items: center; border-radius: 50%;
+  font: 400 1.5rem var(--titre); color: var(--encre); border: 3px solid var(--encre); background: var(--rose);
+}
+.personnages li:nth-child(4n+2) .perso-initiale { background: var(--bleu); }
+.personnages li:nth-child(4n+3) .perso-initiale { background: var(--or); }
+.personnages li:nth-child(4n+4) .perso-initiale { background: #c9a0f0; }
+dialog[open] .personnages li { animation: perso-entre .55s cubic-bezier(.2, .9, .3, 1.2) backwards; animation-delay: calc(var(--i) * 90ms + 350ms); }
+dialog[open] .perso-initiale { animation: perso-pop .5s cubic-bezier(.3, 1.6, .5, 1) backwards; animation-delay: calc(var(--i) * 90ms + 550ms); }
+@keyframes perso-entre { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes perso-pop { from { transform: scale(0) rotate(-40deg); } to { transform: none; } }
