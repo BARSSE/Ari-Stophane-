@@ -360,13 +360,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   position: relative;
   height: 220px;
   border-radius: 10px;
-  background:
-    linear-gradient(90deg, transparent 42px, rgba(196, 22, 12, .35) 42px, rgba(196, 22, 12, .35) 44px, transparent 44px),
-    repeating-linear-gradient(rgba(43, 18, 54, 0) 0, rgba(43, 18, 54, 0) 37px, rgba(106, 23, 163, .16) 38px),
-    var(--papier);
   box-shadow: 0 10px 24px rgba(0, 0, 0, .45);
   perspective: 1800px;
-  overflow: hidden;
 }
 
 .carnet-page {
@@ -375,16 +370,25 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   gap: .3rem;
   padding: 1.5rem 2.2rem 1.5rem 3.2rem;
   color: var(--encre);
+  border-radius: 10px;
+  background:
+    linear-gradient(90deg, transparent 42px, rgba(196, 22, 12, .35) 42px, rgba(196, 22, 12, .35) 44px, transparent 44px),
+    repeating-linear-gradient(rgba(43, 18, 54, 0) 0, rgba(43, 18, 54, 0) 37px, rgba(106, 23, 163, .16) 38px),
+    var(--papier);
+  box-shadow: inset 0 0 0 1px rgba(43, 18, 54, .12);
   backface-visibility: hidden;
   transform-origin: left center;
   transform: rotateY(0deg);
-  transition: transform var(--bascule) cubic-bezier(.62, .04, .26, 1);
+  transition: transform var(--bascule) cubic-bezier(.62, .04, .26, 1), box-shadow var(--bascule);
   cursor: pointer;
 }
 .carnet-page:nth-child(1) { z-index: 3; }
 .carnet-page:nth-child(2) { z-index: 2; }
 .carnet-page:nth-child(3) { z-index: 1; }
-.carnet-page.tournee { transform: rotateY(-172deg); }
+.carnet-page.tournee {
+  transform: rotateY(-172deg);
+  box-shadow: inset 0 0 0 1px rgba(43, 18, 54, .12), 30px 0 40px -20px rgba(0, 0, 0, .5);
+}
 
 .carnet-mot {
   font-family: var(--calligraphie);
