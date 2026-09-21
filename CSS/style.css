@@ -19,6 +19,7 @@
 
   --titre: 'Rye', 'Georgia', serif;
   --texte: 'Lora', 'Georgia', serif;
+  --calligraphie: 'Alex Brush', 'Lora', cursive;
   --hauteur-nav: 64px;
 }
 
@@ -334,6 +335,89 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .loge-plume { background: var(--rose); }
 .loge:hover .loge-icone svg { animation: secoue .6s; }
 @keyframes secoue { 25% { transform: rotate(-14deg); } 75% { transform: rotate(14deg); } }
+
+/* ---------- Règle des trois unités : carnet à feuilleter ---------- */
+.regle-unites { margin-top: 3rem; text-align: center; }
+.regle-intro { font: 400 clamp(1.2rem, 2.6vw, 1.5rem) var(--texte); font-style: italic; color: var(--bleu); margin: 0 0 1.6rem; }
+
+.carnet-regle {
+  --bascule: .85s;
+  position: relative;
+  max-width: 480px;
+  margin: 0 auto;
+  transform: rotate(-1.2deg);
+}
+.carnet-regle::before,
+.carnet-regle::after {
+  content: ""; position: absolute; inset: 0;
+  background: var(--papier); border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, .35);
+}
+.carnet-regle::before { transform: rotate(2.5deg) translateY(3px); z-index: -1; }
+.carnet-regle::after { transform: rotate(-1.6deg) translateY(1px); z-index: -1; }
+
+.carnet-pages {
+  position: relative;
+  height: 220px;
+  border-radius: 10px;
+  background:
+    linear-gradient(90deg, transparent 42px, rgba(196, 22, 12, .35) 42px, rgba(196, 22, 12, .35) 44px, transparent 44px),
+    repeating-linear-gradient(rgba(43, 18, 54, 0) 0, rgba(43, 18, 54, 0) 37px, rgba(106, 23, 163, .16) 38px),
+    var(--papier);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .45);
+  perspective: 1800px;
+  overflow: hidden;
+}
+
+.carnet-page {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: .3rem;
+  padding: 1.5rem 2.2rem 1.5rem 3.2rem;
+  color: var(--encre);
+  backface-visibility: hidden;
+  transform-origin: left center;
+  transform: rotateY(0deg);
+  transition: transform var(--bascule) cubic-bezier(.62, .04, .26, 1);
+  cursor: pointer;
+}
+.carnet-page:nth-child(1) { z-index: 3; }
+.carnet-page:nth-child(2) { z-index: 2; }
+.carnet-page:nth-child(3) { z-index: 1; }
+.carnet-page.tournee { transform: rotateY(-172deg); }
+
+.carnet-mot {
+  font-family: var(--calligraphie);
+  font-size: clamp(2.6rem, 8vw, 3.6rem);
+  line-height: 1;
+  color: var(--velours);
+  text-shadow: 1px 1px 0 rgba(43, 18, 54, .15);
+}
+.carnet-texte { margin: 0; max-width: 30ch; font-size: 1rem; font-style: italic; line-height: 1.5; }
+
+.carnet-controles { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1.3rem; }
+.carnet-fleche {
+  display: grid; place-items: center; width: 40px; height: 40px; padding: 0;
+  border-radius: 50%; border: 2px solid var(--or); background: transparent; color: var(--or);
+  cursor: pointer; transition: background .2s, color .2s, transform .2s;
+}
+.carnet-fleche svg { width: 18px; height: 18px; }
+.carnet-fleche:hover { background: var(--or); color: var(--nuit); transform: scale(1.08); }
+.carnet-puces { display: flex; gap: .5rem; }
+.carnet-puce {
+  width: 10px; height: 10px; padding: 0; border-radius: 50%; border: 2px solid var(--or);
+  background: transparent; cursor: pointer; transition: background .2s, transform .2s;
+}
+.carnet-puce.actif { background: var(--or); transform: scale(1.2); }
+
+@media (max-width: 560px) {
+  .carnet-pages { height: 260px; }
+  .carnet-page { padding: 1.3rem 1.4rem 1.3rem 2.4rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .carnet-page { transition: opacity .25s; }
+  .carnet-page.tournee { transform: none; opacity: 0; pointer-events: none; }
+}
 
 /* ---------- Pièces : billets de théâtre ---------- */
 .acte-pieces {
