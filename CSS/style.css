@@ -611,7 +611,7 @@ dialog[open]::backdrop { animation: fondu .4s; }
   .pendule-2 { right: 16%; }
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1240px) {
   .menu-bouton { display: block; }
   .nav nav {
     position: absolute; top: 100%; left: 0; right: 0; display: none;
@@ -895,7 +895,7 @@ dialog[open]::backdrop { animation: fondu .4s; }
   .logo-liste + .logo-liste { margin-top: 2.2rem; }
   .logo-couleurs .element.actif, .logo-symboles .element.actif { transform: none; }
 }
-@media (max-width: 1600px) and (min-width: 1181px) {
+@media (max-width: 1600px) and (min-width: 1241px) {
   .nav ul { gap: .9rem; }
   .nav a { font-size: .92rem; }
   .marque span { display: none; }
@@ -1275,4 +1275,102 @@ dialog[open] .fiche-chips li { animation: perso-pop .5s cubic-bezier(.3, 1.6, .5
 }
 @media (prefers-reduced-motion: reduce) {
   .portrait, .ruban-nom { animation: none; }
+}
+
+/* =====================================================
+   LE QUIZ DU SOUFFLEUR
+   ===================================================== */
+.acte-quiz {
+  background:
+    radial-gradient(ellipse 45% 45% at 50% 40%, rgba(143, 227, 255, .16), transparent 72%),
+    linear-gradient(180deg, #0e2438 0%, #143552 55%, #0b1c2c 100%);
+  border-top: 6px solid var(--bleu);
+  overflow: hidden;
+}
+.quiz { display: grid; grid-template-columns: 170px 1fr; gap: 1.6rem; align-items: end; max-width: 940px; margin: 0 auto; }
+
+/* Le souffleur dans sa coquille */
+.quiz-souffleur { width: 170px; align-self: end; padding-bottom: .4rem; filter: drop-shadow(0 12px 14px rgba(0, 0, 0, .5)); }
+.quiz-souffleur svg { display: block; width: 100%; height: auto; overflow: visible; }
+.yeux { transform-box: fill-box; transform-origin: 50% 50%; animation: cligne 4.5s infinite; }
+@keyframes cligne { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(.1); } }
+.pupille { transition: transform .3s; animation: regarde 7s ease-in-out infinite; }
+@keyframes regarde { 0%, 100% { transform: translateX(0); } 30% { transform: translateX(-3px); } 65% { transform: translateX(3px); } }
+.quiz-souffleur.content svg { animation: saute .7s cubic-bezier(.3, 1.6, .5, 1); }
+.quiz-souffleur.desole svg { animation: secoue-quiz .5s; }
+@keyframes saute { 0% { transform: translateY(0); } 40% { transform: translateY(-22px) rotate(-3deg); } 100% { transform: none; } }
+
+/* Carte de la question : une bulle qui sort de la coquille */
+.quiz-carte {
+  position: relative; padding: 1.5rem 1.7rem 1.7rem; color: var(--encre);
+  background: var(--papier); border: 4px solid var(--or); border-radius: 22px;
+  box-shadow: 0 20px 44px rgba(0, 0, 0, .5), 0 0 40px rgba(143, 227, 255, .18);
+}
+.quiz-carte::before {
+  content: ""; position: absolute; left: -22px; bottom: 44px; width: 34px; height: 34px;
+  background: var(--papier); border-left: 4px solid var(--or); border-bottom: 4px solid var(--or); transform: rotate(45deg) skew(12deg, 12deg);
+  border-radius: 0 0 0 6px;
+}
+.quiz-carte.juste { border-color: #2e9e5b; }
+.quiz-carte.faux { border-color: var(--velours); }
+.quiz-carte.juste::before { border-color: #2e9e5b; }
+.quiz-carte.faux::before { border-color: var(--velours); }
+
+.quiz-entete { display: flex; justify-content: space-between; align-items: center; gap: .8rem; margin-bottom: .9rem; }
+.quiz-categorie { padding: .1rem .85rem; font: 700 .8rem var(--texte); letter-spacing: .05em; border: 2px solid var(--encre); border-radius: 999px; background: var(--or); }
+.quiz-categorie.cat-glossaire { background: var(--bleu); }
+.quiz-categorie.cat-superstition { background: #c9a0f0; }
+.quiz-score { font: 700 .9rem var(--texte); color: var(--violet); }
+.quiz-question { font: 400 clamp(1.3rem, 3vw, 1.75rem)/1.3 var(--titre); color: var(--violet); margin-bottom: 1.2rem; }
+
+.quiz-reponses { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+.quiz-rep {
+  display: grid; grid-template-columns: 34px 1fr; gap: .7rem; align-items: center; text-align: left;
+  padding: .7rem .9rem; font: 600 1rem/1.35 var(--texte); color: var(--encre); cursor: pointer;
+  background: #fff; border: 3px solid rgba(43, 18, 54, .2); border-radius: 14px;
+  transition: transform .2s cubic-bezier(.3, 1.6, .5, 1), border-color .2s, background .3s, opacity .4s, box-shadow .2s;
+}
+.quiz-rep:hover { transform: translateY(-3px); border-color: var(--violet); box-shadow: 0 8px 0 rgba(106, 23, 163, .18); }
+.quiz-lettre { width: 34px; height: 34px; display: grid; place-items: center; font: 400 1.05rem var(--titre); color: #fff; background: var(--violet); border-radius: 50%; }
+.quiz-rep[aria-disabled="true"] { cursor: default; }
+.quiz-rep[aria-disabled="true"]:hover { transform: none; box-shadow: none; border-color: rgba(43, 18, 54, .2); }
+.quiz-rep.ecarte { opacity: .45; }
+.quiz-rep.juste, .quiz-rep.juste:hover { background: #dcf7e3; border-color: #2e9e5b; animation: pulse-juste .8s; }
+.quiz-rep.juste .quiz-lettre { background: #2e9e5b; }
+.quiz-rep.faux, .quiz-rep.faux:hover { background: #ffe1de; border-color: var(--velours); animation: secoue-quiz .5s; }
+.quiz-rep.faux .quiz-lettre { background: var(--velours); }
+@keyframes pulse-juste { 0% { transform: scale(1); } 40% { transform: scale(1.05); box-shadow: 0 0 26px rgba(46, 158, 91, .6); } 100% { transform: scale(1); } }
+@keyframes secoue-quiz { 0%, 100% { transform: translateX(0); } 20% { transform: translateX(-9px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-6px); } 80% { transform: translateX(4px); } }
+
+/* Apparition d'une nouvelle question */
+.quiz-carte.entre .quiz-question { animation: question-entre .7s cubic-bezier(.2, .9, .3, 1.1); }
+.quiz-carte.entre .quiz-categorie { animation: apparition-icone .6s cubic-bezier(.3, 1.6, .5, 1); }
+.quiz-carte.entre .quiz-rep { animation: rep-entre .55s cubic-bezier(.2, .9, .3, 1.2) backwards; animation-delay: calc(var(--i) * 110ms + .4s); }
+@keyframes question-entre { from { opacity: 0; clip-path: inset(0 0 100% 0); transform: translateY(-14px); } to { opacity: 1; clip-path: inset(0); transform: none; } }
+@keyframes rep-entre { from { opacity: 0; transform: translateX(-30px) scale(.94); } to { opacity: 1; transform: none; } }
+
+/* Explication qui se déroule sous les réponses */
+.quiz-explication { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .6s cubic-bezier(.2, .9, .3, 1); }
+.quiz-explication.ouverte { grid-template-rows: 1fr; }
+.quiz-explication-int { overflow: hidden; min-height: 0; }
+.quiz-verdict { margin: 1.2rem 0 .5rem; padding: .6rem 1rem; font: 700 1.1rem/1.35 var(--texte); border-radius: 12px; }
+.quiz-verdict.ok { color: #14602f; background: #dcf7e3; border: 2px solid #2e9e5b; }
+.quiz-verdict.ko { color: #7c0f08; background: #ffe1de; border: 2px solid var(--velours); }
+.quiz-texte { margin: 0 0 .5rem; font-size: 1rem; line-height: 1.65; }
+.quiz-texte em { color: var(--violet); }
+.quiz-source { margin: 0 0 1rem; font-size: .85rem; opacity: .8; }
+.quiz-suivant { margin-top: .2rem; }
+.quiz-noscript, .quiz-sources { max-width: 62ch; margin: 2rem auto 0; text-align: center; font-size: .85rem; opacity: .8; }
+.acte-quiz .lien-texte { color: var(--bleu); text-decoration-color: var(--rose); }
+.quiz-carte .lien-texte { color: var(--violet); }
+
+@media (max-width: 760px) {
+  .quiz { grid-template-columns: 1fr; gap: 1.2rem; }
+  .quiz-souffleur { width: 110px; margin: 0 auto; }
+  .quiz-carte::before { left: 50%; bottom: auto; top: -22px; margin-left: -17px; transform: rotate(135deg) skew(12deg, 12deg); }
+  .quiz-reponses { grid-template-columns: 1fr; }
+  .quiz-carte { padding: 1.2rem 1.1rem 1.4rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .yeux, .pupille { animation: none; }
 }
