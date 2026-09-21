@@ -892,4 +892,47 @@
       applaudir(r.left + r.width / 2, r.top + r.height / 2);
     });
   });
+
+  /* ---------- Règle des trois unités : carnet à feuilleter ---------- */
+  const carnet = $('[data-carnet]');
+  if (carnet) {
+    const pages = $$('.carnet-page', carnet);
+    const puces = $$('.carnet-puce', carnet);
+    const btnPrec = $('[data-carnet-precedent]', carnet);
+    const btnSuiv = $('[data-carnet-suivant]', carnet);
+    let indexCarnet = 0;
+
+    const afficherPage = (nouvelIndex) => {
+      indexCarnet = (nouvelIndex + pages.length) % pages.length;
+      pages.forEach((page, i) => {
+        page.classList.toggle('tournee', i < indexCarnet);
+        page.classList.toggle('actif', i === indexCarnet);
+      });
+      puces.forEach((puce, i) => {
+        puce.classList.toggle('actif', i === indexCarnet);
+        puce.setAttribute('aria-selected', String(i === indexCarnet));
+      });
+    };
+
+    btnPrec.addEventListener('click', () => afficherPage(indexCarnet - 1));
+    btnSuiv.addEventListener('click', () => afficherPage(indexCarnet + 1));
+    puces.forEach((puce, i) => puce.addEventListener('click', () => afficherPage(i)));
+    pages.forEach((page) => page.addEventListener('click', () => afficherPage(indexCarnet + 1)));
+
+    carnet.setAttribute('tabindex', '0');
+    carnet.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') afficherPage(indexCarnet + 1);
+      else if (e.key === 'ArrowLeft') afficherPage(indexCarnet - 1);
+    });
+
+    // Glisser au doigt pour tourner la page, comme un vrai carnet
+    let xDepart = null;
+    carnet.addEventListener('touchstart', (e) => { xDepart = e.touches[0].clientX; }, { passive: true });
+    carnet.addEventListener('touchend', (e) => {
+      if (xDepart === null) return;
+      const delta = e.changedTouches[0].clientX - xDepart;
+      if (Math.abs(delta) > 40) afficherPage(indexCarnet + (delta < 0 ? 1 : -1));
+      xDepart = null;
+    });
+  }
 })();
