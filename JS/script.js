@@ -892,4 +892,46 @@
       applaudir(r.left + r.width / 2, r.top + r.height / 2);
     });
   });
+  // Règle des trois unités : livre à feuilleter.
+  const livreUnites = document.querySelector('.unites-livre');
+  if (livreUnites) {
+    const pages = [...livreUnites.querySelectorAll('.unite-page')];
+    const precedent = livreUnites.querySelector('.unite-prec');
+    const suivant = livreUnites.querySelector('.unite-suiv');
+    let pageCourante = 0;
+    let anime = false;
+
+    const afficherPageUnite = (index, direction = 'next') => {
+      if (anime || index === pageCourante || index < 0 || index >= pages.length) return;
+      anime = true;
+      const ancienne = pages[pageCourante];
+      const nouvelle = pages[index];
+      ancienne.classList.remove('active');
+      ancienne.classList.add(direction === 'next' ? 'tourne-next' : 'tourne-prev');
+      nouvelle.classList.remove('tourne-next', 'tourne-prev');
+      nouvelle.classList.add('active');
+      pages.forEach((p, i) => p.setAttribute('aria-hidden', i === index ? 'false' : 'true'));
+      pageCourante = index;
+
+      setTimeout(() => {
+        ancienne.classList.remove('tourne-next', 'tourne-prev');
+        anime = false;
+      }, 600);
+    };
+
+    const tourner = (pas) => {
+      let cible = pageCourante + pas;
+      if (cible < 0) cible = pages.length - 1;
+      if (cible >= pages.length) cible = 0;
+      afficherPageUnite(cible, pas > 0 ? 'next' : 'prev');
+    };
+
+    precedent.addEventListener('click', () => tourner(-1));
+    suivant.addEventListener('click', () => tourner(1));
+    livreUnites.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); tourner(1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); tourner(-1); }
+    });
+  }
+
 })();
