@@ -498,9 +498,8 @@
     majFrise();
   }
 
-  /* ---------- Signification du logo : le projecteur explore le logo ---------- */
-  const grilleLogo = $('.logo-grille');
-  if (grilleLogo) {
+  /* ---------- Signification du logo / du drapeau : le projecteur explore l'image ---------- */
+  $$('.logo-grille').forEach((grilleLogo) => {
     const vue = $('.logo-vue', grilleLogo);
     const elements = $$('.element', grilleLogo);
     const reperes = $$('[data-cible]', vue);
@@ -566,7 +565,7 @@
         activer(elements[indexAuto].dataset.cible);
       }, 2600);
     }
-  }
+  });
 
   /* ---------- Quiz du souffleur ---------- */
   // Pour ajouter une question : copier un bloc { ... } et le coller dans la liste.
