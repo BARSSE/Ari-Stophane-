@@ -893,46 +893,76 @@
     });
   });
 
-  /* ---------- Règle des trois unités : carnet à feuilleter ---------- */
-  const carnet = $('[data-carnet]');
-  if (carnet) {
-    const pages = $$('.carnet-page', carnet);
-    const puces = $$('.carnet-puce', carnet);
-    const btnPrec = $('[data-carnet-precedent]', carnet);
-    const btnSuiv = $('[data-carnet-suivant]', carnet);
-    let indexCarnet = 0;
+  /* ---------- Règle des trois unités : le personnage arrive, s'assoit et montre son panneau ---------- */
+  const sceneRegle = $('[data-scene-regle]');
+  if (sceneRegle) {
+    const hote = $('.personnage-hote', sceneRegle);
 
-    const afficherPage = (nouvelIndex) => {
-      indexCarnet = (nouvelIndex + pages.length) % pages.length;
-      pages.forEach((page, i) => {
-        page.classList.toggle('tournee', i < indexCarnet);
-        page.classList.toggle('actif', i === indexCarnet);
-      });
+    const sAsseoir = () => { sceneRegle.classList.remove('marche'); sceneRegle.classList.add('assise'); };
+
+    const demarrerMarche = () => {
+      if (reduit || !hote) { sceneRegle.classList.add('assise'); return; }
+      sceneRegle.classList.remove('assise');
+      sceneRegle.classList.add('marche');
+      const surFinArrivee = (e) => {
+        if (e.target !== hote || e.animationName !== 'marche-arrivee') return;
+        hote.removeEventListener('animationend', surFinArrivee);
+        sAsseoir();
+      };
+      hote.addEventListener('animationend', surFinArrivee);
+    };
+
+    if (reduit || !('IntersectionObserver' in window)) {
+      sceneRegle.classList.add('assise');
+    } else {
+      let dejaJoue = false;
+      let sortie = false;
+      new IntersectionObserver((entrees) => {
+        const en = entrees[0];
+        if (!en.isIntersecting) { if (dejaJoue) sortie = true; return; }
+        if (en.intersectionRatio >= 0.5 && (!dejaJoue || sortie)) {
+          dejaJoue = true; sortie = false; demarrerMarche();
+        }
+      }, { threshold: [0, 0.5] }).observe(sceneRegle);
+    }
+
+    // Panneau des trois unités : flèches, puces, ou glisser (souris / doigt)
+    const pages = $$('.pancarte-page', sceneRegle);
+    const puces = $$('.carnet-puce', sceneRegle.parentElement);
+    const btnPrec = $('[data-carnet-precedent]', sceneRegle.parentElement);
+    const btnSuiv = $('[data-carnet-suivant]', sceneRegle.parentElement);
+    let indexPanneau = 0;
+
+    const afficherMot = (nouvelIndex) => {
+      indexPanneau = (nouvelIndex + pages.length) % pages.length;
+      pages.forEach((page, i) => page.classList.toggle('tournee', i < indexPanneau));
       puces.forEach((puce, i) => {
-        puce.classList.toggle('actif', i === indexCarnet);
-        puce.setAttribute('aria-selected', String(i === indexCarnet));
+        puce.classList.toggle('actif', i === indexPanneau);
+        puce.setAttribute('aria-selected', String(i === indexPanneau));
       });
     };
 
-    btnPrec.addEventListener('click', () => afficherPage(indexCarnet - 1));
-    btnSuiv.addEventListener('click', () => afficherPage(indexCarnet + 1));
-    puces.forEach((puce, i) => puce.addEventListener('click', () => afficherPage(i)));
-    pages.forEach((page) => page.addEventListener('click', () => afficherPage(indexCarnet + 1)));
+    if (btnPrec) btnPrec.addEventListener('click', () => afficherMot(indexPanneau - 1));
+    if (btnSuiv) btnSuiv.addEventListener('click', () => afficherMot(indexPanneau + 1));
+    puces.forEach((puce, i) => puce.addEventListener('click', () => afficherMot(i)));
 
-    carnet.setAttribute('tabindex', '0');
-    carnet.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') afficherPage(indexCarnet + 1);
-      else if (e.key === 'ArrowLeft') afficherPage(indexCarnet - 1);
-    });
+    const pancarte = $('.pancarte', sceneRegle);
+    if (pancarte) {
+      pancarte.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') afficherMot(indexPanneau + 1);
+        else if (e.key === 'ArrowLeft') afficherMot(indexPanneau - 1);
+      });
 
-    // Glisser au doigt pour tourner la page, comme un vrai carnet
-    let xDepart = null;
-    carnet.addEventListener('touchstart', (e) => { xDepart = e.touches[0].clientX; }, { passive: true });
-    carnet.addEventListener('touchend', (e) => {
-      if (xDepart === null) return;
-      const delta = e.changedTouches[0].clientX - xDepart;
-      if (Math.abs(delta) > 40) afficherPage(indexCarnet + (delta < 0 ? 1 : -1));
-      xDepart = null;
-    });
+      // Glisser au curseur ou au doigt pour retourner le panneau
+      let xDepart = null;
+      pancarte.addEventListener('pointerdown', (e) => { xDepart = e.clientX; });
+      pancarte.addEventListener('pointerup', (e) => {
+        if (xDepart === null) return;
+        const delta = e.clientX - xDepart;
+        if (Math.abs(delta) > 34) afficherMot(indexPanneau + (delta < 0 ? 1 : -1));
+        xDepart = null;
+      });
+      pancarte.addEventListener('pointercancel', () => { xDepart = null; });
+    }
   }
 })();
