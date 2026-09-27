@@ -336,70 +336,99 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .loge:hover .loge-icone svg { animation: secoue .6s; }
 @keyframes secoue { 25% { transform: rotate(-14deg); } 75% { transform: rotate(14deg); } }
 
-/* ---------- Règle des trois unités : carnet à feuilleter ---------- */
+/* ---------- Règle des trois unités : un personnage qui vient s'asseoir ---------- */
 .regle-unites { margin-top: 3rem; text-align: center; }
-.regle-intro { font: 400 clamp(1.2rem, 2.6vw, 1.5rem) var(--texte); font-style: italic; color: var(--bleu); margin: 0 0 1.6rem; }
 
-.carnet-regle {
-  --bascule: .85s;
+.scene-regle {
   position: relative;
-  max-width: 480px;
+  width: min(420px, 100%);
+  aspect-ratio: 9 / 8;
   margin: 0 auto;
-  transform: rotate(-1.2deg);
-}
-.carnet-regle::before,
-.carnet-regle::after {
-  content: ""; position: absolute; inset: 0;
-  background: var(--papier); border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, .35);
-}
-.carnet-regle::before { transform: rotate(2.5deg) translateY(3px); z-index: -1; }
-.carnet-regle::after { transform: rotate(-1.6deg) translateY(1px); z-index: -1; }
-
-.carnet-pages {
-  position: relative;
-  height: 220px;
-  border-radius: 10px;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, .45);
-  perspective: 1800px;
+  overflow: hidden;
+  border-radius: 18px;
+  background: radial-gradient(ellipse at 50% 100%, var(--nuit-2) 0%, var(--nuit) 72%);
+  box-shadow: inset 0 0 0 1px rgba(143, 227, 255, .14);
 }
 
-.carnet-page {
+.personnage-hote {
+  position: absolute; left: 50%; bottom: 3%; width: 48%;
+  transform: translate(calc(-50% - 340px), 0);
+}
+.personnage-hote svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+@keyframes marche-arrivee { to { transform: translate(-50%, 0); } }
+.scene-regle.marche .personnage-hote { animation: marche-arrivee 2.4s cubic-bezier(.4, 0, .2, 1) forwards; }
+.scene-regle.assise .personnage-hote { transform: translate(-50%, 0); animation: none; }
+
+@keyframes balance-jambe-g { from { transform: rotate(-16deg); } to { transform: rotate(16deg); } }
+@keyframes balance-jambe-d { from { transform: rotate(16deg); } to { transform: rotate(-16deg); } }
+@keyframes rebond-marche { from { transform: translateY(0); } to { transform: translateY(-3px); } }
+.jambe-g, .jambe-d, .bras-g, .bras-d { transform-box: fill-box; transform-origin: 50% 0%; }
+.scene-regle.marche .jambe-g { animation: balance-jambe-g .42s ease-in-out infinite alternate; }
+.scene-regle.marche .jambe-d { animation: balance-jambe-d .42s ease-in-out infinite alternate; }
+.scene-regle.marche .bras-g { animation: balance-jambe-d .42s ease-in-out infinite alternate; }
+.scene-regle.marche .bras-d { animation: balance-jambe-g .42s ease-in-out infinite alternate; }
+.scene-regle.marche .personnage { animation: rebond-marche .21s ease-in-out infinite alternate; }
+
+.jambes-assises, .bras-assis { opacity: 0; transition: opacity .5s ease; }
+.jambes-marche, .bras-marche { opacity: 1; transition: opacity .35s ease; }
+.scene-regle.assise .jambes-assises, .scene-regle.assise .bras-assis { opacity: 1; }
+.scene-regle.assise .jambes-marche, .scene-regle.assise .bras-marche { opacity: 0; }
+
+@keyframes balance-cravate { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+.cravate { transform-box: fill-box; transform-origin: 50% 0%; animation: balance-cravate 2.3s ease-in-out infinite; }
+.scene-regle.marche .cravate { animation-duration: .48s; }
+
+@keyframes balance-poof { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(6deg); } }
+.poof { transform-box: fill-box; transform-origin: 50% 100%; animation: balance-poof 2.6s ease-in-out infinite; }
+.scene-regle.marche .poof { animation-duration: .5s; }
+
+.bulle-personnage {
+  position: absolute; top: 3%; right: 3%; max-width: 56%; z-index: 4;
+  background: var(--papier); color: var(--encre); border: 2px solid var(--encre);
+  border-radius: 14px; padding: .55rem .8rem;
+  font: italic 400 .88rem/1.35 var(--texte);
+  opacity: 0; transform: translateY(8px);
+  transition: opacity .5s ease .6s, transform .5s ease .6s;
+}
+.bulle-personnage::after {
+  content: ""; position: absolute; left: 20%; bottom: -9px; width: 14px; height: 14px;
+  background: var(--papier); border-right: 2px solid var(--encre); border-bottom: 2px solid var(--encre);
+  transform: rotate(45deg);
+}
+.scene-regle.assise .bulle-personnage { opacity: 1; transform: none; }
+
+.pancarte {
+  --bascule: .8s;
+  position: absolute; left: 50%; bottom: 14%; width: 38%; transform: translateX(-50%);
+  opacity: 0; pointer-events: none; transition: opacity .5s ease .5s;
+}
+.scene-regle.assise .pancarte { opacity: 1; pointer-events: auto; }
+.pancarte::after {
+  content: ""; position: absolute; left: 26%; right: 26%; bottom: -14%; height: 16%;
+  background: #8a5a2b; z-index: -1; border-radius: 3px;
+}
+.pancarte-pages { position: relative; aspect-ratio: 4 / 3; perspective: 1400px; }
+.pancarte-page {
   position: absolute; inset: 0;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: .3rem;
-  padding: 1.5rem 2.2rem 1.5rem 3.2rem;
-  color: var(--encre);
-  border-radius: 10px;
-  background:
-    linear-gradient(90deg, transparent 42px, rgba(196, 22, 12, .35) 42px, rgba(196, 22, 12, .35) 44px, transparent 44px),
-    repeating-linear-gradient(rgba(43, 18, 54, 0) 0, rgba(43, 18, 54, 0) 37px, rgba(106, 23, 163, .16) 38px),
-    var(--papier);
-  box-shadow: inset 0 0 0 1px rgba(43, 18, 54, .12);
-  backface-visibility: hidden;
-  transform-origin: left center;
-  transform: rotateY(0deg);
-  transition: transform var(--bascule) cubic-bezier(.62, .04, .26, 1), box-shadow var(--bascule);
-  cursor: pointer;
+  gap: .1rem; padding: .5rem .6rem; text-align: center; border-radius: 8px;
+  background: linear-gradient(#fffdf7, #fdf3e3); color: var(--encre);
+  border: 3px solid var(--encre); box-shadow: inset 0 0 0 1px rgba(43, 18, 54, .12);
+  backface-visibility: hidden; transform-origin: left center; transform: rotateY(0deg);
+  transition: transform var(--bascule) cubic-bezier(.62, .04, .26, 1);
+  cursor: grab; touch-action: pan-y;
 }
-.carnet-page:nth-child(1) { z-index: 3; }
-.carnet-page:nth-child(2) { z-index: 2; }
-.carnet-page:nth-child(3) { z-index: 1; }
-.carnet-page.tournee {
-  transform: rotateY(-172deg);
-  box-shadow: inset 0 0 0 1px rgba(43, 18, 54, .12), 30px 0 40px -20px rgba(0, 0, 0, .5);
-}
+.pancarte-page:active { cursor: grabbing; }
+.pancarte:focus-visible { outline: 3px solid var(--or); outline-offset: 5px; border-radius: 10px; }
+.pancarte-page:nth-child(1) { z-index: 3; }
+.pancarte-page:nth-child(2) { z-index: 2; }
+.pancarte-page:nth-child(3) { z-index: 1; }
+.pancarte-page.tournee { transform: rotateY(-172deg); }
+.pancarte-mot { font-family: var(--calligraphie); font-size: clamp(1.4rem, 6vw, 2rem); line-height: 1; color: var(--velours); }
+.pancarte-texte { margin: 0; font-size: clamp(.68rem, 2.2vw, .82rem); font-style: italic; line-height: 1.3; max-width: 22ch; }
 
-.carnet-mot {
-  font-family: var(--calligraphie);
-  font-size: clamp(2.6rem, 8vw, 3.6rem);
-  line-height: 1;
-  color: var(--velours);
-  text-shadow: 1px 1px 0 rgba(43, 18, 54, .15);
-}
-.carnet-texte { margin: 0; max-width: 30ch; font-size: 1rem; font-style: italic; line-height: 1.5; }
-
-.carnet-controles { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1.3rem; }
+.regle-controles { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-top: 1.3rem; }
 .carnet-fleche {
   display: grid; place-items: center; width: 40px; height: 40px; padding: 0;
   border-radius: 50%; border: 2px solid var(--or); background: transparent; color: var(--or);
@@ -413,14 +442,18 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   background: transparent; cursor: pointer; transition: background .2s, transform .2s;
 }
 .carnet-puce.actif { background: var(--or); transform: scale(1.2); }
+.regle-astuce { margin: .7rem 0 0; font-size: .9rem; font-style: italic; color: var(--bleu); }
 
-@media (max-width: 560px) {
-  .carnet-pages { height: 260px; }
-  .carnet-page { padding: 1.3rem 1.4rem 1.3rem 2.4rem; }
-}
 @media (prefers-reduced-motion: reduce) {
-  .carnet-page { transition: opacity .25s; }
-  .carnet-page.tournee { transform: none; opacity: 0; pointer-events: none; }
+  .personnage-hote, .jambe-g, .jambe-d, .bras-g, .bras-d, .personnage, .cravate, .poof {
+    animation: none !important;
+  }
+  .scene-regle .personnage-hote { transform: translate(-50%, 0); }
+  .scene-regle .bulle-personnage, .scene-regle .pancarte { opacity: 1; transform: none; pointer-events: auto; transition: none; }
+  .scene-regle .jambes-assises, .scene-regle .bras-assis { opacity: 1; }
+  .scene-regle .jambes-marche, .scene-regle .bras-marche { opacity: 0; }
+  .pancarte-page { transition: opacity .25s; }
+  .pancarte-page.tournee { transform: none; opacity: 0; pointer-events: none; }
 }
 
 /* ---------- Pièces : billets de théâtre ---------- */
