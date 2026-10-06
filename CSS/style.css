@@ -683,6 +683,22 @@ dialog[open]::backdrop { animation: fondu .4s; }
 .lecteur-corps p b { color: var(--velours); letter-spacing: .02em; }
 .lecteur-corps .didascalie { font-style: italic; opacity: .75; padding-left: 1rem; border-left: 3px solid var(--rose); }
 
+/* =====================================================
+   POPUP DE NOTE (étoiles de « Donnez votre avis »)
+   Réutilise le style de la fenêtre de lecture (dialog, .lecteur-tete, .lecteur-fermer)
+   ===================================================== */
+#avis-popup { width: min(520px, 92vw); }
+.avis-popup-corps { padding: 1.6rem 1.8rem 1.9rem; font-size: 1.08rem; text-align: center; }
+.avis-popup-corps p { margin: 0 0 1.5rem; }
+.avis-popup-nombre { color: var(--velours); white-space: nowrap; }
+.avis-popup-etoiles { display: flex; justify-content: center; gap: .3rem; margin-bottom: 1.1rem; min-height: 38px; }
+.avis-popup-etoiles svg { width: 38px; height: 38px; filter: drop-shadow(0 2px 0 var(--or-fonce)); animation: perso-pop .5s cubic-bezier(.3, 1.6, .5, 1) backwards; animation-delay: calc(var(--i) * 90ms + 300ms); }
+.avis-popup-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .9rem 1rem; }
+@media (max-width: 600px) {
+  .avis-popup-corps { padding: 1.3rem 1.2rem 1.6rem; }
+  .avis-popup-actions .bouton { flex: 1 1 100%; }
+}
+
 /* Confettis */
 .applaudissements { position: fixed; inset: 0; z-index: 300; pointer-events: none; overflow: hidden; }
 .confetti { position: absolute; display: block; }
