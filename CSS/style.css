@@ -1484,3 +1484,31 @@ dialog[open] .fiche-chips li { animation: perso-pop .5s cubic-bezier(.3, 1.6, .5
 @media (prefers-reduced-motion: reduce) {
   .yeux, .pupille { animation: none; }
 }
+
+/* ---------- Page jeux ---------- */
+.acte-jeux-haut { background: radial-gradient(ellipse 60% 70% at 50% 30%, rgba(196, 22, 12, .35), transparent 70%), linear-gradient(180deg, var(--nuit) 0%, var(--nuit-2) 100%); padding-top: calc(var(--hauteur-nav) + 3rem); }
+.chips-jeux { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; max-width: 900px; margin: 0 auto; }
+.chip-jeu { display: block; padding: .3rem 1rem; color: var(--or); font-weight: 600; font-size: .95rem; text-decoration: none; border: 2px solid var(--or); border-radius: 999px; transition: background .2s, color .2s, transform .2s; }
+.chip-jeu:hover { background: var(--or); color: var(--nuit); transform: translateY(-2px); }
+.acte-jeu { border-top: 6px solid var(--or); background: linear-gradient(180deg, var(--nuit-2), var(--nuit)); }
+.acte-jeu:nth-of-type(even) { background: linear-gradient(180deg, #3b0d2e, var(--nuit)); border-top-color: var(--rose); }
+.jeu { max-width: 760px; margin: 0 auto; }
+.jeu-carte::before { display: none; }
+.jeu-indices { margin: 0 0 1.2rem; padding-left: 1.2rem; list-style: disc; }
+.jeu-indices li { margin-bottom: .3rem; }
+.jeu-ordre { display: grid; gap: .7rem; margin-bottom: 1rem; }
+.jeu-ligne { display: block; text-align: left; }
+.jeu-ligne strong { color: #2e9e5b; }
+.jeu-mot { font: 400 clamp(1.5rem, 5vw, 2.2rem) var(--titre); letter-spacing: .1em; color: var(--violet); text-align: center; word-break: break-all; }
+.jeu-clavier { display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem; margin-bottom: 1rem; }
+.jeu-touche { width: 2.4rem; height: 2.4rem; font: 700 1rem var(--texte); cursor: pointer; color: var(--encre); background: #fff; border: 3px solid rgba(43, 18, 54, .25); border-radius: 10px; }
+.jeu-touche:hover:not(:disabled) { border-color: var(--violet); }
+.jeu-touche:disabled { cursor: default; opacity: .6; }
+.jeu-touche.juste { background: #dcf7e3; border-color: #2e9e5b; opacity: 1; }
+.jeu-touche.faux { background: #ffe1de; border-color: var(--velours); }
+.jeu-choix { display: block; margin-bottom: .8rem; font-weight: 700; }
+.jeu-choix select { width: 100%; margin-top: .3rem; padding: .6rem; font: 600 1rem var(--texte); color: var(--encre); background: #fff; border: 3px solid rgba(43, 18, 54, .25); border-radius: 12px; }
+.jeu-recit { font-size: 1.15rem; margin-bottom: 1.2rem; }
+.jeu-roues { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; margin-bottom: 1.2rem; }
+.jeu-roue { display: grid; place-items: center; min-height: 6.5rem; padding: .6rem; text-align: center; font: 700 1.05rem/1.3 var(--texte); color: var(--encre); background: #fff; border: 3px solid var(--violet); border-radius: 14px; }
+@media (max-width: 600px) { .jeu-roues { grid-template-columns: 1fr; } .jeu-roue { min-height: 3.5rem; } }
