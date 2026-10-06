@@ -892,6 +892,43 @@
     });
   });
 
+  /* ---------- Popup de note : clic sur une étoile de « Donnez votre avis » ---------- */
+  const avisPopup = $('#avis-popup');
+  const etoilesNote = $$('.etoile-btn[data-note]');
+  if (avisPopup && etoilesNote.length) {
+    const nombre = $('.avis-popup-nombre', avisPopup);
+    const rangee = $('.avis-popup-etoiles', avisPopup);
+    const formulaire = $('[data-avis-oui]', avisPopup);
+    let attente = null;
+
+    const ouvrirPopup = (note) => {
+      nombre.textContent = note + (note > 1 ? ' étoiles' : ' étoile');
+      rangee.innerHTML = '';
+      for (let i = 0; i < note; i++) {
+        rangee.insertAdjacentHTML('beforeend', '<svg viewBox="0 0 100 100" style="--i:' + i + '"><path d="M50 4 L62 36 L96 38 L69 59 L79 93 L50 73 L21 93 L31 59 L4 38 L38 36Z" fill="#ffcf5a" stroke="#b8860b" stroke-width="4" stroke-linejoin="round"/></svg>');
+      }
+      if (typeof avisPopup.showModal !== 'function') { window.open(formulaire.href, '_blank', 'noopener'); return; }
+      if (!avisPopup.open) {
+        document.documentElement.classList.add('lecture');
+        avisPopup.showModal();
+      }
+    };
+
+    etoilesNote.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const note = parseInt(btn.dataset.note, 10);
+        clearTimeout(attente);
+        // Petit délai pour laisser la pluie d'étoiles s'afficher avant la fenêtre
+        attente = setTimeout(() => ouvrirPopup(note), reduit ? 0 : 550);
+      });
+    });
+
+    $$('[data-avis-non]', avisPopup).forEach((b) => b.addEventListener('click', () => avisPopup.close()));
+    formulaire.addEventListener('click', () => avisPopup.close());
+    avisPopup.addEventListener('click', (e) => { if (e.target === avisPopup) avisPopup.close(); });
+    avisPopup.addEventListener('close', () => document.documentElement.classList.remove('lecture'));
+  }
+
   /* ---------- Règle des trois unités : carnet à feuilleter ---------- */
   const carnet = $('[data-carnet]');
   if (carnet) {
