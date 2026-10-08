@@ -972,3 +972,11 @@
     });
   }
 })();
+
+/* Apparition en douceur des sections « avis » */
+(() => {
+  const zones = document.querySelectorAll('[data-apparait]');
+  if (!('IntersectionObserver' in window)) { zones.forEach((z) => z.classList.add('visible')); return; }
+  const o = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); o.unobserve(e.target); } }), { threshold: .25 });
+  zones.forEach((z) => o.observe(z));
+})();
