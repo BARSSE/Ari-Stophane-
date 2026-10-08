@@ -973,10 +973,12 @@
   }
 })();
 
-/* Apparition en douceur des sections « avis » */
+/* Apparition en douceur des sections « avis » (le texte reste visible si ça échoue) */
 (() => {
   const zones = document.querySelectorAll('[data-apparait]');
-  if (!('IntersectionObserver' in window)) { zones.forEach((z) => z.classList.add('visible')); return; }
-  const o = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('visible'); o.unobserve(e.target); } }), { threshold: .25 });
-  zones.forEach((z) => o.observe(z));
+  if (!zones.length || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const montrer = (z) => z.classList.add('visible');
+  const o = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { montrer(e.target); o.unobserve(e.target); } }), { threshold: .1 });
+  document.documentElement.classList.add('apparait-pret');
+  zones.forEach((z) => { o.observe(z); setTimeout(() => { if (z.getBoundingClientRect().top < innerHeight) montrer(z); }, 1500); });
 })();

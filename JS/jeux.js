@@ -99,7 +99,7 @@
   const MOTS = [['RIDEAU', 'Grande toile qui s\'ouvre et se ferme sur la scène.'], ['DIDASCALIE', 'Indication de l\'auteur écrite dans le texte, mais jamais prononcée.'], ['CABOTIN', 'Comédien qui en fait trop, ou pire, qui cherche juste à se faire remarquer.'], ['COULISSES', 'L\'envers du décor, là où l\'on se cache avant d\'entrer.'], ['TIRADE', 'Longue réplique qui laisse peu de place aux autres.'], ['SOUFFLEUR', 'Il glisse le texte à voix basse, caché dans sa coquille.'], ['MONOLOGUE', 'Un personnage parle seul, souvent à voix haute.'], ['ENTRACTE', 'Pause entre deux actes : les spectateurs vont chercher des glaces.']];
   const mot = (rac) => {
     const manche = () => {
-      const [m, ind] = tire(MOTS); const { c } = carte(rac, 'Mot mystère'); let err = 0; const trouvees = new Set(), jouees = new Set(); const MAX = 11;
+      const [m, ind] = tire(MOTS); const { c } = carte(rac, 'Mot mystère'); let err = 0; const trouvees = new Set(), jouees = new Set(); const MAX = 7;
       c.append(el('p', 'quiz-texte', 'Indice : ' + ind));
       const aff = el('p', 'jeu-mot'); aff.setAttribute('aria-live', 'polite'); const vies = el('p', 'quiz-score'); c.append(aff, vies);
       const clavier = el('div', 'jeu-clavier'); c.append(clavier);
