@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Rye&family=Alex+Brush&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="CSS/style.css?v=5">
-  <script src="JS/script.js?v=5" defer></script>
+  <link rel="stylesheet" href="style.css?v=7">
+  <script src="script.js?v=7" defer></script>
 </head>
 <body>
 
@@ -41,7 +41,7 @@
   <!-- ============ NAVIGATION ============ -->
   <header class="nav" id="haut">
     <a class="marque" href="#accueil" aria-label="Ari Stophane, retour à l'accueil">
-      <img src="images/logo.png" width="44" height="44" alt="">
+      <img src="images/logo-144.webp" width="44" height="44" alt="">
       <span>Ari Stophane</span>
     </a>
     <button class="menu-bouton" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
@@ -91,7 +91,7 @@
         <div class="logo-suspendu">
           <span class="corde corde-g" aria-hidden="true"></span>
           <span class="corde corde-d" aria-hidden="true"></span>
-          <img class="logo-hero" src="images/logo.png" width="320" height="320"
+          <img class="logo-hero" fetchpriority="high" src="images/logo.webp" width="320" height="320"
                alt="Logo d'Ari Stophane : les initiales A et S entre les masques de la comédie et de la tragédie">
         </div>
         <h1 id="titre-site" class="entre d3">Ari Stophane</h1>
@@ -208,6 +208,10 @@
             <p class="saviez-date">21 octobre 1680</p>
             <p class="saviez-compteur">Il y a <strong data-annees-depuis="1680-10-21">346</strong> ans</p>
             <p>Ce jour-là, le roi Louis XIV signait l'ordonnance qui donnait naissance à la Comédie-Française. C'est aujourd'hui la plus ancienne troupe de théâtre permanente encore en activité dans le monde.</p>
+            <figure class="saviez-photo">
+              <div class="saviez-photo-cadre"><img loading="lazy" decoding="async" src="images/salle-richelieu.webp" width="720" height="720" alt="Façade en pierre claire de la salle Richelieu, à Paris, avec ses colonnes au rez-de-chaussée et ses bannières rouges « Comédie-Française »"></div>
+              <figcaption>Façade de la salle Richelieu, salle historique.</figcaption>
+            </figure>
             <ul class="saviez-chiffres">
               <li><strong data-compte="60">60</strong><span>comédiens environ</span></li>
               <li><strong>Plusieurs milliers</strong><span>d'œuvres au répertoire historique</span></li>
@@ -369,7 +373,7 @@
           </div>
 
           <!-- Pour ajouter une vraie photo (ex. la pièce jouée en troisième) :
-               remplacez le <svg> ci-dessous par <img src="images/ma-photo.jpg" alt="Description de la photo"> -->
+               remplacez le <svg> ci-dessous par <img loading="lazy" decoding="async" src="images/ma-photo.jpg" alt="Description de la photo"> -->
           <figure class="illustration" data-rev="illustration">
             <svg class="theatre" viewBox="0 0 440 320" role="img" aria-label="Théâtre antique grec au coucher du soleil, avec deux masques de théâtre">
   <defs>
@@ -742,7 +746,7 @@
         <div class="logo-grille">
           <div class="logo-colonne">
             <div class="logo-vue">
-              <img src="images/logo.png" width="640" height="640" alt="Logo d'Ari Stophane">
+              <img loading="lazy" decoding="async" src="images/logo.webp" width="640" height="640" alt="Logo d'Ari Stophane">
               <svg class="reperes" viewBox="0 0 640 640" aria-hidden="true">
                 <defs>
                   <ellipse id="f-violet" cx="240" cy="303" rx="112" ry="100"/>
@@ -817,28 +821,28 @@
             <h3 class="titre-colonne">Les symboles</h3>
             <ul class="elements">
             <li class="element" data-cible="plume" data-rev="element" style="--c:#f47fa9">
-              <img class="vignette" src="images/logo-plume.png" width="64" height="64" alt="">
+              <img loading="lazy" decoding="async" class="vignette" src="images/logo-plume.png" width="64" height="64" alt="">
               <div>
                 <h4>La main qui écrit</h4>
                 <p>Elle rappelle que je suis à la fois dramaturge et écrivaine.</p>
               </div>
             </li>
             <li class="element" data-cible="etoile" data-rev="element" style="--c:#ffcf5a">
-              <img class="vignette" src="images/logo-etoile.png" width="64" height="64" alt="">
+              <img loading="lazy" decoding="async" class="vignette" src="images/logo-etoile.png" width="64" height="64" alt="">
               <div>
                 <h4>L'étoile</h4>
                 <p>Elle annonce l'apparition d'un nouvel astre dans le ciel littéraire : une voix pas encore connue, mais qui commence à briller. Une jolie métaphore pour raconter mes débuts.</p>
               </div>
             </li>
             <li class="element" data-cible="poignee" data-rev="element" style="--c:#ff8a5c">
-              <img class="vignette" src="images/logo-poignee.png" width="64" height="64" alt="">
+              <img loading="lazy" decoding="async" class="vignette" src="images/logo-poignee.png" width="64" height="64" alt="">
               <div>
                 <h4>Les deux mains qui se serrent</h4>
                 <p>Elles illustrent le pacte de relation, de confiance et de dialogue que je noue avec mon public, les personnes qui lisent mes histoires.</p>
               </div>
             </li>
             <li class="element" data-cible="masques" data-rev="element" style="--c:#8fe3ff">
-              <img class="vignette" src="images/logo-masques.png" width="64" height="64" alt="">
+              <img loading="lazy" decoding="async" class="vignette" src="images/logo-masques.png" width="64" height="64" alt="">
               <div>
                 <h4>Les deux masques</h4>
                 <p>Celui de la comédie et celui de la tragédie sont l'emblème de l'art dramatique.</p>
@@ -860,7 +864,7 @@
         <div class="logo-grille">
           <div class="logo-colonne">
             <div class="logo-vue">
-              <img src="images/drapeau.jpg" width="900" height="900" alt="Drapeau d'Ari Stophane : trois bandes rose, violette et bleue, avec un masque doré souriant et un masque argenté larmoyant, ainsi que deux drapeaux croisés, l'un rouge à la colombe blanche, l'autre blanc à trois mains qui se tiennent.">
+              <img loading="lazy" decoding="async" src="images/drapeau.webp" width="900" height="900" alt="Drapeau d'Ari Stophane : trois bandes rose, violette et bleue, avec un masque doré souriant et un masque argenté larmoyant, ainsi que deux drapeaux croisés, l'un rouge à la colombe blanche, l'autre blanc à trois mains qui se tiennent.">
               <svg class="reperes" viewBox="0 0 1024 1024" aria-hidden="true">
                 <defs>
                   <rect id="fd-rose" x="75" y="75" width="293" height="870" rx="10"/>
@@ -941,21 +945,21 @@
             <h3 class="titre-colonne">Les symboles</h3>
             <ul class="elements">
             <li class="element" data-cible="masques" data-rev="element" style="--c:#d4af37">
-              <img class="vignette" src="images/drapeau-masques.jpg" width="64" height="64" alt="">
+              <img loading="lazy" decoding="async" class="vignette" src="images/drapeau-masques.jpg" width="64" height="64" alt="">
               <div>
                 <h4>Les deux masques</h4>
                 <p>Le masque heureux et le masque triste symbolisent l'art dramatique.</p>
               </div>
             </li>
             <li class="element" data-cible="paix" data-rev="element" style="--c:#c8281f">
-              <img class="vignette" src="images/drapeau-paix.jpg" width="64" height="64" alt="">
+              <img loading="lazy" decoding="async" class="vignette" src="images/drapeau-paix.jpg" width="64" height="64" alt="">
               <div>
                 <h4>Le drapeau rouge à la colombe</h4>
                 <p>Le drapeau rouge à la colombe blanche représente la paix que je veux apporter à travers mes pièces.</p>
               </div>
             </li>
             <li class="element" data-cible="unicite" data-rev="element" style="--c:#f47fa9">
-              <img class="vignette" src="images/drapeau-unicite.jpg" width="64" height="64" alt="">
+              <img loading="lazy" decoding="async" class="vignette" src="images/drapeau-unicite.jpg" width="64" height="64" alt="">
               <div>
                 <h4>Le drapeau blanc aux trois mains</h4>
                 <p>Le drapeau blanc aux trois mains, une noire, une métisse et une blanche, qui se tiennent mutuellement, représente l'unicité de mes pièces.</p>
@@ -1177,7 +1181,7 @@
   </main>
 
   <footer class="pied">
-    <img src="images/logo.png" width="72" height="72" alt="">
+    <img loading="lazy" decoding="async" src="images/logo-144.webp" width="72" height="72" alt="">
     <p class="pied-nom">Ari Stophane</p>
     <p>Dramaturge, comédienne et autrice</p>
     <p class="pied-fin">© <span id="annee">2026</span> Ari Stophane. Tous droits réservés.</p>
@@ -1284,7 +1288,7 @@
   <template id="dram-eschyle" data-titre="Eschyle" data-meta="Dramaturge, v. 525 – v. 456 av. J.-C.">
     <div class="fiche">
       <div class="fiche-tete">
-        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">E</span><img class="fiche-portrait" data-wiki="Eschyle" alt="Portrait de Eschyle" hidden></div>
+        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">E</span><img loading="lazy" decoding="async" class="fiche-portrait" data-wiki="Eschyle" alt="Portrait de Eschyle" hidden></div>
         <dl class="fiche-identite"><div><dt>Nom</dt><dd>Aiskhúlos (Αἰσχύλος), nom francisé en « Eschyle »</dd></div><div><dt>Nom de plume</dt><dd>Aucun connu : il écrit sous son propre nom</dd></div><div><dt>Naissance</dt><dd>Vers 525/524 av. J.-C., Éleusis (Attique)</dd></div><div><dt>Mort</dt><dd>Vers 456/455 av. J.-C., Géla (Sicile)</dd></div><div><dt>Nationalité</dt><dd>Grec (athénien)</dd></div></dl>
       </div>
       
@@ -1300,7 +1304,7 @@
   <template id="dram-sophocle" data-titre="Sophocle" data-meta="Dramaturge, v. 496 – 406 av. J.-C.">
     <div class="fiche">
       <div class="fiche-tete">
-        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">S</span><img class="fiche-portrait" data-wiki="Sophocle" alt="Portrait de Sophocle" hidden></div>
+        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">S</span><img loading="lazy" decoding="async" class="fiche-portrait" data-wiki="Sophocle" alt="Portrait de Sophocle" hidden></div>
         <dl class="fiche-identite"><div><dt>Nom</dt><dd>Sophoklês (Σοφοκλῆς), nom francisé en « Sophocle »</dd></div><div><dt>Nom de plume</dt><dd>Aucun connu : il écrit sous son propre nom</dd></div><div><dt>Naissance</dt><dd>Vers 496 av. J.-C., Colone (près d'Athènes)</dd></div><div><dt>Mort</dt><dd>406 ou 405 av. J.-C., Athènes</dd></div><div><dt>Nationalité</dt><dd>Grec (athénien)</dd></div></dl>
       </div>
       
@@ -1316,7 +1320,7 @@
   <template id="dram-euripide" data-titre="Euripide" data-meta="Dramaturge, v. 480 – 406 av. J.-C.">
     <div class="fiche">
       <div class="fiche-tete">
-        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">E</span><img class="fiche-portrait" data-wiki="Euripide" alt="Portrait de Euripide" hidden></div>
+        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">E</span><img loading="lazy" decoding="async" class="fiche-portrait" data-wiki="Euripide" alt="Portrait de Euripide" hidden></div>
         <dl class="fiche-identite"><div><dt>Nom</dt><dd>Euripidês (Εὐριπίδης), nom francisé en « Euripide »</dd></div><div><dt>Nom de plume</dt><dd>Aucun connu : il écrit sous son propre nom</dd></div><div><dt>Naissance</dt><dd>Vers 480 av. J.-C. (les sources varient entre 485 et 480), Salamine selon la tradition</dd></div><div><dt>Mort</dt><dd>406 av. J.-C., Pella (Macédoine)</dd></div><div><dt>Nationalité</dt><dd>Grec (athénien)</dd></div></dl>
       </div>
       
@@ -1332,7 +1336,7 @@
   <template id="dram-aristophane" data-titre="Aristophane" data-meta="Dramaturge, v. 445 – v. 386 av. J.-C.">
     <div class="fiche">
       <div class="fiche-tete">
-        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">A</span><img class="fiche-portrait" data-wiki="Aristophane" alt="Portrait de Aristophane" hidden></div>
+        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">A</span><img loading="lazy" decoding="async" class="fiche-portrait" data-wiki="Aristophane" alt="Portrait de Aristophane" hidden></div>
         <dl class="fiche-identite"><div><dt>Nom</dt><dd>Aristophanês (Ἀριστοφάνης), nom francisé en « Aristophane »</dd></div><div><dt>Nom de plume</dt><dd>Aucun connu : il écrit sous son propre nom</dd></div><div><dt>Naissance</dt><dd>Vers 445 av. J.-C. (entre 450 et 445), Athènes (dème de Cydathénée)</dd></div><div><dt>Mort</dt><dd>Vers 386 av. J.-C., probablement à Athènes</dd></div><div><dt>Nationalité</dt><dd>Grec (athénien)</dd></div></dl>
       </div>
       <p class="fiche-special">C'est de son nom que vient mon nom de plume. <a class="lien-texte" href="#nom-de-plume" data-ferme>Découvrir l'histoire de mon nom</a></p>
@@ -1348,7 +1352,7 @@
   <template id="dram-seneque" data-titre="Sénèque" data-meta="Dramaturge, v. 4 av. J.-C. – 65">
     <div class="fiche">
       <div class="fiche-tete">
-        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">S</span><img class="fiche-portrait" data-wiki="Sénèque" alt="Portrait de Sénèque" hidden></div>
+        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">S</span><img loading="lazy" decoding="async" class="fiche-portrait" data-wiki="Sénèque" alt="Portrait de Sénèque" hidden></div>
         <dl class="fiche-identite"><div><dt>Nom</dt><dd>Lucius Annaeus Seneca, dit Sénèque le Jeune (ou Sénèque le Philosophe)</dd></div><div><dt>Nom de plume</dt><dd>Aucun connu : il écrit sous son propre nom</dd></div><div><dt>Naissance</dt><dd>Vers 4 av. J.-C., Corduba (Cordoue), en Hispanie</dd></div><div><dt>Mort</dt><dd>65 apr. J.-C., près de Rome (suicide imposé par Néron)</dd></div><div><dt>Nationalité</dt><dd>Romain, d'origine hispanique</dd></div></dl>
       </div>
       
@@ -1364,7 +1368,7 @@
   <template id="dram-shakespeare" data-titre="Shakespeare" data-meta="Dramaturge, 1564 – 1616">
     <div class="fiche">
       <div class="fiche-tete">
-        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">WS</span><img class="fiche-portrait" data-wiki="William_Shakespeare" alt="Portrait de Shakespeare" hidden></div>
+        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">WS</span><img loading="lazy" decoding="async" class="fiche-portrait" data-wiki="William_Shakespeare" alt="Portrait de Shakespeare" hidden></div>
         <dl class="fiche-identite"><div><dt>Nom</dt><dd>William Shakespeare</dd></div><div><dt>Nom de plume</dt><dd>Aucun connu : il écrit sous son propre nom</dd></div><div><dt>Naissance</dt><dd>Baptisé le 26 avril 1564 (naissance traditionnellement fixée au 23 avril), Stratford-upon-Avon</dd></div><div><dt>Mort</dt><dd>23 avril 1616, Stratford-upon-Avon</dd></div><div><dt>Nationalité</dt><dd>Anglais (royaume d'Angleterre)</dd></div></dl>
       </div>
       
@@ -1380,7 +1384,7 @@
   <template id="dram-corneille" data-titre="Pierre Corneille" data-meta="Dramaturge, 1606 – 1684">
     <div class="fiche">
       <div class="fiche-tete">
-        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">PC</span><img class="fiche-portrait" data-wiki="Pierre_Corneille" alt="Portrait de Pierre Corneille" hidden></div>
+        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">PC</span><img loading="lazy" decoding="async" class="fiche-portrait" data-wiki="Pierre_Corneille" alt="Portrait de Pierre Corneille" hidden></div>
         <dl class="fiche-identite"><div><dt>Nom</dt><dd>Pierre Corneille</dd></div><div><dt>Nom de plume</dt><dd>Aucun connu : il écrit sous son propre nom</dd></div><div><dt>Naissance</dt><dd>6 juin 1606, Rouen</dd></div><div><dt>Mort</dt><dd>1er octobre 1684, Paris</dd></div><div><dt>Nationalité</dt><dd>Français (royaume de France)</dd></div></dl>
       </div>
       
@@ -1396,7 +1400,7 @@
   <template id="dram-moliere" data-titre="Molière" data-meta="Dramaturge, 1622 – 1673">
     <div class="fiche">
       <div class="fiche-tete">
-        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">M</span><img class="fiche-portrait" data-wiki="Molière" alt="Portrait de Molière" hidden></div>
+        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">M</span><img loading="lazy" decoding="async" class="fiche-portrait" data-wiki="Molière" alt="Portrait de Molière" hidden></div>
         <dl class="fiche-identite"><div><dt>Nom</dt><dd>Jean-Baptiste Poquelin</dd></div><div><dt>Nom de plume</dt><dd>Molière (nom de scène)</dd></div><div><dt>Naissance</dt><dd>Baptisé le 15 janvier 1622, Paris</dd></div><div><dt>Mort</dt><dd>17 février 1673, Paris</dd></div><div><dt>Nationalité</dt><dd>Français (royaume de France)</dd></div></dl>
       </div>
       
@@ -1412,7 +1416,7 @@
   <template id="dram-racine" data-titre="Jean Racine" data-meta="Dramaturge, 1639 – 1699">
     <div class="fiche">
       <div class="fiche-tete">
-        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">JR</span><img class="fiche-portrait" data-wiki="Jean_Racine" alt="Portrait de Jean Racine" hidden></div>
+        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">JR</span><img loading="lazy" decoding="async" class="fiche-portrait" data-wiki="Jean_Racine" alt="Portrait de Jean Racine" hidden></div>
         <dl class="fiche-identite"><div><dt>Nom</dt><dd>Jean Racine</dd></div><div><dt>Nom de plume</dt><dd>Aucun connu : il écrit sous son propre nom</dd></div><div><dt>Naissance</dt><dd>Baptisé le 22 décembre 1639, La Ferté-Milon</dd></div><div><dt>Mort</dt><dd>21 avril 1699, Paris</dd></div><div><dt>Nationalité</dt><dd>Français (royaume de France)</dd></div></dl>
       </div>
       
@@ -1428,7 +1432,7 @@
   <template id="dram-marivaux" data-titre="Marivaux" data-meta="Dramaturge, 1688 – 1763">
     <div class="fiche">
       <div class="fiche-tete">
-        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">M</span><img class="fiche-portrait" data-wiki="Marivaux" alt="Portrait de Marivaux" hidden></div>
+        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">M</span><img loading="lazy" decoding="async" class="fiche-portrait" data-wiki="Marivaux" alt="Portrait de Marivaux" hidden></div>
         <dl class="fiche-identite"><div><dt>Nom</dt><dd>Pierre Carlet de Chamblain de Marivaux</dd></div><div><dt>Nom de plume</dt><dd>Marivaux (forme abrégée de son nom, sous laquelle il signe)</dd></div><div><dt>Naissance</dt><dd>4 février 1688, Paris</dd></div><div><dt>Mort</dt><dd>12 février 1763, Paris</dd></div><div><dt>Nationalité</dt><dd>Français (royaume de France)</dd></div></dl>
       </div>
       
@@ -1444,7 +1448,7 @@
   <template id="dram-beaumarchais" data-titre="Beaumarchais" data-meta="Dramaturge, 1732 – 1799">
     <div class="fiche">
       <div class="fiche-tete">
-        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">B</span><img class="fiche-portrait" data-wiki="Beaumarchais" alt="Portrait de Beaumarchais" hidden></div>
+        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">B</span><img loading="lazy" decoding="async" class="fiche-portrait" data-wiki="Beaumarchais" alt="Portrait de Beaumarchais" hidden></div>
         <dl class="fiche-identite"><div><dt>Nom</dt><dd>Pierre-Augustin Caron</dd></div><div><dt>Nom de plume</dt><dd>Beaumarchais (nom emprunté à une terre de sa première épouse)</dd></div><div><dt>Naissance</dt><dd>24 janvier 1732, Paris</dd></div><div><dt>Mort</dt><dd>18 mai 1799, Paris</dd></div><div><dt>Nationalité</dt><dd>Français (royaume de France)</dd></div></dl>
       </div>
       
@@ -1460,7 +1464,7 @@
   <template id="dram-goethe" data-titre="Goethe" data-meta="Dramaturge, 1749 – 1832">
     <div class="fiche">
       <div class="fiche-tete">
-        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">G</span><img class="fiche-portrait" data-wiki="Johann_Wolfgang_von_Goethe" alt="Portrait de Goethe" hidden></div>
+        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">G</span><img loading="lazy" decoding="async" class="fiche-portrait" data-wiki="Johann_Wolfgang_von_Goethe" alt="Portrait de Goethe" hidden></div>
         <dl class="fiche-identite"><div><dt>Nom</dt><dd>Johann Wolfgang Goethe (anobli en 1782, d'où le « von »)</dd></div><div><dt>Nom de plume</dt><dd>Aucun connu : il écrit sous son propre nom</dd></div><div><dt>Naissance</dt><dd>28 août 1749, Francfort-sur-le-Main</dd></div><div><dt>Mort</dt><dd>22 mars 1832, Weimar</dd></div><div><dt>Nationalité</dt><dd>Allemand (Saint-Empire romain germanique, puis duché de Saxe-Weimar)</dd></div></dl>
       </div>
       
@@ -1476,7 +1480,7 @@
   <template id="dram-musset" data-titre="Alfred de Musset" data-meta="Dramaturge, 1810 – 1857">
     <div class="fiche">
       <div class="fiche-tete">
-        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">AM</span><img class="fiche-portrait" data-wiki="Alfred_de_Musset" alt="Portrait de Alfred de Musset" hidden></div>
+        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">AM</span><img loading="lazy" decoding="async" class="fiche-portrait" data-wiki="Alfred_de_Musset" alt="Portrait de Alfred de Musset" hidden></div>
         <dl class="fiche-identite"><div><dt>Nom</dt><dd>Louis Charles Alfred de Musset</dd></div><div><dt>Nom de plume</dt><dd>Aucun connu : il écrit sous son propre nom</dd></div><div><dt>Naissance</dt><dd>11 décembre 1810, Paris</dd></div><div><dt>Mort</dt><dd>2 mai 1857, Paris</dd></div><div><dt>Nationalité</dt><dd>Français</dd></div></dl>
       </div>
       
@@ -1492,7 +1496,7 @@
   <template id="dram-ionesco" data-titre="Eugène Ionesco" data-meta="Dramaturge, 1909 – 1994">
     <div class="fiche">
       <div class="fiche-tete">
-        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">EI</span><img class="fiche-portrait" data-wiki="Eugène_Ionesco" alt="Portrait de Eugène Ionesco" hidden></div>
+        <div class="fiche-photo"><span class="medaillon medaillon-grand" aria-hidden="true">EI</span><img loading="lazy" decoding="async" class="fiche-portrait" data-wiki="Eugène_Ionesco" alt="Portrait de Eugène Ionesco" hidden></div>
         <dl class="fiche-identite"><div><dt>Nom</dt><dd>Eugen Ionescu (forme roumaine), francisé en Eugène Ionesco</dd></div><div><dt>Nom de plume</dt><dd>Eugène Ionesco</dd></div><div><dt>Naissance</dt><dd>26 novembre 1909, Slatina (Roumanie)</dd></div><div><dt>Mort</dt><dd>28 mars 1994, Paris</dd></div><div><dt>Nationalité</dt><dd>Roumain, naturalisé français en 1950</dd></div></dl>
       </div>
       
