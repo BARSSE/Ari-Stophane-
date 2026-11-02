@@ -1003,3 +1003,10 @@
     setTimeout(() => { const r = z.getBoundingClientRect(); if (r.bottom > 0 && r.top < innerHeight) montrer(z); }, 1500);
   });
 })();
+
+/* Les animations en boucle se mettent en pause quand leur section n'est pas à l'écran (économie de batterie) */
+(() => {
+  if (!('IntersectionObserver' in window)) return;
+  const o = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('hors-ecran', !e.isIntersecting)), { rootMargin: '120px 0px' });
+  document.querySelectorAll('main > section').forEach((s) => o.observe(s));
+})();
