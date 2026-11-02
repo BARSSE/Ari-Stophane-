@@ -19,6 +19,7 @@
     const basculer = (ouvert) => {
       nav.classList.toggle('ouvert', ouvert);
       boutonMenu.setAttribute('aria-expanded', String(ouvert));
+      document.documentElement.classList.toggle('menu-verrou', ouvert);
     };
     boutonMenu.addEventListener('click', () => basculer(!nav.classList.contains('ouvert')));
     $$('#menu a').forEach((a) => a.addEventListener('click', () => basculer(false)));
@@ -973,11 +974,23 @@
   }
 })();
 
-/* Apparition en douceur des sections « avis » (le texte reste visible si ça échoue) */
+/* Apparition en douceur des sections « avis » et « le saviez-vous » (le texte reste visible si ça échoue) */
 (() => {
   const zones = document.querySelectorAll('[data-apparait]');
-  if (!zones.length || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const montrer = (z) => z.classList.add('visible');
+  if (!zones.length) return;
+  /* Nombre d'années depuis la date donnée, calculé à partir de la date du jour */
+  document.querySelectorAll('[data-annees-depuis]').forEach((e) => {
+    const [y, m, d] = e.dataset.anneesDepuis.split('-').map(Number); const n = new Date();
+    e.dataset.compte = n.getFullYear() - y - ((n.getMonth() + 1 < m || (n.getMonth() + 1 === m && n.getDate() < d)) ? 1 : 0);
+    e.textContent = e.dataset.compte;
+  });
+  const compter = (z) => z.querySelectorAll('[data-compte]').forEach((e) => {
+    const fin = +e.dataset.compte; const t0 = performance.now();
+    const pas = (t) => { const k = Math.min((t - t0 - 900) / 1600, 1); e.textContent = Math.round(fin * (k < 0 ? 0 : 1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(pas); };
+    e.textContent = 0; requestAnimationFrame(pas);
+  });
+  if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const montrer = (z) => { if (z.classList.contains('visible')) return; z.classList.add('visible'); compter(z); };
   const o = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { montrer(e.target); o.unobserve(e.target); } }), { threshold: .1 });
   document.documentElement.classList.add('apparait-pret');
   zones.forEach((z) => { o.observe(z); setTimeout(() => { if (z.getBoundingClientRect().top < innerHeight) montrer(z); }, 1500); });
