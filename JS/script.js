@@ -985,13 +985,21 @@
     e.textContent = e.dataset.compte;
   });
   const compter = (z) => z.querySelectorAll('[data-compte]').forEach((e) => {
-    const fin = +e.dataset.compte; const t0 = performance.now();
-    const pas = (t) => { const k = Math.min((t - t0 - 900) / 1600, 1); e.textContent = Math.round(fin * (k < 0 ? 0 : 1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(pas); };
+    const fin = +e.dataset.compte; const t0 = performance.now(); const id = (e._run = (e._run || 0) + 1);
+    const pas = (t) => { if (e._run !== id) return; const k = Math.min((t - t0 - 900) / 1600, 1); e.textContent = Math.round(fin * (k < 0 ? 0 : 1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(pas); };
     e.textContent = 0; requestAnimationFrame(pas);
   });
+  const remettre = (z) => { z.classList.remove('visible'); z.querySelectorAll('[data-compte]').forEach((e) => { e._run = (e._run || 0) + 1; e.textContent = 0; }); };
   if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const montrer = (z) => { if (z.classList.contains('visible')) return; z.classList.add('visible'); compter(z); };
-  const o = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { montrer(e.target); o.unobserve(e.target); } }), { threshold: .1 });
+  /* Chaque entrée dans la section rejoue l'animation ; la sortie complète la remet à zéro */
+  const o = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting && e.intersectionRatio >= .1) montrer(e.target);
+    else if (e.intersectionRatio === 0) remettre(e.target);
+  }), { threshold: [0, .1] });
   document.documentElement.classList.add('apparait-pret');
-  zones.forEach((z) => { o.observe(z); setTimeout(() => { if (z.getBoundingClientRect().top < innerHeight) montrer(z); }, 1500); });
+  zones.forEach((z) => {
+    remettre(z); o.observe(z);
+    setTimeout(() => { const r = z.getBoundingClientRect(); if (r.bottom > 0 && r.top < innerHeight) montrer(z); }, 1500);
+  });
 })();
