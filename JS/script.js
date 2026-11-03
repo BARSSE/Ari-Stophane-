@@ -1010,3 +1010,32 @@
   const o = new IntersectionObserver((es) => es.forEach((e) => e.target.classList.toggle('hors-ecran', !e.isIntersecting)), { rootMargin: '120px 0px' });
   document.querySelectorAll('main > section').forEach((s) => o.observe(s));
 })();
+
+/* Protection des pièces et histoires : fenêtre de droit d'auteur, lecture à l'écran, pas de copie */
+(() => {
+  const ZONES = '#pieces, #histoires, #lecteur, #droit-auteur';
+  const dansZone = (n) => { const el = n && (n.nodeType === 1 ? n : n.parentElement); return !!(el && el.closest(ZONES)); };
+  ['contextmenu', 'copy', 'cut', 'dragstart', 'selectstart'].forEach((t) => document.addEventListener(t, (e) => {
+    const sel = document.getSelection && document.getSelection();
+    if (dansZone(e.target) || (t === 'copy' && sel && dansZone(sel.anchorNode))) e.preventDefault();
+  }));
+  const droit = document.getElementById('droit-auteur'), lect = document.getElementById('lecteur');
+  if (!droit || !lect || typeof droit.showModal !== 'function') return;
+  const coche = document.getElementById('droit-coche'); let cible = null;
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-piece]'); if (!b) return;
+    cible = b; coche.checked = false; droit.querySelector('.droit-corps').scrollTop = 0; droit.showModal();
+  });
+  droit.querySelector('.lecteur-fermer').addEventListener('click', () => { cible = null; droit.close(); });
+  droit.addEventListener('click', (e) => { if (e.target === droit) { cible = null; droit.close(); } });
+  coche.addEventListener('change', () => {
+    if (!coche.checked || !cible) return;
+    const b = cible; cible = null; droit.close(); coche.checked = false;
+    const d = b.dataset, n = +d.pages, corps = lect.querySelector('.lecteur-corps');
+    lect.querySelector('.lecteur-titre').textContent = d.pieceTitre; lect.querySelector('.lecteur-meta').textContent = d.pieceMeta;
+    let html = '<p class="mention-lecture">© Ari Stophane · Tous droits réservés. Lecture à l\'écran uniquement : toute reproduction est interdite.</p>';
+    for (let i = 1; i <= n; i++) html += `<img class="page-lue" loading="lazy" draggable="false" src="pages/${d.piece}/p${String(i).padStart(2, '0')}.webp" width="700" height="988" alt="Page ${i} sur ${n} de ${d.pieceTitre}">`;
+    corps.innerHTML = html; corps.scrollTop = 0;
+    document.documentElement.classList.add('lecture'); lect.showModal();
+  });
+})();
