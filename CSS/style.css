@@ -1586,3 +1586,21 @@ dialog[open] .fiche-chips li { animation: perso-pop .5s cubic-bezier(.3, 1.6, .5
 @media (prefers-reduced-motion: reduce) { .saviez-ampoule, .saviez-compteur strong { animation: none; } .saviez-pan { display: none; } .apparait-pret .saviez-carte { opacity: 1; transform: none; transition: none; } }
 
 @media (min-width: 1241px) and (max-width: 1500px) { .nav ul { gap: .5rem; } .nav a { font-size: .78rem; } }
+
+/* Pause des animations des sections hors écran */
+.hors-ecran, .hors-ecran *, .hors-ecran *::before, .hors-ecran *::after { animation-play-state: paused !important; }
+
+/* Photo du « saviez-vous » */
+.saviez-photo { margin: 0 auto 1.2rem; max-width: 460px; }
+.saviez-photo-cadre { overflow: hidden; aspect-ratio: 1; border: 4px solid var(--or); border-radius: 14px; box-shadow: 0 6px 0 var(--or-fonce); transform: rotate(-1.5deg); transition: transform .4s cubic-bezier(.3, 1.4, .5, 1); }
+.saviez-photo:hover .saviez-photo-cadre { transform: rotate(0) scale(1.02); }
+.saviez-photo img { display: block; width: 100%; height: 100%; object-fit: cover; animation: saviez-zoom 14s ease-in-out infinite alternate; }
+.saviez-photo figcaption { margin-top: .8rem; font: italic 600 10px/1.5 var(--texte); color: var(--violet); }
+.saviez-legende, .saviez-credit { display: block; }
+.saviez-credit { margin-top: .2rem; font-style: normal; font-weight: 700; letter-spacing: .03em; opacity: .85; }
+.apparait-pret .saviez-photo-cadre { clip-path: inset(0 50% 0 50%); transition: clip-path 1.2s cubic-bezier(.7, 0, .3, 1) 1.3s, transform .4s cubic-bezier(.3, 1.4, .5, 1); }
+.apparait-pret .visible .saviez-photo-cadre { clip-path: inset(0 0 0 0); }
+.apparait-pret .saviez-photo figcaption { opacity: 0; transform: translateY(12px); transition: opacity .6s ease 2.2s, transform .6s ease 2.2s; }
+.apparait-pret .visible .saviez-photo figcaption { opacity: 1; transform: none; }
+@keyframes saviez-zoom { from { transform: scale(1); } to { transform: scale(1.12) translateX(-2%); } }
+@media (prefers-reduced-motion: reduce) { .saviez-photo img { animation: none; } .apparait-pret .saviez-photo-cadre { clip-path: none; transition: none; } .apparait-pret .saviez-photo figcaption { opacity: 1; transform: none; transition: none; } }
