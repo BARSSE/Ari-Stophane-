@@ -1604,3 +1604,18 @@ dialog[open] .fiche-chips li { animation: perso-pop .5s cubic-bezier(.3, 1.6, .5
 .apparait-pret .visible .saviez-photo figcaption { opacity: 1; transform: none; }
 @keyframes saviez-zoom { from { transform: scale(1); } to { transform: scale(1.12) translateX(-2%); } }
 @media (prefers-reduced-motion: reduce) { .saviez-photo img { animation: none; } .apparait-pret .saviez-photo-cadre { clip-path: none; transition: none; } .apparait-pret .saviez-photo figcaption { opacity: 1; transform: none; transition: none; } }
+
+/* ---------- Protection des œuvres ---------- */
+#pieces, #histoires, #lecteur, #droit-auteur { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+@media print { #pieces, #histoires, #lecteur, #droit-auteur { display: none !important; } }
+.mention-droits { margin: .5rem 0 .8rem; font-size: .78rem; font-weight: 700; font-style: italic; letter-spacing: .02em; color: var(--violet); opacity: .85; }
+#droit-auteur { width: min(720px, 92vw); }
+.droit-corps p { margin-bottom: 1rem; text-align: justify; hyphens: auto; }
+.droit-case { display: flex; align-items: flex-start; gap: .9rem; padding: 1.1rem 1.5rem 1.3rem; font-weight: 600; cursor: pointer; background: #fff5d6; border-top: 4px solid var(--or); }
+.droit-case input { flex: none; width: 28px; height: 28px; margin-top: .1rem; cursor: pointer; accent-color: var(--velours); animation: droit-pulse 2s ease-in-out infinite; }
+.droit-case input:checked { animation: none; }
+@keyframes droit-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(196, 22, 12, .5); } 50% { box-shadow: 0 0 0 9px rgba(196, 22, 12, 0); } }
+.lecteur-corps .mention-lecture { margin: 0 0 1rem; text-align: center; font-size: .85rem; font-weight: 700; font-style: italic; color: var(--violet); }
+.page-lue { display: block; width: 100%; height: auto; margin: 0 auto 1rem; background: #fff; border: 2px solid rgba(43, 18, 54, .2); border-radius: 4px; box-shadow: 0 4px 12px rgba(43, 18, 54, .18); pointer-events: none; -webkit-user-drag: none; }
+@media (prefers-reduced-motion: reduce) { .droit-case input { animation: none; } }
+button.bouton-pdf { font: inherit; cursor: pointer; }
