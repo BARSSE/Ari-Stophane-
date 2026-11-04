@@ -1013,8 +1013,8 @@
 
 /* Protection des pièces et histoires : fenêtre de droit d'auteur, lecture à l'écran, pas de copie */
 (() => {
-  const ZONES = '#pieces, #histoires, #lecteur, #droit-auteur';
-  const dansZone = (n) => { const el = n && (n.nodeType === 1 ? n : n.parentElement); return !!(el && el.closest(ZONES)); };
+  /* Tout le site est protégé, sauf les champs de saisie et les listes déroulantes (jeux) */
+  const dansZone = (n) => { const el = n && (n.nodeType === 1 ? n : n.parentElement); return !!el && !el.closest('input, textarea, select, [contenteditable]'); };
   ['contextmenu', 'copy', 'cut', 'dragstart', 'selectstart'].forEach((t) => document.addEventListener(t, (e) => {
     const sel = document.getSelection && document.getSelection();
     if (dansZone(e.target) || (t === 'copy' && sel && dansZone(sel.anchorNode))) e.preventDefault();
