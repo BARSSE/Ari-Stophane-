@@ -10,9 +10,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Rye&family=Alex+Brush&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="CSS/style.css?v=14">
-  <script src="JS/script.js?v=14" defer></script>
-  <script src="JS/archive.js?v=14" defer></script>
+  <link rel="stylesheet" href="style.css?v=15">
+  <script src="script.js?v=15" defer></script>
+  <script src="archive.js?v=15" defer></script>
   
 </head>
 <body class="page-archive">
@@ -143,6 +143,13 @@
         <p class="filtre-aide">Renseigne la date de début, la date de fin, ou les deux : les anecdotes publiées pendant cette période s'affichent.</p>
       </fieldset>
       <fieldset class="filtre-groupe"><legend>Catégorie</legend><div class="filtre-puces"><label class="filtre-puce"><input type="checkbox" name="cat" value="comedie-francaise"><span>Comédie-Française</span></label></div></fieldset>
+      <fieldset class="filtre-groupe"><legend>Afficher les anecdotes qui correspondent à</legend>
+        <div class="filtre-puces">
+          <label class="filtre-puce"><input type="radio" name="mode" value="un" checked><span>Au moins un de mes choix</span></label>
+          <label class="filtre-puce"><input type="radio" name="mode" value="tous"><span>Tous mes choix</span></label>
+        </div>
+        <p class="filtre-aide">Tu n'as pas besoin de tout remplir : une seule catégorie suffit.</p>
+      </fieldset>
     </div>
     <div class="filtre-pied">
       <button class="bouton bouton-contour-encre" type="button" data-reinit>Réinitialiser</button>
@@ -165,6 +172,13 @@
         <p class="filtre-aide">Renseigne la date de début, la date de fin, ou les deux : les anecdotes publiées pendant cette période s'affichent.</p>
       </fieldset>
       <fieldset class="filtre-groupe"><legend>Catégorie</legend><div class="filtre-puces"><label class="filtre-puce"><input type="checkbox" name="cat" value="shakespeare"><span>Shakespeare</span></label></div></fieldset>
+      <fieldset class="filtre-groupe"><legend>Afficher les anecdotes qui correspondent à</legend>
+        <div class="filtre-puces">
+          <label class="filtre-puce"><input type="radio" name="mode" value="un" checked><span>Au moins un de mes choix</span></label>
+          <label class="filtre-puce"><input type="radio" name="mode" value="tous"><span>Tous mes choix</span></label>
+        </div>
+        <p class="filtre-aide">Tu n'as pas besoin de tout remplir : une seule catégorie suffit.</p>
+      </fieldset>
     </div>
     <div class="filtre-pied">
       <button class="bouton bouton-contour-encre" type="button" data-reinit>Réinitialiser</button>
