@@ -1635,3 +1635,18 @@ button.bouton-pdf { font: inherit; cursor: pointer; }
 @keyframes attente-saute { 0%, 100% { transform: translateY(0); opacity: .5; } 40% { transform: translateY(-10px); opacity: 1; } }
 @keyframes saviez-clin { 0%, 90%, 100% { transform: rotate(0); } 94% { transform: rotate(-2deg); } 97% { transform: rotate(2deg); } }
 @media (prefers-reduced-motion: reduce) { .saviez-mention, .attente-points span { animation: none; } }
+
+/* Anecdote : sujet, icônes des boutons d'archives */
+.saviez-sujet { margin-bottom: 1rem; font: 400 clamp(1.3rem, 4.2vw, 1.9rem)/1.25 var(--titre); color: var(--violet); text-shadow: 2px 2px 0 var(--or); }
+.icone-bouton { width: 1.25em; height: 1.25em; margin-right: .4em; vertical-align: -.25em; }
+.icone-boite .couvercle { transition: transform .3s cubic-bezier(.3, 1.6, .5, 1); animation: boite-bat 4s ease-in-out infinite; }
+a:hover .icone-boite .couvercle { animation: none; transform: translateY(-3px) rotate(-6deg); }
+.icone-livre .feuille { transform-box: view-box; transform-origin: 12px 12px; animation: livre-feuillette 2.6s ease-in-out infinite; }
+@keyframes boite-bat { 0%, 85%, 100% { transform: translateY(0); } 92% { transform: translateY(-2.5px); } }
+@keyframes livre-feuillette { 0%, 15% { transform: scaleX(1); } 55% { transform: scaleX(-1); opacity: .5; } 56% { transform: scaleX(-1); } 90%, 100% { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { .icone-boite .couvercle, .icone-livre .feuille { animation: none; } }
+
+.saviez-photo-portrait { max-width: 340px; }
+.saviez-photo-portrait .saviez-photo-cadre { aspect-ratio: 640 / 917; }
+.saviez-photo-portrait .saviez-photo-cadre img { transform-origin: 50% 30%; }
+.saviez-credit { max-width: 34em; margin-inline: auto; }
