@@ -10,9 +10,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Rye&family=Alex+Brush&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="CSS/style.css?v=18">
-  <script src="JS/script.js?v=18" defer></script>
-  <script src="JS/archive.js?v=18" defer></script>
+  <link rel="stylesheet" href="style.css?v=19">
+  <script src="script.js?v=19" defer></script>
+  <script src="archive.js?v=19" defer></script>
   
 </head>
 <body class="page-archive">
@@ -63,11 +63,10 @@
         <div class="filet" aria-hidden="true"><svg><use href="#etoile"/></svg></div>
         <p class="sous-titre-acte">Toutes les anecdotes déjà présentées, rangées par thème. Le rideau est levé sur les coulisses de la mémoire !</p>
         <form class="archive-recherche" role="search">
-          <label class="sr-only" for="recherche">Rechercher une anecdote par mots-clés</label>
           <button class="recherche-bouton" type="submit" aria-label="Lancer la recherche"><svg class="recherche-loupe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></button>
-          <input id="recherche" type="search" placeholder="Rechercher une anecdote (ex. : Shakespeare, Louis XIV…)" autocomplete="off" enterkeyhint="search">
+          <input id="recherche" type="search" aria-label="Rechercher une anecdote par mots-clés" placeholder="Rechercher une anecdote (ex. : Shakespeare, Louis XIV…)" autocomplete="off" enterkeyhint="search">
         </form>
-        <div class="archive-retour-zone"><button class="archive-retour" id="archive-retour" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5l-7 7 7 7M3 12h18"/></svg> Retour</button></div>
+        <div class="archive-retour-zone" hidden><button class="archive-retour" id="archive-retour" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5l-7 7 7 7M3 12h18"/></svg> Retour</button></div>
         <p class="archive-compte" id="archive-compte" aria-live="polite"></p>
       </div>
     </section>
