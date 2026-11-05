@@ -28,7 +28,7 @@
       });
       const n = (f.types.length ? 1 : 0) + (f.cats.length ? 1 : 0) + (f.debut || f.fin ? 1 : 0);
       const pastille = sec.querySelector('.filtre-compte'); pastille.hidden = !n; pastille.textContent = n;
-      const vide = sec.querySelector('.archive-vide'); vide.hidden = vus > 0;
+      const vide = sec.querySelector('.archive-vide'); vide.hidden = vus > 0 || !!sec.querySelector('[data-attente]');
       vide.textContent = n ? 'Aucune anecdote n\'est disponible pour le moment avec les filtres choisis.' : 'Aucune anecdote ne correspond à cette recherche pour le moment.';
       total += vus;
     });
