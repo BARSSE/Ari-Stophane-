@@ -6,7 +6,7 @@
   const norm = (s) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
   const coches = (d, nom) => [...d.querySelectorAll(`input[name="${nom}"]:checked`)].map((i) => i.value);
 
-  const lit = (dlg) => ({ types: coches(dlg, 'type'), cats: coches(dlg, 'cat'), debut: dlg.querySelector('[name=debut]').value, fin: dlg.querySelector('[name=fin]').value, mode: dlg.querySelector('[name=mode]:checked').value });
+  const lit = (dlg) => ({ types: coches(dlg, 'type'), cats: coches(dlg, 'cat'), debut: dlg.querySelector('[name=debut]').value, fin: dlg.querySelector('[name=fin]').value, mode: (dlg.querySelector('input[type=radio]:checked') || { value: 'un' }).value });
 
   const appliquer = () => {
     const q = norm(champ.value.trim()).split(/\s+/).filter(Boolean); let total = 0;
@@ -15,7 +15,7 @@
       dlg.querySelector('[name=fin]').min = f.debut || '';
       let vus = 0;
       sec.querySelectorAll('[data-anecdote]').forEach((a) => {
-        const d = a.dataset; a._t = a._t || norm(a.textContent + ' ' + (d.mots || ''));
+        const d = a.dataset; a._t = a._t || norm(a.textContent + ' ' + [...a.querySelectorAll('[data-compte]')].map((e) => e.dataset.compte).join(' ') + ' ' + (d.mots || ''));
         /* Chaque groupe rempli donne un critère ; les groupes vides sont ignorés */
         const criteres = [];
         if (f.types.length) criteres.push(f.types.includes(d.type));
@@ -44,7 +44,7 @@
     dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
     dlg.querySelector('[data-reinit]').addEventListener('click', () => {
       dlg.querySelectorAll('input[type=checkbox]').forEach((i) => { i.checked = false; });
-      dlg.querySelector('[name=mode][value=un]').checked = true;
+      dlg.querySelector('input[type=radio][value=un]').checked = true;
       dlg.querySelectorAll('input[type=date]').forEach((i) => { i.value = ''; });
       appliquer();
     });
