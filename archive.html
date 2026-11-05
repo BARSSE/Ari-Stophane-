@@ -10,9 +10,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Rye&family=Alex+Brush&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="CSS/style.css?v=17">
-  <script src="JS/script.js?v=17" defer></script>
-  <script src="JS/archive.js?v=17" defer></script>
+  <link rel="stylesheet" href="style.css?v=18">
+  <script src="script.js?v=18" defer></script>
+  <script src="archive.js?v=18" defer></script>
   
 </head>
 <body class="page-archive">
@@ -62,11 +62,12 @@
         <h1 class="titre-acte" id="t-archive">Les archives du «&nbsp;Le saviez-vous&nbsp;?&nbsp;»</h1>
         <div class="filet" aria-hidden="true"><svg><use href="#etoile"/></svg></div>
         <p class="sous-titre-acte">Toutes les anecdotes déjà présentées, rangées par thème. Le rideau est levé sur les coulisses de la mémoire !</p>
-        <form class="archive-recherche" role="search" onsubmit="return false">
+        <form class="archive-recherche" role="search">
           <label class="sr-only" for="recherche">Rechercher une anecdote par mots-clés</label>
-          <svg class="recherche-loupe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg>
-          <input id="recherche" type="search" placeholder="Rechercher une anecdote (ex. : Shakespeare, Louis XIV…)" autocomplete="off">
+          <button class="recherche-bouton" type="submit" aria-label="Lancer la recherche"><svg class="recherche-loupe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></button>
+          <input id="recherche" type="search" placeholder="Rechercher une anecdote (ex. : Shakespeare, Louis XIV…)" autocomplete="off" enterkeyhint="search">
         </form>
+        <div class="archive-retour-zone"><button class="archive-retour" id="archive-retour" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5l-7 7 7 7M3 12h18"/></svg> Retour</button></div>
         <p class="archive-compte" id="archive-compte" aria-live="polite"></p>
       </div>
     </section>
@@ -97,7 +98,7 @@
             <div class="saviez-pied"><a class="bouton bouton-encre" href="https://www.comedie-francaise.fr/histoire-de-la-comedie-francaise/" target="_blank" rel="noopener noreferrer"><svg class="icone-bouton icone-livre" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6C10 4.5 6.5 4 3 4.5v14c3.5-.5 7 0 9 1.5 2-1.5 5.5-2 9-1.5v-14C17.5 4 14 4.5 12 6z"/><path d="M12 6v14"/><path class="feuille" d="M12 6c1.7-1 4-1.4 6.5-1.2v12.6c-2.5-.2-4.8.2-6.5 1.2z" fill="currentColor" fill-opacity=".25"/></svg> Pour en savoir plus <span class="sr-only">(s'ouvre dans un nouvel onglet)</span></a></div>
           </article>
         </div>
-        <div class="saviez-rideau" data-anecdote data-type="theatre" data-categorie="shakespeare" data-debut="2026-11-05" data-fin="" data-mots="shakespeare roméo juliette balcon fenêtre scène du balcon tragédie amour vérone adaptations edith nesbit">
+        <div class="saviez-rideau" data-anecdote data-type="art-dramatique" data-categorie="shakespeare" data-debut="2026-11-05" data-fin="" data-mots="shakespeare roméo juliette balcon fenêtre scène du balcon tragédie amour vérone adaptations edith nesbit">
           <div class="saviez-pan saviez-pan-g" aria-hidden="true"></div>
           <div class="saviez-pan saviez-pan-d" aria-hidden="true"></div>
           <article class="saviez-carte">
