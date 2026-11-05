@@ -10,7 +10,7 @@
   const lit = (dlg) => ({ types: coches(dlg, 'type'), cats: coches(dlg, 'cat'), debut: dlg.querySelector('[name=debut]').value, fin: dlg.querySelector('[name=fin]').value, mode: (dlg.querySelector('input[type=radio]:checked') || { value: 'un' }).value });
 
   const appliquer = () => {
-    const q = norm(requete).split(/\s+/).filter(Boolean); let total = 0; retour.hidden = !q.length;
+    const q = norm(requete).split(/\s+/).filter(Boolean); let total = 0; retour.hidden = retour.parentElement.hidden = !q.length;
     sections.forEach((sec) => {
       const dlg = document.getElementById(sec.dataset.filtrable), f = lit(dlg);
       dlg.querySelector('[name=fin]').min = f.debut || '';
