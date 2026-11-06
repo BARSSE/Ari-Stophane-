@@ -1718,3 +1718,36 @@ a:hover .icone-boite .couvercle { animation: none; transform: translateY(-3px) r
 @keyframes retour-ouvre { from { opacity: 0; clip-path: inset(0 50% 0 50%); } to { opacity: 1; clip-path: inset(0 0 0 0); } }
 @keyframes retour-ondule { to { background-position: 52px 0; } }
 @media (prefers-reduced-motion: reduce) { .recherche-bouton .recherche-loupe, .archive-retour, .archive-retour svg { animation: none; } }
+
+/* ---------- Tests de personnalité ---------- */
+.test { max-width: 760px; margin: 0 auto; }
+.test-etape { animation: archive-revient .6s cubic-bezier(.3, 1.4, .5, 1); }
+.test-regles { margin: 0 0 1.4rem; padding-left: 1.3rem; list-style: disc; }
+.test-regles li { margin-bottom: .5rem; }
+.test-progres { height: 10px; margin: 0 0 1.2rem; overflow: hidden; background: rgba(43, 18, 54, .15); border-radius: 999px; }
+.test-progres span { display: block; height: 100%; background: linear-gradient(90deg, var(--velours), var(--or)); border-radius: 999px; transition: width .6s cubic-bezier(.3, 1.2, .5, 1); }
+.test-consigne { margin: -.4rem 0 1rem; font-weight: 700; font-style: italic; color: var(--violet); }
+.test .quiz-rep.coche { color: var(--encre); background: #fff1c2; border-color: var(--or-fonce); transform: translateX(6px); }
+.test .quiz-rep[aria-pressed="true"] .quiz-lettre::after { content: "✓"; }
+.test button[disabled] { opacity: .5; cursor: not-allowed; }
+.res-scene { position: relative; overflow: hidden; padding: 1.6rem 1rem; border-radius: 18px; }
+.res-carte { position: relative; z-index: 2; text-align: center; animation: res-pop .9s cubic-bezier(.3, 1.5, .5, 1) 1.2s backwards; }
+.res-badge { display: flex; justify-content: center; gap: .3rem; width: 96px; height: 96px; margin: -3.2rem auto .8rem; align-items: center; font: 400 3rem var(--titre); color: var(--encre); background: var(--or); border: 4px solid var(--or-fonce); border-radius: 50%; box-shadow: 0 6px 0 var(--or-fonce); animation: res-tourne 1s cubic-bezier(.3, 1.4, .5, 1) 1.5s backwards; }
+.res-badge svg { width: 38px; height: 46px; color: var(--velours); }
+.res-nom { margin-bottom: .3rem; font: 400 clamp(1.6rem, 5vw, 2.3rem)/1.2 var(--titre); color: var(--velours); text-shadow: 2px 2px 0 var(--or); }
+.res-accroche { margin-bottom: 1rem; font: 700 1.1rem var(--texte); color: var(--violet); }
+.res-source, .res-second { font-size: .9rem; font-style: italic; opacity: .85; }
+.res-actions, .test-partage { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; margin-top: 1.2rem; }
+.test-partage[hidden] { display: none; }
+.test-partage { padding: 1rem; background: #fff5d6; border: 3px dashed var(--or-fonce); border-radius: 14px; animation: archive-revient .5s ease; }
+.res-pan { position: absolute; top: 0; bottom: 0; z-index: 4; width: 51%; pointer-events: none; background: repeating-linear-gradient(90deg, #6d0a05 0, #c4160c 14px, #d9382a 26px, #c4160c 38px, #6d0a05 52px); box-shadow: inset 0 -8px 0 var(--or); }
+.res-pan-g { left: 0; animation: res-ouvre-g 1.4s cubic-bezier(.7, 0, .3, 1) .4s forwards; }
+.res-pan-d { right: 0; animation: res-ouvre-d 1.4s cubic-bezier(.7, 0, .3, 1) .4s forwards; }
+.res-etoile { position: absolute; top: 40%; left: 50%; z-index: 3; width: 26px; height: 26px; margin: -13px; color: var(--or); opacity: 0; animation: res-jaillit 1.6s ease-out 1.5s; }
+@keyframes res-ouvre-g { to { transform: translateX(-102%); } }
+@keyframes res-ouvre-d { to { transform: translateX(102%); } }
+@keyframes res-pop { from { opacity: 0; transform: scale(.8) translateY(30px); } }
+@keyframes res-tourne { from { transform: rotate(-360deg) scale(0); } }
+@keyframes res-jaillit { 0% { opacity: 1; transform: rotate(var(--a)) translateX(0) scale(.4); } 100% { opacity: 0; transform: rotate(var(--a)) translateX(260px) scale(1.2); } }
+@media (prefers-reduced-motion: reduce) { .test-etape, .res-carte, .res-badge, .res-etoile, .test-partage { animation: none; } .res-pan { display: none; } }
+.res-carte .quiz-categorie { display: inline-block; margin-bottom: .6rem; }
