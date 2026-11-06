@@ -1685,3 +1685,36 @@ a:hover .icone-boite .couvercle { animation: none; transform: translateY(-3px) r
 @keyframes archive-revient { from { opacity: 0; transform: translateY(20px) scale(.96); } to { opacity: 1; transform: none; } }
 @media (max-width: 700px) { .filtre-ouvrir { position: static; display: flex; margin: 0 0 1rem auto; } }
 @media (prefers-reduced-motion: reduce) { .recherche-loupe, .filtre-compte, .archive-vide, .saviez-rideau.revient { animation: none; } }
+
+/* Archives : plusieurs anecdotes dans une section, catégorie en attente */
+.saviez-rideau + .saviez-rideau { margin-top: 2rem; }
+.filtre-attente { margin: 0; padding: .6rem 1rem; font-weight: 600; font-style: italic; background: #fff5d6; border: 2px dashed var(--or-fonce); border-radius: 12px; }
+
+/* Recherche : loupe cliquable et bouton Retour */
+.recherche-bouton { position: absolute; left: .6rem; top: 50%; z-index: 2; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; color: var(--velours); background: none; border: 0; border-radius: 50%; cursor: pointer; transform: translateY(-50%); transition: background .2s; }
+.recherche-bouton:hover { background: rgba(255, 207, 90, .35); }
+.recherche-bouton .recherche-loupe { position: static; margin: 0; }
+.archive-retour-zone { display: flex; justify-content: center; min-height: 0; margin-top: 1rem; }
+.archive-retour { display: inline-flex; align-items: center; gap: .5rem; padding: .5rem 1.3rem; font: 700 1rem var(--texte); color: var(--nuit); background: var(--or); border: 3px solid var(--or-fonce); border-radius: 999px; box-shadow: 0 4px 0 var(--or-fonce); cursor: pointer; animation: archive-revient .5s cubic-bezier(.3, 1.4, .5, 1); transition: transform .2s; }
+.archive-retour[hidden] { display: none; }
+.archive-retour:hover { transform: translateY(-2px); }
+.archive-retour svg { width: 1.2em; height: 1.2em; }
+.archive-retour:hover svg { animation: retour-glisse .5s ease-in-out; }
+.saviez-rideau[hidden] { display: none !important; }
+@keyframes retour-glisse { 50% { transform: translateX(-5px); } }
+.filtre-compte[hidden] { display: none; }
+.archive-compte { text-align: center; }
+
+/* Loupe bien centrée (plus de dérive) et bouton Retour en rideau de velours */
+.recherche-bouton .recherche-loupe { animation: recherche-pouls 3.5s ease-in-out infinite; transform-origin: 50% 50%; }
+.archive-recherche:focus-within .recherche-bouton .recherche-loupe { animation: none; transform: scale(1.12); }
+@keyframes recherche-pouls { 0%, 80%, 100% { transform: scale(1) rotate(0); } 88% { transform: scale(1.14) rotate(-10deg); } 94% { transform: scale(1.08) rotate(6deg); } }
+.archive-retour-zone[hidden] { display: none !important; }
+.archive-retour { position: relative; gap: .7rem; padding: .6rem 1.7rem .75rem; font: 400 1.15rem var(--titre); letter-spacing: .05em; color: var(--or); text-shadow: 1px 2px 0 rgba(0, 0, 0, .45); background: repeating-linear-gradient(90deg, #6d0a05 0, #c4160c 14px, #d9382a 26px, #c4160c 38px, #6d0a05 52px); background-size: 52px 100%; border: 3px solid var(--or); border-radius: 14px; box-shadow: inset 0 -6px 0 var(--or), 0 5px 0 rgba(0, 0, 0, .4); animation: retour-ouvre .7s cubic-bezier(.7, 0, .3, 1); }
+.archive-retour svg { filter: drop-shadow(1px 2px 0 rgba(0, 0, 0, .4)); animation: retour-glisse 2s ease-in-out infinite; }
+.archive-retour:hover { transform: translateY(-2px); animation: retour-ondule 1.4s linear infinite; }
+.archive-retour:active { transform: translateY(2px); }
+.archive-retour:focus-visible { outline: 3px solid var(--or); outline-offset: 4px; }
+@keyframes retour-ouvre { from { opacity: 0; clip-path: inset(0 50% 0 50%); } to { opacity: 1; clip-path: inset(0 0 0 0); } }
+@keyframes retour-ondule { to { background-position: 52px 0; } }
+@media (prefers-reduced-motion: reduce) { .recherche-bouton .recherche-loupe, .archive-retour, .archive-retour svg { animation: none; } }
