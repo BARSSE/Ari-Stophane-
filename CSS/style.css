@@ -1751,3 +1751,47 @@ a:hover .icone-boite .couvercle { animation: none; transform: translateY(-3px) r
 @keyframes res-jaillit { 0% { opacity: 1; transform: rotate(var(--a)) translateX(0) scale(.4); } 100% { opacity: 0; transform: rotate(var(--a)) translateX(260px) scale(1.2); } }
 @media (prefers-reduced-motion: reduce) { .test-etape, .res-carte, .res-badge, .res-etoile, .test-partage { animation: none; } .res-pan { display: none; } }
 .res-carte .quiz-categorie { display: inline-block; margin-bottom: .6rem; }
+
+/* ---------- Mon portrait chinois ---------- */
+.acte-portrait { color: var(--encre); border-top: 6px solid var(--or); background: radial-gradient(ellipse 50% 25% at 8% 12%, rgba(244, 127, 169, .25), transparent 70%), radial-gradient(ellipse 45% 25% at 94% 38%, rgba(143, 227, 255, .3), transparent 70%), radial-gradient(ellipse 50% 25% at 12% 80%, rgba(255, 207, 90, .32), transparent 70%), var(--papier); }
+.acte-portrait .titre-acte { color: var(--violet); text-shadow: 2px 2px 0 var(--or); }
+.pc-banniere { max-width: 900px; margin: .5rem auto clamp(2.5rem, 7vw, 4.5rem); }
+.pc-banniere-cadre { position: relative; -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent), linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent); -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent), linear-gradient(180deg, transparent, #000 12%, #000 88%, transparent); mask-composite: intersect; }
+.pc-banniere img { display: block; width: 100%; height: auto; }
+.pc-banniere-cadre::after { content: ""; position: absolute; top: 0; bottom: 0; left: -14%; width: 14%; opacity: 0; pointer-events: none; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .9), transparent); }
+.pc-liste { display: grid; gap: clamp(3rem, 8vw, 5rem); max-width: 980px; margin: 0 auto; padding: 0; list-style: none; counter-reset: pc; }
+.pc-item { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); align-items: center; gap: clamp(1.5rem, 5vw, 3.5rem); counter-increment: pc; }
+.pc-item:nth-child(even) .pc-cadre { order: 2; }
+.pc-cadre { position: relative; aspect-ratio: 1; margin: 0; overflow: hidden; background: var(--papier); border-radius: 50% 50% 22px 22px / 38% 38% 22px 22px; box-shadow: 0 0 0 5px var(--or), 0 0 0 8px var(--papier), 0 0 0 10px var(--or-fonce), 0 18px 30px rgba(43, 18, 54, .28); }
+.pc-cadre img { display: block; width: 100%; height: 100%; object-fit: cover; animation: pc-zoom 16s ease-in-out infinite alternate; }
+.pc-cadre::after { content: counter(pc, upper-roman); position: absolute; bottom: .9rem; left: 50%; padding: .05rem 1rem; font: 400 1.5rem var(--calligraphie); color: var(--or); background: rgba(43, 18, 54, .72); border-radius: 999px; transform: translateX(-50%); }
+.pc-texte::after { content: ""; display: block; width: 90px; height: 3px; margin-top: 1.1rem; background: linear-gradient(90deg, var(--or), transparent); border-radius: 3px; }
+.pc-phrase { margin: 0; }
+.pc-lead { display: block; margin-bottom: .3rem; font: italic 600 clamp(1rem, 2.6vw, 1.25rem) var(--texte); letter-spacing: .06em; color: var(--violet); }
+.pc-suite { display: block; font: italic 400 clamp(1.2rem, 3vw, 1.6rem)/1.3 var(--texte); }
+.pc-reponse { display: inline-block; padding: 0 .1em .1em; font: normal 400 clamp(2.4rem, 6.5vw, 3.8rem)/1.1 var(--calligraphie); color: var(--velours); }
+@supports (background-clip: text) or (-webkit-background-clip: text) { .pc-reponse { color: transparent; background: linear-gradient(100deg, var(--violet), var(--velours) 55%, var(--or-fonce)); -webkit-background-clip: text; background-clip: text; } }
+/* Apparitions élégantes */
+.apparait-pret .pc-banniere-cadre { clip-path: inset(0 100% 0 0); transition: clip-path 3.2s cubic-bezier(.5, 0, .25, 1) .2s; }
+.apparait-pret .pc-banniere img { filter: blur(5px) saturate(.6); transform: scale(1.05); transition: filter 3.2s ease .2s, transform 3.6s ease .2s; }
+.apparait-pret .pc-banniere.visible .pc-banniere-cadre { clip-path: inset(0 0 0 0); }
+.apparait-pret .pc-banniere.visible img { filter: none; transform: none; }
+.apparait-pret .pc-banniere.visible .pc-banniere-cadre::after { animation: pc-plume 3.2s cubic-bezier(.5, 0, .25, 1) .2s both; }
+.apparait-pret .pc-item .pc-cadre { opacity: 0; clip-path: circle(0% at 50% 60%); transform: scale(1.12) rotate(-4deg); transition: opacity .8s ease, clip-path 1.5s cubic-bezier(.3, .9, .3, 1), transform 1.5s cubic-bezier(.3, .9, .3, 1); }
+.apparait-pret .pc-item:nth-child(even) .pc-cadre { transform: scale(1.12) rotate(4deg); }
+.apparait-pret .pc-item .pc-lead { opacity: 0; letter-spacing: .4em; transition: opacity 1.2s ease .5s, letter-spacing 1.4s cubic-bezier(.2, .8, .2, 1) .5s; }
+.apparait-pret .pc-item .pc-suite { opacity: 0; transform: translateY(14px); transition: opacity .9s ease .95s, transform .9s ease .95s; }
+.apparait-pret .pc-item .pc-reponse { opacity: 0; filter: blur(8px); transform: scale(.8); transition: opacity 1.1s ease 1.3s, filter 1.1s ease 1.3s, transform 1.2s cubic-bezier(.3, 1.4, .5, 1) 1.3s; }
+.apparait-pret .pc-item .pc-texte::after { width: 0; transition: width 1.2s ease 1.9s; }
+.apparait-pret .pc-item.visible .pc-cadre { opacity: 1; clip-path: circle(80% at 50% 60%); transform: none; }
+.apparait-pret .pc-item.visible .pc-lead { opacity: 1; letter-spacing: .06em; }
+.apparait-pret .pc-item.visible .pc-suite { opacity: 1; transform: none; }
+.apparait-pret .pc-item.visible .pc-reponse { opacity: 1; filter: none; transform: none; }
+.apparait-pret .pc-item.visible .pc-texte::after { width: 90px; }
+@keyframes pc-zoom { from { transform: scale(1); } to { transform: scale(1.1); } }
+@keyframes pc-plume { 0% { left: -14%; opacity: 0; } 8% { opacity: 1; } 92% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+@media (max-width: 760px) { .pc-item { grid-template-columns: 1fr; text-align: center; } .pc-cadre, .pc-item:nth-child(even) .pc-cadre { order: 0; width: min(78vw, 340px); margin: 0 auto; } .pc-texte::after { margin-inline: auto; } }
+@media (prefers-reduced-motion: reduce) { .pc-cadre img { animation: none; } .pc-banniere-cadre::after { display: none; } }
+.pc-entier .pc-cadre { border-radius: 24px; }
+.pc-entier .pc-cadre img { animation: none; }
+.pc-sanszoom .pc-cadre img { animation: none; }
