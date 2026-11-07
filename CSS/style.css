@@ -1795,3 +1795,37 @@ a:hover .icone-boite .couvercle { animation: none; transform: translateY(-3px) r
 .pc-entier .pc-cadre { border-radius: 24px; }
 .pc-entier .pc-cadre img { animation: none; }
 .pc-sanszoom .pc-cadre img { animation: none; }
+
+/* Portrait chinois : introduction, parties, fenêtre d'histoire */
+.pc-intro { max-width: 640px; margin: 1rem auto 1.4rem; text-align: center; font: italic 400 clamp(1.1rem, 2.8vw, 1.4rem)/1.6 var(--texte); color: var(--encre); }
+.pc-intro-bouton { display: flex; justify-content: center; margin-bottom: clamp(2rem, 6vw, 3.5rem); }
+.pc-partie { margin: 0 auto clamp(2rem, 6vw, 3.5rem); text-align: center; }
+.pc-partie-titre { display: inline-block; margin: 0; padding: 0 .2em; font: 400 clamp(2.4rem, 7vw, 4rem)/1.1 var(--calligraphie); color: var(--velours); }
+@supports (background-clip: text) or (-webkit-background-clip: text) { .pc-partie-titre { color: transparent; background: linear-gradient(100deg, var(--violet), var(--velours) 55%, var(--or-fonce)); -webkit-background-clip: text; background-clip: text; } }
+.pc-partie-note { margin: .3rem 0 0; font: italic 600 1rem var(--texte); letter-spacing: .04em; color: var(--violet); }
+.pc-partie::after { content: ""; display: block; width: 120px; height: 3px; margin: 1rem auto 0; background: linear-gradient(90deg, transparent, var(--or), transparent); border-radius: 3px; }
+.pc-liste + .pc-partie { margin-top: clamp(4rem, 10vw, 6rem); }
+.apparait-pret .pc-intro, .apparait-pret .pc-partie { opacity: 0; transform: translateY(18px); transition: opacity 1s ease, transform 1s cubic-bezier(.3, 1.2, .5, 1); }
+.apparait-pret .pc-intro.visible, .apparait-pret .pc-partie.visible { opacity: 1; transform: none; }
+.apparait-pret .pc-partie::after { width: 0; transition: width 1.2s ease .6s; }
+.apparait-pret .pc-partie.visible::after { width: 120px; }
+.pc-dialog { width: min(640px, 94vw); }
+.pc-dialog .lecteur-corps p { text-align: justify; hyphens: auto; }
+@media (prefers-reduced-motion: reduce) { .apparait-pret .pc-intro, .apparait-pret .pc-partie { opacity: 1; transform: none; transition: none; } }
+.pc-dialog { width: min(740px, 94vw); }
+.pc-dialog .filtre-pied { flex-wrap: nowrap; justify-content: space-between; gap: .8rem; }
+.pc-dialog .filtre-pied .bouton { padding: .6rem 1.1rem; font-size: .92rem; text-align: center; }
+.pc-dialog sup { line-height: 0; }
+@media (max-width: 600px) { .pc-dialog .filtre-pied { flex-wrap: wrap; } }
+
+/* Portrait chinois : bascule personnalité / goûts */
+.pc-intro-bouton { flex-wrap: wrap; gap: .9rem; }
+.pc-portrait[hidden] { display: none; }
+.pc-sort { animation: pc-sort .38s ease forwards; }
+.pc-entre { animation: pc-entre .7s cubic-bezier(.3, 1.2, .5, 1); }
+.icone-bascule { transition: transform .6s cubic-bezier(.3, 1.4, .5, 1); }
+.pc-bascule.tourne .icone-bascule { transform: rotate(180deg); }
+.pc-bascule:hover .icone-bascule { transform: rotate(180deg); }
+@keyframes pc-sort { to { opacity: 0; transform: translateY(-24px) scale(.98); } }
+@keyframes pc-entre { from { opacity: 0; transform: translateY(24px); } }
+@media (prefers-reduced-motion: reduce) { .pc-sort, .pc-entre { animation: none; } }
