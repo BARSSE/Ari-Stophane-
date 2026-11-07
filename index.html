@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Rye&family=Alex+Brush&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="CSS/style.css?v=24">
-  <script src="JS/script.js?v=24" defer></script>
+  <link rel="stylesheet" href="style.css?v=27">
+  <script src="script.js?v=27" defer></script>
 </head>
 <body>
 
@@ -352,8 +352,16 @@
       <div class="acte-contenu">
         <h2 class="titre-acte" id="t-portrait">Mon portrait chinois</h2>
         <div class="filet" aria-hidden="true"><svg><use href="#etoile"/></svg></div>
+        <p class="pc-intro" data-apparait>Un portrait pas si chinois que cela. En tout cas son origine ne vient pas de l’Occident. Venez découvrir ici – de deux manières différentes&nbsp;: par la personnalité et par le goût – qui je suis.</p>
+        <div class="pc-intro-bouton"><button class="bouton bouton-encre avis-neuf-bouton" type="button" data-dialogue="pc-histoire" aria-haspopup="dialog"><svg class="icone-bouton icone-livre" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6C10 4.5 6.5 4 3 4.5v14c3.5-.5 7 0 9 1.5 2-1.5 5.5-2 9-1.5v-14C17.5 4 14 4.5 12 6z"/><path d="M12 6v14"/><path class="feuille" d="M12 6c1.7-1 4-1.4 6.5-1.2v12.6c-2.5-.2-4.8.2-6.5 1.2z" fill="currentColor" fill-opacity=".25"/></svg> Découvrir l’histoire du portrait chinois</button>
+          <button class="bouton bouton-contour-encre pc-bascule" id="pc-bascule" type="button" aria-controls="pc-personnalite pc-gouts"><svg class="icone-bouton icone-bascule" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8h11l-3-3M17 16H6l3 3"/></svg> <span class="pc-bascule-texte">Voir le portrait chinois basé sur mes goûts</span></button></div>
         <div class="pc-banniere" data-apparait>
           <div class="pc-banniere-cadre"><img src="images/portrait-titre.webp" width="1200" height="655" alt="Ari Stophane, nom écrit en lettres calligraphiées à l’aquarelle, entouré de petits symboles : boussole, soleil, plume, masque, cœur et lion"></div>
+        </div>
+        <div class="pc-portrait" id="pc-personnalite">
+        <div class="pc-partie" data-apparait>
+          <h3 class="pc-partie-titre">Ma personnalité</h3>
+          <p class="pc-partie-note">Ce portrait chinois est basé sur ma personnalité.</p>
         </div>
         <ol class="pc-liste">
         <li class="pc-item" data-apparait>
@@ -441,6 +449,99 @@
           </div>
         </li>
         </ol>
+        </div>
+        <div class="pc-portrait" id="pc-gouts" hidden>
+        <div class="pc-partie" data-apparait>
+          <h3 class="pc-partie-titre">Mes goûts</h3>
+          <p class="pc-partie-note">Ce portrait chinois est basé sur mes goûts.</p>
+        </div>
+        <ol class="pc-liste">
+        <li class="pc-item" data-apparait>
+          <figure class="pc-cadre"><img loading="lazy" decoding="async" src="images/gout-01.webp" width="640" height="640" alt="Aquarelle : un verger de pommiers en fleurs sous un ciel bleu, au printemps"></figure>
+          <div class="pc-texte">
+            <p class="pc-phrase"><span class="pc-lead">Si j’avais pu être une saison,</span> <span class="pc-suite">j’aurais été <em class="pc-reponse">le Printemps.</em></span></p>
+          </div>
+        </li>
+        <li class="pc-item" data-apparait>
+          <figure class="pc-cadre"><img loading="lazy" decoding="async" src="images/gout-02.webp" width="640" height="640" alt="Aquarelle : une galaxie spirale violette et rose, parsemée d’étoiles scintillantes"></figure>
+          <div class="pc-texte">
+            <p class="pc-phrase"><span class="pc-lead">Si j’avais pu être une couleur,</span> <span class="pc-suite">j’aurais été <em class="pc-reponse">le Violet.</em></span></p>
+          </div>
+        </li>
+        <li class="pc-item" data-apparait>
+          <figure class="pc-cadre"><img loading="lazy" decoding="async" src="images/gout-03.webp" width="640" height="640" alt="Aquarelle : un glaçon et des bulles dans un verre de soda"></figure>
+          <div class="pc-texte">
+            <p class="pc-phrase"><span class="pc-lead">Si j’avais pu être une boisson,</span> <span class="pc-suite">j’aurais été <em class="pc-reponse">un Soda.</em></span></p>
+          </div>
+        </li>
+        <li class="pc-item" data-apparait>
+          <figure class="pc-cadre"><img loading="lazy" decoding="async" src="images/gout-04.webp" width="640" height="640" alt="Aquarelle : des bonbons Arlequin dans leur emballage transparent"></figure>
+          <div class="pc-texte">
+            <p class="pc-phrase"><span class="pc-lead">Si j’avais pu être un bonbon,</span> <span class="pc-suite">j’aurais été <em class="pc-reponse">un Arlequin.</em></span></p>
+          </div>
+        </li>
+        <li class="pc-item" data-apparait>
+          <figure class="pc-cadre"><img loading="lazy" decoding="async" src="images/gout-05.webp" width="640" height="640" alt="Aquarelle : deux mains qui tiennent de la terre"></figure>
+          <div class="pc-texte">
+            <p class="pc-phrase"><span class="pc-lead">Si j’avais pu être un élément,</span> <span class="pc-suite">j’aurais été <em class="pc-reponse">la terre.</em></span></p>
+          </div>
+        </li>
+        <li class="pc-item" data-apparait>
+          <figure class="pc-cadre"><img loading="lazy" decoding="async" src="images/gout-06.webp" width="640" height="640" alt="Aquarelle : un chat tigré aux yeux dorés, avec un nœud papillon vert"></figure>
+          <div class="pc-texte">
+            <p class="pc-phrase"><span class="pc-lead">Si j’avais pu être un animal,</span> <span class="pc-suite">j’aurais été <em class="pc-reponse">un Chat.</em></span></p>
+          </div>
+        </li>
+        <li class="pc-item" data-apparait>
+          <figure class="pc-cadre"><img loading="lazy" decoding="async" src="images/gout-07.webp" width="640" height="640" alt="Aquarelle : une pie perchée sur une branche"></figure>
+          <div class="pc-texte">
+            <p class="pc-phrase"><span class="pc-lead">Si j’avais pu être un oiseau,</span> <span class="pc-suite">j’aurais été <em class="pc-reponse">une Pie bavarde.</em></span></p>
+          </div>
+        </li>
+        <li class="pc-item" data-apparait>
+          <figure class="pc-cadre"><img loading="lazy" decoding="async" src="images/gout-08.webp" width="640" height="640" alt="Aquarelle : un champ de lavande au soleil levant"></figure>
+          <div class="pc-texte">
+            <p class="pc-phrase"><span class="pc-lead">Si j’avais pu être une fleur,</span> <span class="pc-suite">j’aurais été <em class="pc-reponse">la Lavande.</em></span></p>
+          </div>
+        </li>
+        <li class="pc-item" data-apparait>
+          <figure class="pc-cadre"><img loading="lazy" decoding="async" src="images/gout-arbre.webp" width="640" height="640" alt="Aquarelle : un bananier chargé d’un régime de bananes jaunes, avec sa grande fleur violette et ses larges feuilles vertes"></figure>
+          <div class="pc-texte">
+            <p class="pc-phrase"><span class="pc-lead">Si j’avais pu être un arbre,</span> <span class="pc-suite">j’aurais été <em class="pc-reponse">un Bananier.</em></span></p>
+          </div>
+        </li>
+        <li class="pc-item" data-apparait>
+          <figure class="pc-cadre"><img loading="lazy" decoding="async" src="images/gout-09.webp" width="640" height="640" alt="Aquarelle : des fraises mûres et leurs feuilles"></figure>
+          <div class="pc-texte">
+            <p class="pc-phrase"><span class="pc-lead">Si j’avais pu être un fruit,</span> <span class="pc-suite">j’aurais été <em class="pc-reponse">la Fraise.</em></span></p>
+          </div>
+        </li>
+        <li class="pc-item" data-apparait>
+          <figure class="pc-cadre"><img loading="lazy" decoding="async" src="images/gout-10.webp" width="640" height="640" alt="Aquarelle : des patates douces coupées en deux sur une planche en bois, avec du romarin"></figure>
+          <div class="pc-texte">
+            <p class="pc-phrase"><span class="pc-lead">Si j’avais pu être un légume,</span> <span class="pc-suite">j’aurais été <em class="pc-reponse">la Patate douce.</em></span></p>
+          </div>
+        </li>
+        <li class="pc-item" data-apparait>
+          <figure class="pc-cadre"><img loading="lazy" decoding="async" src="images/gout-11.webp" width="640" height="640" alt="Aquarelle : des feuilles de laurier"></figure>
+          <div class="pc-texte">
+            <p class="pc-phrase"><span class="pc-lead">Si j’avais pu être une plante,</span> <span class="pc-suite">j’aurais été <em class="pc-reponse">le Laurier.</em></span></p>
+          </div>
+        </li>
+        <li class="pc-item" data-apparait>
+          <figure class="pc-cadre"><img loading="lazy" decoding="async" src="images/gout-12.webp" width="640" height="640" alt="Aquarelle : une salle de théâtre, sa scène éclairée et son rideau rouge"></figure>
+          <div class="pc-texte">
+            <p class="pc-phrase"><span class="pc-lead">Si j’avais pu être un genre théâtral,</span> <span class="pc-suite">j’aurais été <em class="pc-reponse">la Comédie.</em></span></p>
+          </div>
+        </li>
+        <li class="pc-item" data-apparait>
+          <figure class="pc-cadre"><img loading="lazy" decoding="async" src="images/gout-13.webp" width="640" height="640" alt="Aquarelle : une jeune femme souriante qui observe l’écorce d’un arbre avec une loupe"></figure>
+          <div class="pc-texte">
+            <p class="pc-phrase"><span class="pc-lead">Si j’avais pu être une force,</span> <span class="pc-suite">j’aurais été <em class="pc-reponse">la Curiosité.</em></span></p>
+          </div>
+        </li>
+        </ol>
+        </div>
       </div>
     </section>
 
@@ -1286,6 +1387,21 @@
     <p class="pied-fin">© <span id="annee">2026</span> Ari Stophane. Tous droits réservés.</p>
     <a class="pied-haut" href="#accueil">Retour sur scène</a>
   </footer>
+
+  <!-- ============ HISTOIRE DU PORTRAIT CHINOIS (fenêtre) ============ -->
+  <dialog class="pc-dialog" id="pc-histoire" aria-labelledby="t-pc-histoire">
+    <div class="lecteur-tete">
+      <div><p class="lecteur-meta">Mon portrait chinois</p><h3 id="t-pc-histoire" class="lecteur-titre">L’histoire du portrait chinois</h3></div>
+      <button class="lecteur-fermer" type="button" data-fermer aria-label="Fermer la fenêtre"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5 L19 19 M19 5 L5 19" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="lecteur-corps">
+      <p>Le portrait chinois n’a rien de chinois, et c’est bien le gag&nbsp;! Ce jeu, né du «&nbsp;jeu des énigmes&nbsp;» très à la mode dans les salons européens du XVII<sup>e</sup> siècle, s’est complexifié avec le temps&nbsp;: on ne décrit plus une personne directement, mais par analogies («&nbsp;Si j’étais un animal, je serais…&nbsp;»). Comme les Européens considéraient le chinois comme une langue compliquée et indéchiffrable (d’où aussi «&nbsp;c’est du chinois&nbsp;!&nbsp;» et le «&nbsp;casse-tête chinois&nbsp;»), ils ont baptisé ce portrait aux «&nbsp;complications ingénieuses&nbsp;» du nom de la Chine. Bref, un compliment détourné... à moitié.</p>
+    </div>
+    <div class="filtre-pied">
+      <a class="bouton bouton-contour-encre" href="https://lafabrique.cavilam.com/activite-estivale-portrait-chinois" target="_blank" rel="noopener noreferrer">En savoir plus&nbsp;: La Fabrique Cavilam <span class="sr-only">(s’ouvre dans un nouvel onglet)</span></a>
+      <a class="bouton bouton-encre" href="https://www.guichetdusavoir.org/question/voir/131173" target="_blank" rel="noopener noreferrer">En savoir plus&nbsp;: Guichet du Savoir <span class="sr-only">(s’ouvre dans un nouvel onglet)</span></a>
+    </div>
+  </dialog>
 
   <!-- ============ DROIT D'AUTEUR (fenêtre à valider avant la lecture d'une pièce ou d'une histoire) ============ -->
   <dialog id="droit-auteur" aria-labelledby="droit-titre">
