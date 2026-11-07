@@ -1039,3 +1039,30 @@
     document.documentElement.classList.add('lecture'); lect.showModal();
   });
 })();
+
+/* Fenêtres ouvertes par un bouton [data-dialogue] (ex. histoire du portrait chinois) */
+(() => {
+  document.querySelectorAll('[data-dialogue]').forEach((b) => {
+    const d = document.getElementById(b.dataset.dialogue); if (!d || typeof d.showModal !== 'function') return;
+    b.addEventListener('click', () => { d.querySelector('.lecteur-corps').scrollTop = 0; d.showModal(); });
+    d.querySelectorAll('[data-fermer]').forEach((x) => x.addEventListener('click', () => d.close()));
+    d.addEventListener('click', (e) => { if (e.target === d) d.close(); });
+  });
+})();
+
+/* Portrait chinois : bascule entre « ma personnalité » (par défaut) et « mes goûts » */
+(() => {
+  const b = document.getElementById('pc-bascule'), A = document.getElementById('pc-personnalite'), B = document.getElementById('pc-gouts');
+  if (!b || !A || !B) return;
+  const txt = b.querySelector('.pc-bascule-texte'), calme = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let gouts = false, occupe = false;
+  b.addEventListener('click', () => {
+    if (occupe) return; occupe = true;
+    const sort = gouts ? B : A, entre = gouts ? A : B; sort.classList.add('pc-sort'); b.classList.add('tourne');
+    setTimeout(() => {
+      sort.hidden = true; sort.classList.remove('pc-sort'); entre.hidden = false; entre.classList.add('pc-entre'); gouts = !gouts;
+      txt.textContent = gouts ? 'Voir le portrait chinois basé sur ma personnalité' : 'Voir le portrait chinois basé sur mes goûts';
+      setTimeout(() => { entre.classList.remove('pc-entre'); b.classList.remove('tourne'); occupe = false; }, calme ? 0 : 700);
+    }, calme ? 0 : 380);
+  });
+})();
